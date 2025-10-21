@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
       <!-- Marca o logo -->
-      <a class="navbar-brand" href="#">EmpresaTeis</a>
+      <router-link to="/" class="navbar-brand">EmpresaTeis</router-link>
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
