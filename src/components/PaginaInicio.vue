@@ -1,7 +1,9 @@
 <template>
-    <div class="div">
-        <img src="../assets/imagen1.avif" alt="gr" class="inicio-img" />
-        <h2 class="inicio-title"> Moto's Concesionario </h2>
+    <div class="cuerpo">
+        <div class="cabecera">
+            <img src="../assets/imagen1.avif" alt="gr" class="inicio-img" />
+            <h2 class="inicio-title"> Moto's Concesionario </h2>
+        </div>
     </div>
 </template>
 <script setup>
@@ -9,9 +11,14 @@
     const imagenes = [imagen1]
 </script>
 <style scoped>
-    .div {
+    .cuerpo {
+        display: flex;
+        justify-content: center;
+    }
+    .cabecera {
         display:flex;
         justify-content: center;
+        width: 70%;
     }
     .inicio-title {
         position: absolute;
