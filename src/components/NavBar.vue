@@ -22,22 +22,19 @@
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav d-flex justify-content-center w-80">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#">Inicio</a>
+            <router-link to="/" class="nav-link"> Inicio </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Clientes</a>
+            <router-link to="/clientes" class="nav-link"> Clientes </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Servicios</a>
+            <router-link to="/#" class="nav-link"> Noticias </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Productos</a>
+            <router-link to="/#" class="nav-link"> Modelos </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contacto</a>
+            <router-link to="/#" class="nav-link"> Contacto </router-link>
           </li>
         </ul>
       </div>
