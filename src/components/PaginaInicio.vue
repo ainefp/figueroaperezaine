@@ -8,7 +8,19 @@
 </template>
 <script setup>
     import imagen1 from '@/assets/imagen1.avif';
-    const imagenes = [imagen1]
+    import imagen2 from '@/assets/imagen2.avif';
+    import imagen3 from '@/assets/imagen3.avif';
+    import imagen4 from '@/assets/imagen4.avif';
+    import imagen5 from '@/assets/imagen5.avif';
+import { onMounted } from 'vue';
+    
+    const imagenes = [imagen1, imagen2, imagen3, imagen4, imagen5]
+
+    onMounted(() => {
+        intervalo = setInterval(() => {
+            
+        })
+    })
 </script>
 <style scoped>
     .cuerpo {
