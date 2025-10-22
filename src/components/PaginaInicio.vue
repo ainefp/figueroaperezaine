@@ -18,7 +18,7 @@ import { onMounted } from 'vue';
 
     onMounted(() => {
         intervalo = setInterval(() => {
-            
+             
         })
     })
 </script>
