@@ -28,7 +28,7 @@
             <router-link to="/clientes" class="nav-link"> Clientes </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/#" class="nav-link"> Noticias </router-link>
+            <router-link to="/noticias" class="nav-link"> Noticias </router-link>
           </li>
           <li class="nav-item">
             <router-link to="/#" class="nav-link"> Modelos </router-link>
