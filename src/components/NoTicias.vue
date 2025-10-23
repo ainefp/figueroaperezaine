@@ -1,6 +1,21 @@
 <template>
-    <div class="">
-        
+    <div class="container my-2 p-4 border rounded-3 shadow-sm bg-light">
+        <h2 class="text-center mb-5 -primary"> Noticias del Motor </h2>
+        <form class="mb4">
+            <div class="">
+                <div class="col-md-4 d-flex align-items-center">
+                    <label for="titulo" class="form-label mb-0 w-25"> Título: </label>
+                    <div class="flex-grow-1"><input type="text" id="titulo" class="form-control w-auto" maxlength="128" required></input></div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <label for="contenido"> Contenido: </label>
+                    <textarea type="text" id="contenido" class="form-control w-auto" maxlength="256" required></textarea>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="button" class="btn-grabar"> Publicar </button>
+                </div>
+            </div>
+        </form>
     </div>
 </template>
 <script setup></script>
