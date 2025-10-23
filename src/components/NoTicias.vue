@@ -11,8 +11,9 @@
                     <label for="contenido"> Contenido: </label>
                     <textarea type="text" id="contenido" class="form-control w-auto" maxlength="256" required></textarea>
                 </div>
-                <div class="d-flex justify-content-center">
-                    <button type="button" class="btn-grabar"> Publicar </button>
+                <div class="d-flex justify-content-center my-3">
+                    <button type="button" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
+                    <!-- p=padding; py=padding-top; pb=padding-bottom; px=padding-lateral -->
                 </div>
             </div>
         </form>
