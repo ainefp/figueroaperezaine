@@ -1,5 +1,6 @@
 <template>
     <div class="container my-2 p-4 border rounded-3 shadow-sm bg-light">
+    <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
         <h2 class="text-center mb-5 -primary"> Noticias del Motor </h2>
         <form class="mb4">
             <div class="">
