@@ -3,11 +3,11 @@
 
     <div class="container-fluid">
       <!-- Marca o logo -->
-      <router-link to="/" class="navbar-brand">EmpresaTeis</router-link>
+      <router-link to="/" class="navbar-brand ms-4"><img class="logo" src="@/assets/logo.svg" alt="Logo" /></router-link>
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
-        class="navbar-toggler"
+        class="navbar-toggler mx-3"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
@@ -55,6 +55,10 @@
 .navbar-dark .nav-link:hover,
 .navbar-dark .nav-link:focus {
   color: #fff; /* blanco intenso al pasar el ratón */
+}
+
+.logo {
+  width: 60%;
 }
 
 </style>
