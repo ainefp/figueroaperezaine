@@ -3,7 +3,7 @@
 
     <div class="container-fluid">
       <!-- Marca o logo -->
-      <router-link to="/" class="navbar-brand ms-4"><img class="logo" src="@/assets/logo.svg" alt="Logo" /></router-link>
+      <router-link to="/" class="navbar-brand ms-5"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
@@ -58,7 +58,7 @@
 }
 
 .logo {
-  width: 60%;
+  width: 50%;
 }
 
 </style>
