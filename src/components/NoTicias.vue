@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <button type="button" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
+                    <button type="submit" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
                     <!-- p=padding; py=padding-top; pb=padding-bottom; px=padding-derecho; ps=padding-izquierdo -->
                 </div>
             </div>
@@ -72,5 +72,19 @@
         </div>
     </div>
 </template>
-<script setup></script>
+<script setup>
+    import { ref } from 'vue';
+    import dbData from '@/data/db.json';
+
+    const nuevaNoticia = ref({
+        titulo: '',
+        contenido: '',
+    });
+
+    // Noticias
+    const noticias = ref(dbData.noticias);
+    const noticiasFil = ref([]);
+
+    noticiasFil.value.push(noticias.value);
+</script>
 <style scoped></style>
