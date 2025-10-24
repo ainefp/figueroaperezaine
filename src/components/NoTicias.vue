@@ -4,17 +4,37 @@
         <h2 class="text-center mb-5 -primary"> Noticias del Motor </h2>
         <form @submit.prevent="agregarNoticia" class="mb4">
             <div class="">
-                <div class="col-md-4 d-flex align-items-center">
+                <div class="d-flex align-items-center col-md-4 mb-3">
                     <label for="titulo" class="form-label mb-0 w-25"> Título: </label>
-                    <div class="flex-grow-1"><input type="text" id="titulo" class="form-control w-auto" maxlength="128" required></input></div>
+                    <div class="flex-grow-1 ms-3">
+                        <input
+                            type="text"
+                            id="titulo"
+                            class="form-control w-auto"
+                            maxlength="128"
+                            v-model="nuevaNoticia.titulo"
+                            required
+                        >
+                        </input>
+                    </div>
                 </div>
                 <div class="d-flex align-items-center">
                     <label for="contenido"> Contenido: </label>
-                    <textarea type="text" id="contenido" class="form-control w-auto" maxlength="256" required></textarea>
+                    <div class="ms-3 flex-grow-1">
+                        <textarea
+                            type="text"
+                            id="contenido"
+                            class="form-control w-auto"
+                            maxlength="256"
+                            v-model="nuevaNoticia.contenido"
+                            required
+                        >
+                        </textarea>
+                    </div>
                 </div>
-                <div class="d-flex justify-content-center my-3">
+                <div class="d-flex justify-content-center my-4">
                     <button type="button" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
-                    <!-- p=padding; py=padding-top; pb=padding-bottom; px=padding-lateral -->
+                    <!-- p=padding; py=padding-top; pb=padding-bottom; px=padding-derecho; ps=padding-izquierdo -->
                 </div>
             </div>
         </form>
