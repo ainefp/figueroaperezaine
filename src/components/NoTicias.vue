@@ -2,7 +2,7 @@
     <div class="container my-2 p-4 border rounded-3 shadow-sm bg-light">
     <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
         <h2 class="text-center mb-5 -primary"> Noticias del Motor </h2>
-        <form class="mb4">
+        <form @submit.prevent="agregarNoticia" class="mb4">
             <div class="">
                 <div class="col-md-4 d-flex align-items-center">
                     <label for="titulo" class="form-label mb-0 w-25"> Título: </label>
@@ -18,6 +18,38 @@
                 </div>
             </div>
         </form>
+        <!-- Tabla sin bordes -->
+        <div>
+            <table class="table table-borderless mt-3">
+                <tbody>
+                <template v-for="noticia in noticias" :key="noticia.id">  <!-- Template dentro de otro template-->
+                    <!-- Fila 1: título y fecha -->
+                    <tr>
+                    <td>
+                        <div class="d-flex justify-content-between">
+                        <strong class="text-primary">{{ noticia.titulo }}</strong>
+                        <small class="text-muted text-secondary">{{ noticia.fecha }}</small>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Fila 2: contenido con "mostrar más/menos" -->
+                <tr>
+                    <td>
+                    <span>
+                        {{ isExpanded[noticia.id] 
+                            ? noticia.contenido : noticia.contenido.slice(0, 200) + '...' }}
+                    </span>
+                    <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none">
+                        {{ isExpanded[noticia.id] ? 'Mostrar menos...' : 'Seguir leyendo...' }}
+                    </a>
+                    </td>
+                </tr>
+                <!-- Fila 3: espacio en blanco -->
+                <tr><td>&nbsp;</td></tr>
+                </template>
+            </tbody>
+            </table>
+        </div>
     </div>
 </template>
 <script setup></script>
