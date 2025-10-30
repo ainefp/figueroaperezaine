@@ -30,6 +30,15 @@
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
           </button>
+          <div>
+            <button 
+            type="button"
+            class="btn btn-secondary ms-3 shadow-none rounded-0"
+            @click="recargaForm()">
+                    
+            <i class="bi bi-arrow-clockwise"></i>
+          </button>
+        </div>
         </div>
         <!-- Fecha de Alta -->
         <div class="col-md-3 ms-auto d-flex align-items-center justify-content-end">
@@ -140,6 +149,30 @@
         </div>
       </div>
 
+      <!-- Aceptación de términos y condiciones -->
+      <div class="text-center mb-3">
+          <div class="form-check d-inline-block">
+              <input
+                  type="checkbox"
+                  class="form-check-input"
+                  id="condiciones"
+                  v-model="nuevoCliente.lopd"
+                  required
+              />
+              <label class="form-check-label" for="condiciones">
+                  Acepto los termino y condiciones establecidos en
+                  <router-link
+                    :to="{ path: '/aviso-legal' }"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="text-primary text-decoration-none"
+                  >
+                    Aviso Legal
+                  </router-link>
+              </label>
+          </div>
+        </div>
+
       <!-- Botones finales -->
       <div class="d-flex align-items-center mt-3">
         <!-- Guardar Cliente -->
@@ -160,7 +193,7 @@
           />
           <label for="historico" class="form-check-label ms-2">Histórico</label>
         </div>
-      </div>
+      </div>      
     </form>
 
     <!-- Lista de Clientes -->
@@ -687,6 +720,29 @@
       }
 
       return '';
+    }
+
+    // Recargar formulario
+    function recargarForm() {
+      nuevoCliente.value = {
+        dni: '',
+        nombre: '',
+        apellidos: '',
+        email: '',
+        movil: '',
+        direccion: '',
+        provincia: '',
+        municipio: '',
+        fechaAlta: '',
+        historico: true,
+      };
+      editando.value = false;
+      clienteEditandoId.value = null;
+
+      // Reset validaciones
+      dniValido.value = true;
+      movilValido.value = true;
+      emailValido.value = true;
     }
 </script>
 
