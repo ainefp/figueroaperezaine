@@ -44,6 +44,7 @@
 
           <!-- Botones de Tipo de Cliente -->
           <div class="col d-flex justify-content-end mt-3 me-5">
+            Tipo de cliente:
             <input 
               type="radio" 
               id="tipocliente"
