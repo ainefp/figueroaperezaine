@@ -379,7 +379,9 @@
       "provincia": "Huelva",
       "municipio": "Alájar",
       "fechaAlta": "2025-10-09",
-      "historico": true
+      "historico": true,
+      "tipoCliente": "empresa",
+      "lopd": true
     },
     {
       "id": "68a1",
@@ -455,6 +457,8 @@
     }
   ],
   "otracosa": [
-    {}
+    {
+      "id": "1e3a"
+    }
   ]
 }
