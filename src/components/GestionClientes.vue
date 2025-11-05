@@ -24,21 +24,42 @@
               DNI o NIE inválido.
             </div>
           </div>
+
+          <!-- Botón de Búsqueda -->
           <button
               type="button"
               class="btn btn-primary"
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
           </button>
-          <div>
-            <button 
-            type="button"
-            class="btn btn-secondary ms-3 shadow-none rounded-0"
-            @click="recargaForm()">
-                    
+
+          <!-- Botón de Recarga -->
+          <button 
+          type="button"
+          class="btn btn-secondary ms-3 shadow-none rounded-0"
+          @click="recargaForm()">
+                  
             <i class="bi bi-arrow-clockwise"></i>
           </button>
-        </div>
+
+          <!-- Botones de Tipo de Cliente -->
+          <div class="col d-flex justify-content-end mt-3 me-5">
+            <input 
+              type="radio" 
+              id="tipocliente"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input ms-3 rounded-0 border shadow-none d-flex align-items-center justify-content-center"
+              value="particular"
+            > <label for="tipocliente" class="ms-1 mt-2">Particular</label>
+            <input 
+              type="radio" 
+              id="tipocliente2"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input ms-3 rounded-0 border shadow-none d-flex align-items-center justify-content-center"
+              value="empresa"
+            > <label for="tipocliente2" class="ms-1 mt-3">Empresa</label>
+          </div>
+
         </div>
         <!-- Fecha de Alta -->
         <div class="col-md-3 ms-auto d-flex align-items-center justify-content-end">
@@ -284,7 +305,9 @@
       provincia: '',
       municipio: '',
       fechaAlta: '',
-      historico: true
+      historico: true,
+      lopd: false,
+      tipoCliente: 'particular',
     });
 
     const editando = ref(false);  // Estado de edición para el formulario
@@ -735,6 +758,8 @@
         municipio: '',
         fechaAlta: '',
         historico: true,
+        lopd: false,
+        tipoCliente: 'particular',
       };
       editando.value = false;
       clienteEditandoId.value = null;
