@@ -34,7 +34,7 @@
                 </div>
                 <div class="d-flex justify-content-center my-4">
                     <button type="submit" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
-                    <!-- p=padding; py=padding-top; pb=padding-bottom; px=padding-derecho; ps=padding-izquierdo -->
+                    <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
                 </div>
             </div>
         </form>
