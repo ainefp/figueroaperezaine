@@ -2,7 +2,7 @@
   <nav class="navbar navbar-dark bg-primary sticky-top navbar-expand-lg">
 
     <router-link id="icono" to="/" class="navbar-brand ms-5"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
-    <div class="container-fluid">
+    <div class="container-fluid my-2">
       <!-- Marca o logo -->
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
@@ -58,7 +58,7 @@
 }
 
 .logo {
-  width: 40%;
+  width: 45%;
 }
 
 nav {
