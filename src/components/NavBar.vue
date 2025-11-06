@@ -1,9 +1,9 @@
 <template>
   <nav class="navbar navbar-dark bg-primary sticky-top navbar-expand-lg">
 
+    <router-link id="icono" to="/" class="navbar-brand ms-5"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
     <div class="container-fluid">
       <!-- Marca o logo -->
-      <router-link to="/" class="navbar-brand ms-5"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
@@ -58,7 +58,16 @@
 }
 
 .logo {
-  width: 50%;
+  width: 40%;
+}
+
+nav {
+  position: relative;
+}
+
+#icono {
+  position: absolute;
+  left: 10px;
 }
 
 </style>

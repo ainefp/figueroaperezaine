@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid my-1 p-3 pb-5 border rounded-3 shadow-sm bg-light">
-    <h4 class="text-center my-1 bg-primary-subtle py-1">Gestión de Clientes</h4>
+    <h5 class="text-center my-1 mb-4 bg-primary-subtle py-1">Gestión de Clientes</h5>
     
     <!-- Formulario -->
     <form @submit.prevent="guardarCliente" class="mb-4">
@@ -8,15 +8,15 @@
       <!-- DNI y Fecha de Alta -->
       <div class="mb-3 row align-items-center">
         <!-- DNI -->
-        <div class="col-md-4 d-flex align-items-center">
-          <label for="dni" class="form-label mb-0 w-25">DNI:  </label>
+        <div class="col-md-5 d-flex align-items-center">
+          <label for="dni" class="form-label mb-0 me-5">DNI:</label> <!-- me-5 w-25 -->
           <div class="flex-grow-1">
             <input
               type="text"
               id="dni"
               v-model="nuevoCliente.dni"
               @blur="validarDni"
-              class="form-control w-auto"
+              class="form-control w-auto" 
               :class="{ 'is-invalid': !dniValido }"
               required
             />
@@ -28,43 +28,23 @@
           <!-- Botón de Búsqueda -->
           <button
               type="button"
-              class="btn btn-primary"
+              class="btn btn-primary btn-md ms-4"
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
           </button>
 
           <!-- Botón de Recarga -->
           <button 
-          type="button"
-          class="btn btn-secondary ms-3 shadow-none rounded-0"
-          @click="recargaForm()">
-                  
+            type="button"
+            class="btn btn-secondary btn-md ms-4"
+            @click="recargaForm()">
             <i class="bi bi-arrow-clockwise"></i>
           </button>
-
-          <!-- Botones de Tipo de Cliente -->
-          <div class="col d-flex justify-content-end mt-3 me-5">
-            Tipo de cliente:
-            <input 
-              type="radio" 
-              id="tipocliente"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input ms-3 rounded-0 border shadow-none d-flex align-items-center justify-content-center"
-              value="particular"
-            > <label for="tipocliente" class="ms-1 mt-2">Particular</label>
-            <input 
-              type="radio" 
-              id="tipocliente2"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input ms-3 rounded-0 border shadow-none d-flex align-items-center justify-content-center"
-              value="empresa"
-            > <label for="tipocliente2" class="ms-1 mt-3">Empresa</label>
-          </div>
-
         </div>
+
         <!-- Fecha de Alta -->
-        <div class="col-md-3 ms-auto d-flex align-items-center justify-content-end">
-          <label for="fechaAlta" class="form-label me-5 mb-0 text-nowrap">Fecha de Alta:</label>
+        <div class="col-md-3 ms-5 d-flex align-items-center">
+          <label for="fechaAlta" class="form-label me-2 mb-0 text-nowrap">Fecha de Alta:</label>
           <input
             type="date"
             id="fechaAlta"
@@ -78,7 +58,7 @@
       <div class="mb-3 row g-3 align-items-center">
         <!-- Nombre -->
         <div class="col-md-5 d-flex align-items-center">
-          <label for="nombre" class="form-label  mb-0 text-nowrap w-25">Nombre:</label>
+          <label for="nombre" class="form-label mb-0 text-nowrap w-25">Nombre:</label>
           <input
             type="text"
             id="nombre"
@@ -89,7 +69,7 @@
           />
         </div>
         <!-- Apellidos -->
-        <div class="col-md-6 d-flex align-items-center ms-auto">
+        <div class="col-md-5 d-flex align-items-center ms-5">
           <label for="apellidos" class="form-label me-4 mb-0 text-nowrap">Apellidos:</label>
           <input
             type="text"
@@ -129,6 +109,31 @@
             :class="{ 'is-invalid': !movilValido }"
           />
         </div>
+
+        <!-- Botones de Tipo de Cliente -->
+        <div class="col-md-4 d-flex align-items-center">
+          <div class="me-3 ms-3">Tipo de cliente:</div>
+          <div class="form-check form-check-inline">
+            <input 
+              type="radio" 
+              id="tipocliente"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input"
+              value="particular"
+            />
+            <label for="tipocliente" class="form-check-label ms-1">Particular</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input 
+              type="radio" 
+              id="tipocliente2"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input"
+              value="empresa"
+            />
+            <label for="tipocliente2" class="form-check-label ms-1">Empresa</label>
+          </div>
+        </div>
       </div>
 
       <!-- Dirección, Provincia y Municipio -->
@@ -159,7 +164,7 @@
         </div>
         <!-- Municipio -->
         <div class="col-md-3 d-flex align-items-center">
-          <label for="municipio" class="form-label me-2 ms-4 mb-0 text-nowrap">Municipio:</label>
+          <label for="municipio" class="form-label me-5 ms-4 mb-0 text-nowrap">Municipio:</label>
           <select
             id="municipio"
             v-model="nuevoCliente.municipio"
@@ -203,9 +208,12 @@
             {{ editando ? 'Modificar' : 'Guardar' }}
           </button>
         </div>
+      </div>
 
-        <!-- Histórico -->
-        <div class="form-check form-switch ms-3">
+      <!-- Histórico -->
+      <!-- HACER RELATIVO con guardar -->
+      <div class="d-flex justify-content-end">
+        <div class="form-check form-switch">
           <input
             type="checkbox"
             id="historico"
@@ -215,12 +223,12 @@
           />
           <label for="historico" class="form-check-label ms-2">Histórico</label>
         </div>
-      </div>      
+      </div>
     </form>
 
     <!-- Lista de Clientes -->
     <div class="table-responsive">
-      <h4 class="text-center w-100">Listado Clientes</h4>
+      <h4 class="text-center">Listado Clientes</h4>
       <table class="table table-bordered table-striped table-hover table-sm align-middle"> <!--  w-100  -->
         <thead class="table-primary">
           <tr >
