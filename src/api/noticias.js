@@ -10,6 +10,10 @@ export const addNoticia = (nuevaNoticia) => {
     return axios.post(API_URL, nuevaNoticia).then(res => res.data);
 }
 
+export const editNoticia = (id, noticiaActualizada) => {
+    return axios.put(`${API_URL}/${id}`, noticiaActualizada).then(res => res.data);
+}
+
 export const deleteNoticia = (id) => {
     return axios.delete(`${API_URL}/${id}`).then(res => res.data);
 }
