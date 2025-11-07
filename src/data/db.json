@@ -1,6 +1,23 @@
 {
   "clientes": [
     {
+      "dni": "",
+      "nombre": "",
+      "apellidos": "",
+      "email": "",
+      "movil": "",
+      "direccion": "",
+      "provincia": "",
+      "municipio": "",
+      "fechaAlta": "",
+      "historico": true,
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "0000"
+    },
+    {
       "dni": "73289465B",
       "fechaAlta": "2022-02-14",
       "nombre": "Laura",
@@ -13,6 +30,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "7169"
     },
     {
@@ -26,8 +45,10 @@
       "provincia": "Barcelona",
       "municipio": "Badalona",
       "historico": true,
-      "lopd": false,
+      "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "a079"
     },
     {
@@ -43,6 +64,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "56df"
     },
     {
@@ -58,6 +81,8 @@
       "historico": true,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "c356"
     },
     {
@@ -73,6 +98,8 @@
       "historico": false,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "960a"
     },
     {
@@ -88,6 +115,8 @@
       "historico": true,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "eda8"
     },
     {
@@ -103,6 +132,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "39b2"
     },
     {
@@ -118,6 +149,8 @@
       "historico": true,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "d6a9"
     },
     {
@@ -133,6 +166,8 @@
       "historico": false,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "0f47"
     },
     {
@@ -148,6 +183,8 @@
       "historico": true,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "1955"
     },
     {
@@ -163,6 +200,8 @@
       "historico": true,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "1b52"
     },
     {
@@ -178,6 +217,8 @@
       "historico": true,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "58cf"
     },
     {
@@ -193,6 +234,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "e406"
     },
     {
@@ -208,6 +251,8 @@
       "historico": true,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "ba17"
     },
     {
@@ -223,6 +268,8 @@
       "historico": false,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "b1f4"
     },
     {
@@ -238,6 +285,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "76d6"
     },
     {
@@ -253,6 +302,8 @@
       "historico": true,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "66fd"
     },
     {
@@ -268,6 +319,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "4d3e"
     },
     {
@@ -283,6 +336,8 @@
       "historico": false,
       "lopd": true,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "bacd"
     },
     {
@@ -298,6 +353,8 @@
       "historico": false,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "9115"
     },
     {
@@ -313,63 +370,79 @@
       "historico": true,
       "lopd": false,
       "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
       "id": "82f2"
     },
     {
-      "id": "971c",
       "dni": "00000000T",
       "nombre": "Sonia",
       "apellidos": "Abalos Martínez",
-      "eemail": "sonia@gmil.com",
+      "email": "sonia@gmil.com",
       "movil": "654789465",
       "direccion": "Avda. De Galicia, 101",
       "provincia": "Cuenca",
       "municipio": "Alconchel de la Estrella",
       "fechaAlta": "2025-10-02",
-      "historico": true
+      "historico": true,
+      "lopd": true,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "971c"
     },
     {
-      "id": "9afd",
       "dni": "99999999R",
       "nombre": "Francisco",
       "apellidos": "Alonso Gil",
-      "eemail": "gil@gil.com",
+      "email": "gil@gil.com",
       "movil": "654654654",
       "direccion": "Avenida Del Puente, 80",
       "provincia": "Pontevedra",
       "municipio": "Vigo",
       "fechaAlta": "2025-02-10",
       "historico": false,
-      "email": "asdf@asdf.ok"
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "9afd"
     },
     {
-      "id": "c9ee",
       "dni": "39390917J",
       "nombre": "Paula",
       "apellidos": "Gil Santos",
-      "eemail": "email@correo.com",
+      "email": "email@correo.com",
       "movil": "654784315",
       "direccion": "Avenida Del Puerto, 1",
       "provincia": "Guadalajara",
       "municipio": "Driebes",
       "fechaAlta": "2025-10-03",
-      "historico": false
+      "historico": false,
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "c9ee"
     },
     {
-      "id": "ec7e",
       "dni": "Y1362780K",
       "nombre": "Alicia",
       "apellidos": "Suárez Gómez",
-      "eemail": "alicia@email.ru",
+      "email": "alicia@email.ru",
       "movil": "658451248",
       "direccion": "Calle Principal, 12",
       "provincia": "Girona",
       "municipio": "Arbúcies",
       "fechaAlta": "2025-10-03",
-      "historico": true
+      "historico": true,
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "ec7e"
     },
     {
-      "id": "a1b9",
       "dni": "X4841619G",
       "nombre": "Marta",
       "apellidos": "Abril López",
@@ -380,11 +453,13 @@
       "municipio": "Alájar",
       "fechaAlta": "2025-10-09",
       "historico": true,
-      "tipoCliente": "empresa",
-      "lopd": true
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "a1b9"
     },
     {
-      "id": "68a1",
       "dni": "94016002Y",
       "nombre": "Amancio",
       "apellidos": "Ara Sol",
@@ -394,10 +469,14 @@
       "provincia": "Huelva",
       "municipio": "Cerro de Andévalo, El",
       "fechaAlta": "2025-10-08",
-      "historico": true
+      "historico": true,
+      "lopd": true,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "68a1"
     },
     {
-      "id": "b38d",
       "dni": "Z4268144Q",
       "nombre": "Santiago",
       "apellidos": "Aldo Santos",
@@ -407,10 +486,14 @@
       "provincia": "Tarragona",
       "municipio": "Calafell",
       "fechaAlta": "2025-10-14",
-      "historico": true
+      "historico": true,
+      "lopd": true,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "b38d"
     },
     {
-      "id": "a7be",
       "dni": "35611774T",
       "nombre": "Ainé",
       "apellidos": "Figueroa Pérez",
@@ -420,10 +503,14 @@
       "provincia": "Albacete",
       "municipio": "Alcalá del Júcar",
       "fechaAlta": "2025-10-01",
-      "historico": true
+      "historico": true,
+      "lopd": false,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "a7be"
     },
     {
-      "id": "a66b",
       "dni": "35611775R",
       "nombre": "Ana",
       "apellidos": "Alvarez Pereira",
@@ -433,7 +520,12 @@
       "provincia": "Castellón",
       "municipio": "Algimia de Almonacid",
       "fechaAlta": "2025-10-01",
-      "historico": true
+      "historico": true,
+      "lopd": true,
+      "password": "",
+      "tipo": "user",
+      "tipoCliente": "particular",
+      "id": "a66b"
     }
   ],
   "noticias": [
