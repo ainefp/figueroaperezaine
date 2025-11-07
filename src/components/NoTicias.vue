@@ -28,7 +28,15 @@
                         <span>
                             {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
                         </span>
-                        <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none">
+                        <div class="float-end">
+                            <button class="btn btn-warning btn-sm border-0 shadow-none rounded-0 me-2" @click.prevent="editarNoticia(noticia.id)">
+                                <i class="bi bi-pencil"></i>
+                            </button>
+                            <button class="btn btn-danger btn-sm border-0 shadow-none rounded-0" @click.prevent="eliminarNoticia(noticia.id)">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                        <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none me-4">
                             {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
                         </a>
                     </td>
@@ -44,7 +52,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import { getNoticias, addNoticia } from "../api/noticias";
+import { getNoticias, addNoticia, deleteNoticia, editNoticia } from "../api/noticias";
 
 const noticias = ref([]);
 const isExpanded = reactive({});
@@ -97,6 +105,18 @@ const agregarNoticia = async () => {
         alert("Error al publicar la noticia");
     }
 };
+
+const eliminarNoticia = async (id) => {
+    try {
+        await deleteNoticia(id);
+        noticias.value = noticias.value.filter((noticia) => noticia.id !== id);
+        // Eliminar el estado de expansión
+        delete isExpanded[id];
+    } catch (error) {
+        console.error("Error al eliminar la noticia:", error);
+        alert("Error al eliminar la noticia");
+    }
+}
 
 const toggleExpand = (id) => {
     isExpanded[id] = !isExpanded[id];
