@@ -278,12 +278,12 @@
       </table>
       <!-- Navegación de página -->
         <div class="d-flex justify-content-center my-3">
-          <button class="btn btn-outline-primary btn-sm me-2 rounded-0 border-1 shadow-none" 
+          <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none" 
             @click = "beforePagina" :disabled="currentPage <= 1">
             <i class="bi bi-chevron-left "></i>
           </button>
           <span class="mx-3 align-self-center text-muted">Página {{ currentPage  }}</span>
-          <button class="btn btn-outline-primary btn-sm rounded-0 border-1 shadow-none" 
+          <button class="btn btn-outline-primary btn-sm border-1 shadow-none" 
             @click="nextPagina" :disabled="currentPage >= totalPages">
             <i class="bi bi-chevron-right "></i>
           </button>
@@ -316,6 +316,7 @@
       fechaAlta: '',
       historico: true,
       lopd: false,
+      tipo: "user",
       tipoCliente: 'particular',
     });
 
@@ -456,21 +457,7 @@
             timer: 1500
           });
         }
-
-        // Reset formulario y estado
-        /*nuevoCliente.value = {
-          dni: '',
-          nombre: '',
-          apellidos: '',
-          email: '',
-          movil: '',
-          direccion: '',
-          provincia: '',
-          municipio: '',
-          fecha_alta: '',
-          historico: true
-        };
-        editando.value = false;*/
+        
         clienteEditandoId.value = null;
 
         // Reset validaciones si tienes (dniValido, movilValido, etc)
@@ -768,6 +755,7 @@
         fechaAlta: '',
         historico: true,
         lopd: false,
+        tipo: "user",
         tipoCliente: 'particular',
       };
       editando.value = false;
