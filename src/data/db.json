@@ -1,23 +1,6 @@
 {
   "clientes": [
     {
-      "dni": "",
-      "nombre": "",
-      "apellidos": "",
-      "email": "",
-      "movil": "",
-      "direccion": "",
-      "provincia": "",
-      "municipio": "",
-      "fechaAlta": "",
-      "historico": true,
-      "lopd": false,
-      "password": "",
-      "tipo": "user",
-      "tipoCliente": "particular",
-      "id": "0000"
-    },
-    {
       "dni": "73289465B",
       "fechaAlta": "2022-02-14",
       "nombre": "Laura",
@@ -436,7 +419,7 @@
       "municipio": "Arbúcies",
       "fechaAlta": "2025-10-03",
       "historico": true,
-      "lopd": false,
+      "lopd": true,
       "password": "",
       "tipo": "user",
       "tipoCliente": "particular",
