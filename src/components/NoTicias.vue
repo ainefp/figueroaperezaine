@@ -29,10 +29,10 @@
                             {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
                         </span>
                         <div class="float-end">
-                            <button class="btn btn-warning btn-sm border-0 shadow-none rounded-0 me-2" @click.prevent="editarNoticia(noticia.id)">
+                            <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
                                 <i class="bi bi-pencil"></i>
                             </button>
-                            <button class="btn btn-danger btn-sm border-0 shadow-none rounded-0" @click.prevent="eliminarNoticia(noticia.id)">
+                            <button class="btn btn-danger btn-sm border-0 shadow-none" @click.prevent="eliminarNoticia(noticia.id)">
                                 <i class="bi bi-trash"></i>
                             </button>
                         </div>
@@ -56,8 +56,10 @@ import { getNoticias, addNoticia, deleteNoticia, editNoticia } from "../api/noti
 
 const noticias = ref([]);
 const isExpanded = reactive({});
+const noticiaEditada = ref(null);
 const nuevoTitulo = ref("");
 const nuevoContenido = ref("");
+const nuevaFecha = ref("");
 
 // Cargar noticias al montar el componente
 onMounted(async () => {
@@ -105,6 +107,69 @@ const agregarNoticia = async () => {
         alert("Error al publicar la noticia");
     }
 };
+
+const editarNoticia = async (id) => {
+    const noticia = noticias.value.find((n) => n.id === id);
+    if (!noticia) {
+        if (!noticia) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Noticia no encontrada',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            return;
+        }
+    }
+
+    nuevaNoticia.value = { ...noticia };
+    editando.value = true;
+
+    
+    const noticiaEditada = {
+        id: id,
+        titulo: nuevoTitulo.value,
+        contenido: nuevoContenido.value,
+        fecha: nuevaFecha.value,
+        // nuevaFecha.value = new Date()
+        // .toLocaleDateString("es-ES", {
+        //     year: "numeric",
+        //     month: "2-digit",
+        //     day: "2-digit",
+        // })
+        // .split("/")
+        // .reverse()
+        // .join("-"); // Formato YYYY-MM-DD
+    };
+        
+    // try {
+    //     await editNoticia(noticiaEditada.id, noticiaEditada);
+        
+    // } catch (error) {
+    //     console.error("Error al editar la noticia:", error);
+    //     alert("Error al editar la noticia");
+    // }
+    // if (!nuevoTitulo.value || !nuevoContenido.value) {
+    //     alert("Por favor completa todos los campos");
+    //     return;
+    // }
+
+    /*
+        co
+
+        // Copiar datos al formulario
+        nuevoCliente.value = { ...cliente };
+        editando.value = true;
+        nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
+
+        // Actualiza municipios filtrados según la provincia seleccionada
+        filtrarMunicipios();
+        nuevoCliente.value.municipio = cliente.municipio;
+        clienteEditandoId.value = cliente.id;
+        };
+    */
+    
+}
 
 const eliminarNoticia = async (id) => {
     try {
