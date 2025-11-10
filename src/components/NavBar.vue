@@ -1,13 +1,13 @@
 <template>
-  <nav class="navbar navbar-dark bg-primary sticky-top navbar-expand-lg">
-
-    <router-link id="icono" to="/" class="navbar-brand ms-5"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
-    <div class="container-fluid my-2">
+  <nav class="navbar navbar-dark bg-primary sticky-top navbar-expand-lg min-height-75">
+    <div class="container-fluid">
       <!-- Marca o logo -->
+      <router-link id="icono" to="/" class="navbar-brand position-absolute ms-4"><img class="logo" src="/logo.svg" alt="Logo" /></router-link>
 
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
-        class="navbar-toggler mx-3"
+        id="btnPq"
+        class="navbar-toggler position-absolute end-0 mx-3 me-5"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
@@ -19,8 +19,8 @@
       </button>
 
       <!-- Links de navegación -->
-      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-        <ul class="navbar-nav d-flex justify-content-center w-80">
+      <div class="collapse navbar-collapse justify-content-center align-items-center" id="navbarNav">
+        <ul class="navbar-nav">
           <li class="nav-item">
             <router-link to="/" class="nav-link"> Inicio </router-link>
           </li>
@@ -43,31 +43,34 @@
 </template>
 
 <script setup>
-// No necesita lógica
 </script>
 
 <style>
+.navbar {
+  min-height: 75px;
+}
 
 .navbar-dark .nav-link {
-  color: rgba(255,255,255,0.9); /* blanco suave */
+  color: rgba(255,255,255,0.9);
 }
 
 .navbar-dark .nav-link:hover,
 .navbar-dark .nav-link:focus {
-  color: #fff; /* blanco intenso al pasar el ratón */
+  color: #fff;
 }
 
 .logo {
   width: 45%;
 }
 
-nav {
-  position: relative;
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 991.98px) {
+  .navbar-collapse {
+    padding: 1rem 0;
+  }
+  
+  .navbar-nav {
+    align-items: center;
+  }
 }
-
-#icono {
-  position: absolute;
-  left: 10px;
-}
-
 </style>
