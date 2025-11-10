@@ -1,230 +1,232 @@
 <template>
   <div class="container-fluid my-1 p-3 pb-5 border rounded-3 shadow-sm bg-light">
-    <h5 class="text-center my-1 mb-4 bg-primary-subtle py-1">Gestión de Clientes</h5>
+    <h4 class="text-center my-1 mb-4 bg-primary-subtle py-1">Gestión de Clientes</h4>
     
     <!-- Formulario -->
-    <form @submit.prevent="guardarCliente" class="mb-4">
-    
-      <!-- DNI y Fecha de Alta -->
-      <div class="mb-3 row align-items-center">
-        <!-- DNI -->
-        <div class="col-md-5 d-flex align-items-center">
-          <label for="dni" class="form-label mb-0 me-5">DNI:</label> <!-- me-5 w-25 -->
-          <div class="flex-grow-1">
-            <input
-              type="text"
-              id="dni"
-              v-model="nuevoCliente.dni"
-              @blur="validarDni"
-              class="form-control w-auto" 
-              :class="{ 'is-invalid': !dniValido }"
-              required
-            />
-            <div v-if="!dniValido" class="invalid-feedback">
-              DNI o NIE inválido.
-            </div>
-          </div>
-
-          <!-- Botón de Búsqueda -->
-          <button
-              type="button"
-              class="btn btn-primary btn-md ms-4"
-              @click="buscarClientePorDNI(nuevoCliente.dni)">
-              <i class="bi bi-search"></i>
-          </button>
-
-          <!-- Botón de Recarga -->
-          <button 
-            type="button"
-            class="btn btn-secondary btn-md ms-4"
-            @click="recargaForm()">
-            <i class="bi bi-arrow-clockwise"></i>
-          </button>
-        </div>
-
-        <!-- Fecha de Alta -->
-        <div class="col-md-3 ms-5 d-flex align-items-center">
-          <label for="fechaAlta" class="form-label me-2 mb-0 text-nowrap">Fecha de Alta:</label>
-          <input
-            type="date"
-            id="fechaAlta"
-            v-model="nuevoCliente.fechaAlta"
-            class="form-control w-auto"
-          />
-        </div>
+<form @submit.prevent="guardarCliente" class="container mt-4">
+  <!-- DNI y Fecha de Alta -->
+  <div class="row mb-3 align-items-center">
+    <div class="col-auto">
+      <label for="dni" class="form-label mb-0">DNI:</label>
+    </div>
+    <div class="col">
+      <div class="input-group">
+        <input
+          type="text"
+          id="dni"
+          class="form-control"
+          v-model="nuevoCliente.dni"
+          @blur="validarDni"
+          :class="{ 'is-invalid': !dniValido }"
+          required
+        />
+        <button type="button" class="btn btn-outline-secondary" @click="buscarClientePorDNI(nuevoCliente.dni)">
+          <i class="bi bi-search"></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" @click="recargaForm()">
+          <i class="bi bi-arrow-clockwise"></i>
+        </button>
       </div>
-
-      <!-- Nombre y Apellidos -->
-      <div class="mb-3 row g-3 align-items-center">
-        <!-- Nombre -->
-        <div class="col-md-5 d-flex align-items-center">
-          <label for="nombre" class="form-label mb-0 text-nowrap w-25">Nombre:</label>
-          <input
-            type="text"
-            id="nombre"
-            v-model="nuevoCliente.nombre"
-            class="form-control flex-grow-1"
-            @blur="capitalizarTexto('nombre')"
-            required
-          />
-        </div>
-        <!-- Apellidos -->
-        <div class="col-md-5 d-flex align-items-center ms-5">
-          <label for="apellidos" class="form-label me-4 mb-0 text-nowrap">Apellidos:</label>
-          <input
-            type="text"
-            id="apellidos"
-            v-model="nuevoCliente.apellidos"
-            class="form-control flex-grow-1"
-            @blur="capitalizarTexto('apellidos')"
-            required
-          />
-        </div>
+      <div v-if="!dniValido" class="invalid-feedback d-block">
+        DNI o NIE inválido.
       </div>
+    </div>
 
-      <!-- Email y Móvil -->
-      <div class="mb-3 row g-3 align-items-center">
-        <!-- Email -->
-        <div class="col-md-5 d-flex align-items-center">
-          <label for="email" class="form-label mb-0 text-nowrap w-25">Email:</label>
-          <input
-            type="email"
-            id="email"
-            v-model="nuevoCliente.email"
-            class="form-control flex-grow-1"
-            @blur="validarEmail"
-            :class="{ 'is-invalid': !emailValido }"
-            required
-          />
-        </div>
-        <!-- Móvil -->
-        <div class="col-md-3 d-flex align-items-center">
-          <label for="movil" class="form-label me-5 ms-5 mb-0 text-nowrap ">Móvil:</label>
-          <input
-            type="tel"
-            id="movil"
-            v-model="nuevoCliente.movil"
-            @blur="validarMovil"
-            class="form-control flex-grow-1 text-center"
-            :class="{ 'is-invalid': !movilValido }"
-          />
-        </div>
+    <div class="col-auto">
+      <label for="fechaAlta" class="form-label mb-0">Fecha de Alta:</label>
+    </div>
+    <div class="col">
+      <input
+        type="date"
+        id="fechaAlta"
+        class="form-control"
+        v-model="nuevoCliente.fechaAlta"
+      />
+    </div>
+  </div>
 
-        <!-- Botones de Tipo de Cliente -->
-        <div class="col-md-4 d-flex align-items-center">
-          <div class="me-3 ms-3">Tipo de cliente:</div>
-          <div class="form-check form-check-inline">
-            <input 
-              type="radio" 
-              id="tipocliente"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input"
-              value="particular"
-            />
-            <label for="tipocliente" class="form-check-label ms-1">Particular</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input 
-              type="radio" 
-              id="tipocliente2"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input"
-              value="empresa"
-            />
-            <label for="tipocliente2" class="form-check-label ms-1">Empresa</label>
-          </div>
-        </div>
-      </div>
+  <!-- Nombre y Apellidos -->
+  <div class="row mb-3 align-items-center">
+    <div class="col-auto">
+      <label for="nombre" class="form-label mb-0">Nombre:</label>
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        id="nombre"
+        class="form-control"
+        v-model="nuevoCliente.nombre"
+        @blur="capitalizarTexto('nombre')"
+        required
+      />
+    </div>
+    <div class="col-auto">
+      <label for="apellidos" class="form-label mb-0">Apellidos:</label>
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        id="apellidos"
+        class="form-control"
+        v-model="nuevoCliente.apellidos"
+        @blur="capitalizarTexto('apellidos')"
+        required
+      />
+    </div>
+  </div>
 
-      <!-- Dirección, Provincia y Municipio -->
-      <div class="mb-3 row g-3 align-items-center">
-        <!-- Dirección -->
-        <div class="col-md-5 d-flex align-items-center">
-          <label for="direccion" class="form-label mb-0 w-25 text-nowrap">Dirección:</label>
-          <input
-            type="text"
-            id="direccion"
-            v-model="nuevoCliente.direccion"
-            @blur="capitalizarTexto('direccion')"
-            class="form-control flex-grow-1"
-          />
-        </div>
-        <!-- Provincia -->
-        <div class="col-md-3 d-flex align-items-center">
-          <label for="provincia" class="form-label me-4 ms-5 mb-0 text-nowrap">Provincia:</label>
-          <select
-            id="provincia"
-            v-model="nuevoCliente.provincia"
-            class="form-select flex-grow-1 w-25"
-            @change="filtrarMunicipios"
-          >
-            <option disabled value="">Seleccione provincia</option>
-            <option v-for="prov in provincias" :key="prov.id" :value="prov.nm">{{ prov.nm }}</option>
-          </select>
-        </div>
-        <!-- Municipio -->
-        <div class="col-md-3 d-flex align-items-center">
-          <label for="municipio" class="form-label me-5 ms-4 mb-0 text-nowrap">Municipio:</label>
-          <select
-            id="municipio"
-            v-model="nuevoCliente.municipio"
-            class="form-select flex-grow-1 w-auto"
-          >
-            <option disabled value="">Seleccione municipio</option>
-            <option v-for="mun in municipiosFiltrados" :key="mun.id" :value="mun.nm">{{ mun.nm}}</option>
-          </select>
-        </div>
-      </div>
+  <!-- Email, Móvil y Tipo de Cliente en la misma línea con labels a la izquierda -->
+<div class="row mb-3 align-items-center">
+  <!-- Email -->
+  <div class="col-md-4 d-flex align-items-center">
+    <label for="email" class="form-label mb-0 me-2">Email:</label>
+    <input
+      type="email"
+      id="email"
+      class="form-control"
+      v-model="nuevoCliente.email"
+      @blur="validarEmail"
+      :class="{ 'is-invalid': !emailValido }"
+      required
+    />
+  </div>
 
-      <!-- Aceptación de términos y condiciones -->
-      <div class="text-center mb-3">
-          <div class="form-check d-inline-block">
-              <input
-                  type="checkbox"
-                  class="form-check-input"
-                  id="condiciones"
-                  v-model="nuevoCliente.lopd"
-                  required
-              />
-              <label class="form-check-label" for="condiciones">
-                  Acepto los termino y condiciones establecidos en
-                  <router-link
-                    :to="{ path: '/aviso-legal' }"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="text-primary text-decoration-none"
-                  >
-                    Aviso Legal
-                  </router-link>
-              </label>
-          </div>
-        </div>
+  <!-- Móvil -->
+  <div class="col-md-4 d-flex align-items-center">
+    <label for="movil" class="form-label mb-0 me-2">Móvil:</label>
+    <input
+      type="tel"
+      id="movil"
+      class="form-control"
+      v-model="nuevoCliente.movil"
+      @blur="validarMovil"
+      :class="{ 'is-invalid': !movilValido }"
+    />
+  </div>
 
-      <!-- Botones finales -->
-      <div class="d-flex align-items-center mt-3">
-        <!-- Guardar Cliente -->
-        <div class="flex-grow-1 d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary px-4">
-            {{ editando ? 'Modificar' : 'Guardar' }}
-          </button>
-        </div>
-      </div>
+  <!-- Tipo de Cliente -->
+  <div class="col-md-4 d-flex align-items-center">
+    <label class="form-label mb-0 me-2">Tipo de cliente:</label>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="radio"
+        id="tipocliente"
+        v-model="nuevoCliente.tipoCliente"
+        value="particular"
+      />
+      <label class="form-check-label" for="tipocliente">Particular</label>
+    </div>
+    <div class="form-check form-check-inline">
+      <input
+        class="form-check-input"
+        type="radio"
+        id="tipocliente2"
+        v-model="nuevoCliente.tipoCliente"
+        value="empresa"
+      />
+      <label class="form-check-label" for="tipocliente2">Empresa</label>
+    </div>
+  </div>
+</div>
 
-      <!-- Histórico -->
-      <!-- HACER RELATIVO con guardar -->
-      <div class="d-flex justify-content-end">
-        <div class="form-check form-switch">
-          <input
-            type="checkbox"
-            id="historico"
-            v-model="mostrarHistorico"
-            class="form-check-input"
-            @change="cargarClientes"
-          />
-          <label for="historico" class="form-check-label ms-2">Histórico</label>
-        </div>
-      </div>
-    </form>
+
+
+  <!-- Dirección, Provincia y Municipio -->
+  <div class="row mb-3 align-items-center">
+    <div class="col-auto">
+      <label for="direccion" class="form-label mb-0">Dirección:</label>
+    </div>
+    <div class="col">
+      <input
+        type="text"
+        id="direccion"
+        class="form-control"
+        v-model="nuevoCliente.direccion"
+        @blur="capitalizarTexto('direccion')"
+      />
+    </div>
+    <div class="col-auto">
+      <label for="provincia" class="form-label mb-0">Provincia:</label>
+    </div>
+    <div class="col">
+      <select
+        id="provincia"
+        class="form-select"
+        v-model="nuevoCliente.provincia"
+        @change="filtrarMunicipios"
+      >
+        <option disabled value="">Seleccione provincia</option>
+        <option v-for="prov in provincias" :key="prov.id" :value="prov.nm">{{ prov.nm }}</option>
+      </select>
+    </div>
+    <div class="col-auto">
+      <label for="municipio" class="form-label mb-0">Municipio:</label>
+    </div>
+    <div class="col">
+      <select
+        id="municipio"
+        class="form-select"
+        v-model="nuevoCliente.municipio"
+      >
+        <option disabled value="">Seleccione municipio</option>
+        <option v-for="mun in municipiosFiltrados" :key="mun.id" :value="mun.nm">{{ mun.nm }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Términos y condiciones centrado -->
+<div class="row mb-3 justify-content-center">
+  <div class="col-auto">
+    <div class="form-check text-center">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="condiciones"
+        v-model="nuevoCliente.lopd"
+        required
+      />
+      <label class="form-check-label" for="condiciones">
+        Acepto los términos y condiciones establecidos en
+        <router-link
+          :to="{ path: '/aviso-legal' }"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Aviso Legal
+        </router-link>
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- Botón Guardar centrado -->
+<div class="row mb-3 justify-content-center">
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary">
+      {{ editando ? 'Modificar' : 'Guardar' }}
+    </button>
+  </div>
+</div>
+
+<!-- Histórico alineado a la derecha -->
+<div class="row mb-3 justify-content-end">
+  <div class="col-auto">
+    <div class="form-check">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="historico"
+        v-model="mostrarHistorico"
+        @change="cargarClientes"
+      />
+      <label class="form-check-label" for="historico">Histórico</label>
+    </div>
+  </div>
+</div>
+
+</form>
+
 
     <!-- Lista de Clientes -->
     <div class="table-responsive">
