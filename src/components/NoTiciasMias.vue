@@ -1,6 +1,5 @@
 <template>
     <div class="container my-2 p-4 border rounded-3 shadow-sm bg-light">
-    <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
         <h2 class="text-center mb-5 -primary"> Noticias del Motor </h2>
         <form @submit.prevent="agregarNoticia" class="mb4">
             <div class="">
@@ -33,8 +32,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center my-4">
-                    <button type="submit" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>
-                    <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
+                    <button type="submit" class="btn-grabar p-1 px-3 border rounded-1 bg-primary-subtle"> Publicar </button>                    
                 </div>
             </div>
         </form>

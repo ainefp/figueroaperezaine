@@ -8,6 +8,8 @@
             <button type="submit" class="btn btn-primary">Publicar</button>
         </div>
     </form>
+    <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
+    <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
 
     <!-- Tabla sin bordes -->
     <table class="table table-borderless mt-3">
