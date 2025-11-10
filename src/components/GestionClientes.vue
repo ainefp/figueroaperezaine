@@ -9,7 +9,7 @@
       <div class="mb-3 row align-items-center">
         <!-- DNI -->
         <div class="col-md-5 d-flex align-items-center">
-          <label for="dni" class="form-label mb-0 me-5">DNI:</label> <!-- me-5 w-25 -->
+          <label for="dni" class="form-label mb-0 me-5">DNI:&nbsp;&nbsp;&nbsp;</label> <!-- me-5 w-25 -->
           <div class="flex-grow-1">
             <input
               type="text"
@@ -177,7 +177,7 @@
       </div>
 
       <!-- Aceptación de términos y condiciones -->
-      <div class="text-center mb-3">
+      <div class="text-center mb-3 my-4">
           <div class="form-check d-inline-block">
               <input
                   type="checkbox"
