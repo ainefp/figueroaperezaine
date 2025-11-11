@@ -9,8 +9,8 @@
       <div class="mb-3 row align-items-center">
         <!-- DNI -->
         <div class="col-md-5 d-flex align-items-center">
-          <label for="dni" class="form-label mb-0 me-5">DNI:&nbsp;&nbsp;&nbsp;</label> <!-- me-5 w-25 -->
-          <div class="flex-grow-1">
+          <label for="dni" class="form-label col-md-2 mb-0">DNI:</label> <!-- me-5 w-25 -->
+          <div class="d-flex col-5">
             <input
               type="text"
               id="dni"
@@ -28,7 +28,7 @@
           <!-- Botón de Búsqueda -->
           <button
               type="button"
-              class="btn btn-primary btn-md ms-4"
+              class="btn btn-primary btn-md ms-2"
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
           </button>
@@ -36,7 +36,7 @@
           <!-- Botón de Recarga -->
           <button 
             type="button"
-            class="btn btn-secondary btn-md ms-4"
+            class="btn btn-secondary btn-md ms-2"
             @click="recargaForm()">
             <i class="bi bi-arrow-clockwise"></i>
           </button>
@@ -44,7 +44,7 @@
 
         <!-- Fecha de Alta -->
         <div class="col-md-3 ms-5 d-flex align-items-center">
-          <label for="fechaAlta" class="form-label me-2 mb-0 text-nowrap">Fecha de Alta:</label>
+          <label for="fechaAlta" class="form-label me-3 mb-0 text-nowrap">Fecha de Alta:</label>
           <input
             type="date"
             id="fechaAlta"
