@@ -34,17 +34,14 @@
                             <span>
                                 {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
                             </span>
-                            <div class="float-end">
-                                <!-- <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
-                                    <i class="bi bi-pencil"></i>
-                                </button> -->
+                            <div class="float-end my-1">
+                                <a href="#" @click.prevent="toggleExpand(noticia.id)" class="text-decoration-none me-4">
+                                    {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
+                                </a>
                                 <button class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
-                            <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none me-4">
-                                {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
-                            </a>
                         </td>
                     </tr>
                     <!-- Fila 3: espacio en blanco -->
