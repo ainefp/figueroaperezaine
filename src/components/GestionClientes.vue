@@ -777,4 +777,9 @@
   .invalid-feedback {
     display: block;
   }
+
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 991.98px) {
+    
+  }
 </style>
