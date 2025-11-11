@@ -6,17 +6,17 @@
     <form @submit.prevent="guardarCliente" class="mb-4">
     
       <!-- DNI y Fecha de Alta -->
-      <div class="mb-3 row align-items-center">
+      <div id="dniFecha" class="mb-3 row align-items-center">
         <!-- DNI -->
-        <div class="col-md-5 d-flex align-items-center">
-          <label for="dni" class="form-label col-md-2 mb-0">DNI:</label> <!-- me-5 w-25 -->
+        <div id="dni" class="col-md-5 d-flex align-items-center">
+          <label for="dni" class="form-label col-md-2 mb-0 me-3">DNI:</label> <!-- me-5 w-25 -->
           <div class="d-flex col-5">
             <input
               type="text"
               id="dni"
               v-model="nuevoCliente.dni"
               @blur="validarDni"
-              class="form-control w-auto" 
+              class="form-control w-auto ms-1" 
               :class="{ 'is-invalid': !dniValido }"
               required
             />
@@ -28,6 +28,7 @@
           <!-- Botón de Búsqueda -->
           <button
               type="button"
+              id="btnBusc"
               class="btn btn-primary btn-md ms-2"
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
@@ -36,6 +37,7 @@
           <!-- Botón de Recarga -->
           <button 
             type="button"
+            id="btnRecg"
             class="btn btn-secondary btn-md ms-2"
             @click="recargaForm()">
             <i class="bi bi-arrow-clockwise"></i>
@@ -43,7 +45,7 @@
         </div>
 
         <!-- Fecha de Alta -->
-        <div class="col-md-3 ms-5 d-flex align-items-center">
+        <div id="fecha" class="col-md-3 ms-5 d-flex align-items-center">
           <label for="fechaAlta" class="form-label me-3 mb-0 text-nowrap">Fecha de Alta:</label>
           <input
             type="date"
@@ -55,9 +57,9 @@
       </div>
 
       <!-- Nombre y Apellidos -->
-      <div class="mb-3 row g-3 align-items-center">
+      <div id="nombreApellidos" class="mb-3 row g-3 align-items-center">
         <!-- Nombre -->
-        <div class="col-md-5 d-flex align-items-center">
+        <div id="nombre" class="col-md-5 d-flex align-items-center">
           <label for="nombre" class="form-label mb-0 text-nowrap w-25">Nombre:</label>
           <input
             type="text"
@@ -69,7 +71,7 @@
           />
         </div>
         <!-- Apellidos -->
-        <div class="col-md-5 d-flex align-items-center ms-5">
+        <div id="apellidos" class="col-md-5 d-flex align-items-center ms-5">
           <label for="apellidos" class="form-label me-4 mb-0 text-nowrap">Apellidos:</label>
           <input
             type="text"
@@ -83,9 +85,9 @@
       </div>
 
       <!-- Email y Móvil -->
-      <div class="mb-3 row g-3 align-items-center">
+      <div id="emailMovil" class="mb-3 row g-3 align-items-center">
         <!-- Email -->
-        <div class="col-md-5 d-flex align-items-center">
+        <div id="email" class="col-md-5 d-flex align-items-center">
           <label for="email" class="form-label mb-0 text-nowrap w-25">Email:</label>
           <input
             type="email"
@@ -98,7 +100,7 @@
           />
         </div>
         <!-- Móvil -->
-        <div class="col-md-3 d-flex align-items-center">
+        <div id="movil" class="col-md-3 d-flex align-items-center">
           <label for="movil" class="form-label me-5 ms-5 mb-0 text-nowrap ">Móvil:</label>
           <input
             type="tel"
@@ -111,9 +113,9 @@
         </div>
 
         <!-- Botones de Tipo de Cliente -->
-        <div class="col-md-4 d-flex align-items-center">
-          <div class="me-3 ms-3">Tipo de cliente:</div>
-          <div class="form-check form-check-inline">
+        <div id="btns" class="col-md-4 d-flex align-items-center">
+          <div id="tipoClt" class="me-3 ms-3">Tipo de cliente:</div>
+          <div id="particular" class="form-check form-check-inline">
             <input 
               type="radio" 
               id="tipocliente"
@@ -123,7 +125,7 @@
             />
             <label for="tipocliente" class="form-check-label ms-1">Particular</label>
           </div>
-          <div class="form-check form-check-inline">
+          <div id="empresa" class="form-check form-check-inline">
             <input 
               type="radio" 
               id="tipocliente2"
@@ -137,9 +139,9 @@
       </div>
 
       <!-- Dirección, Provincia y Municipio -->
-      <div class="mb-3 row g-3 align-items-center">
+      <div id="dirProvMun" class="mb-3 row g-3 align-items-center">
         <!-- Dirección -->
-        <div class="col-md-5 d-flex align-items-center">
+        <div id="direccion" class="col-md-5 d-flex align-items-center">
           <label for="direccion" class="form-label mb-0 w-25 text-nowrap">Dirección:</label>
           <input
             type="text"
@@ -150,7 +152,7 @@
           />
         </div>
         <!-- Provincia -->
-        <div class="col-md-3 d-flex align-items-center">
+        <div id="provincia" class="col-md-3 d-flex align-items-center">
           <label for="provincia" class="form-label me-4 ms-5 mb-0 text-nowrap">Provincia:</label>
           <select
             id="provincia"
@@ -163,7 +165,7 @@
           </select>
         </div>
         <!-- Municipio -->
-        <div class="col-md-3 d-flex align-items-center">
+        <div id="municipio" class="col-md-3 d-flex align-items-center">
           <label for="municipio" class="form-label me-5 ms-4 mb-0 text-nowrap">Municipio:</label>
           <select
             id="municipio"
@@ -177,7 +179,7 @@
       </div>
 
       <!-- Aceptación de términos y condiciones -->
-      <div class="text-center mb-3 my-4">
+      <div id="terminos" class="text-center mb-3 my-4">
           <div class="form-check d-inline-block">
               <input
                   type="checkbox"
@@ -201,9 +203,9 @@
         </div>
 
       <!-- Botones finales -->
-      <div class="d-flex align-items-center mt-3">
+      <div id="btnsFin" class="d-flex align-items-center mt-3">
         <!-- Guardar Cliente -->
-        <div class="flex-grow-1 d-flex justify-content-center">
+        <div id="guardar" class="flex-grow-1 d-flex justify-content-center">
           <button type="submit" class="btn btn-primary px-4">
             {{ editando ? 'Modificar' : 'Guardar' }}
           </button>
@@ -211,9 +213,8 @@
       </div>
 
       <!-- Histórico -->
-      <!-- HACER RELATIVO con guardar -->
-      <div class="d-flex justify-content-end">
-        <div class="form-check form-switch">
+      <div id="historico" class="d-flex justify-content-end">
+        <div id="historicoSwitch" class="form-check form-switch">
           <input
             type="checkbox"
             id="historico"
@@ -780,6 +781,42 @@
 
   /* Ajustes para pantallas pequeñas */
   @media (max-width: 991.98px) {
-    
+    #dniFecha,
+    #nombreApellidos,
+    #emailMovil,
+    #dirProvMun {
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start !important;
+      gap: 0.5rem !important;
+    }
+
+    #dni,
+    #fecha,
+    #nombre,
+    #apellidos,
+    #email,
+    #movil,
+    #direccion,
+    #provincia,
+    #municipio {
+      width: calc(50% - 0.25rem) !important;
+      margin-bottom: 0.5rem !important;
+      margin-left: 0 !important;
+      margin-right: 0 !important;
+    }
+
+    #btns {
+      width: 100% !important;
+      flex-direction: row;
+      align-items: center !important;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    #btnRecg, #btnBusc {
+      margin-right: 0.5rem !important;
+      margin-left: 0rem !important;
+    }
   }
 </style>

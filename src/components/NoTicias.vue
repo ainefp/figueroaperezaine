@@ -1,6 +1,6 @@
 <template>
     <h4 class="text-center my-1 bg-primary-subtle py-1">Noticias</h4>
-    <div class="border rounded-3 shadow-sm p-4">
+    <div class="border rounded-3 shadow-sm p-4 mb-5">
         <form @submit.prevent="agregarNoticia">
             <label for="title" class="col-sm-2 col-form-label">Título:</label>
             <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />
@@ -18,38 +18,40 @@
     <table class="table table-borderless mt-3">
         <tbody>
             <template v-for="noticia in noticias" :key="noticia.id">
-                <!-- Fila 1: título y fecha -->
-                <tr>
-                    <td>
-                        <div class="d-flex justify-content-between">
-                            <strong class="text-primary">{{ noticia.titulo }}</strong>
-                            <small class="text-muted text-secondary">{{ noticia.fecha }}</small>
-                        </div>
-                    </td>
-                </tr>
-                <!-- Fila 2: contenido con "mostrar más/menos" -->
-                <tr>
-                    <td>
-                        <span>
-                            {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
-                        </span>
-                        <div class="float-end">
-                            <!-- <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
-                                <i class="bi bi-pencil"></i>
-                            </button> -->
-                            <button class="btn btn-danger btn-sm border-0 shadow-none" @click.prevent="eliminarNoticia(noticia.id)">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                        <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none me-4">
-                            {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
-                        </a>
-                    </td>
-                </tr>
-                <!-- Fila 3: espacio en blanco -->
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
+                <div class="border rounded-3 shadow-sm p-3 mb-2">
+                    <!-- Fila 1: título y fecha -->
+                    <tr>
+                        <td>
+                            <div class="d-flex justify-content-between">
+                                <strong class="text-primary">{{ noticia.titulo }}</strong>
+                                <small class="text-muted text-secondary">{{ noticia.fecha }}</small>
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- Fila 2: contenido con "mostrar más/menos" -->
+                    <tr>
+                        <td>
+                            <span>
+                                {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
+                            </span>
+                            <div class="float-end">
+                                <!-- <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
+                                    <i class="bi bi-pencil"></i>
+                                </button> -->
+                                <button class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                            <a href="#" @click.prevent="toggleExpand(noticia.id)" class="float-end text-decoration-none me-4">
+                                {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
+                            </a>
+                        </td>
+                    </tr>
+                    <!-- Fila 3: espacio en blanco -->
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                </div>
             </template>
         </tbody>
     </table>
