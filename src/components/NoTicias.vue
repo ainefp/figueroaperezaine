@@ -1,13 +1,16 @@
 <template>
-    <form @submit.prevent="agregarNoticia">
-        <label for="title" class="col-sm-2 col-form-label">Título:</label>
-        <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />
-        <label for="desc" class="col-sm-2 col-form-label">Descripción:</label>
-        <textarea class="form-control" id="desc" rows="4" v-model="nuevoContenido"></textarea>
-        <div class="text-center mt-3">
-            <button type="submit" class="btn btn-primary">Publicar</button>
-        </div>
-    </form>
+    <h4 class="text-center my-1 bg-primary-subtle py-1">Noticias</h4>
+    <div class="border rounded-3 shadow-sm p-4">
+        <form @submit.prevent="agregarNoticia">
+            <label for="title" class="col-sm-2 col-form-label">Título:</label>
+            <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />
+            <label for="desc" class="col-sm-2 col-form-label">Descripción:</label>
+            <textarea class="form-control" id="desc" rows="4" v-model="nuevoContenido"></textarea>
+            <div class="text-center mt-3">
+                <button type="submit" class="btn btn-primary">Publicar</button>
+            </div>
+        </form>
+    </div>
     <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
     <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
 
@@ -31,9 +34,9 @@
                             {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
                         </span>
                         <div class="float-end">
-                            <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
+                            <!-- <button class="btn btn-warning btn-sm border-0 shadow-none me-2" @click.prevent="editarNoticia(noticia.id)">
                                 <i class="bi bi-pencil"></i>
-                            </button>
+                            </button> -->
                             <button class="btn btn-danger btn-sm border-0 shadow-none" @click.prevent="eliminarNoticia(noticia.id)">
                                 <i class="bi bi-trash"></i>
                             </button>
