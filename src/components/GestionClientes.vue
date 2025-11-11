@@ -10,7 +10,7 @@
         <!-- DNI -->
         <div id="dni" class="col-md-5 d-flex align-items-center">
           <label for="dni" class="form-label col-md-2 mb-0 me-3">DNI:</label> <!-- me-5 w-25 -->
-          <div class="d-flex col-5">
+          <div class="d-flex col-5"> <!-- me-5 -->
             <input
               type="text"
               id="dni"
@@ -19,7 +19,7 @@
               class="form-control w-auto ms-1" 
               :class="{ 'is-invalid': !dniValido }"
               required
-            />
+            /> <!-- me-1 -->
             <div v-if="!dniValido" class="invalid-feedback">
               DNI o NIE inválido.
             </div>
@@ -32,7 +32,7 @@
               class="btn btn-primary btn-md ms-2"
               @click="buscarClientePorDNI(nuevoCliente.dni)">
               <i class="bi bi-search"></i>
-          </button>
+          </button> <!-- ms-5 -->
 
           <!-- Botón de Recarga -->
           <button 
