@@ -46,31 +46,31 @@
 </script>
 
 <style>
-.navbar {
-  min-height: 75px;
-}
-
-.navbar-dark .nav-link {
-  color: rgba(255,255,255,0.9);
-}
-
-.navbar-dark .nav-link:hover,
-.navbar-dark .nav-link:focus {
-  color: #fff;
-}
-
-.logo {
-  width: 45%;
-}
-
-/* Ajustes para pantallas pequeñas */
-@media (max-width: 991.98px) {
-  .navbar-collapse {
-    padding: 1rem 0;
+  .navbar {
+    min-height: 75px;
   }
-  
-  .navbar-nav {
-    align-items: center;
+
+  .navbar-dark .nav-link {
+    color: rgba(255,255,255,0.9);
   }
-}
+
+  .navbar-dark .nav-link:hover,
+  .navbar-dark .nav-link:focus {
+    color: #fff;
+  }
+
+  .logo {
+    width: 45%;
+  }
+
+  /* Ajustes para pantallas pequeñas */
+    @media (max-width: 991.98px) {
+      .navbar-collapse {
+        padding: 1rem 0;
+      }
+      
+      .navbar-nav {
+        align-items: center;
+      }
+    }
 </style>

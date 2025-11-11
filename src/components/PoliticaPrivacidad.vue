@@ -102,8 +102,8 @@
   </template>
   
   <style scoped>
-  .text-justify {
-    text-align: justify;
-  }
+    .text-justify {
+      text-align: justify;
+    }
   </style>
   
