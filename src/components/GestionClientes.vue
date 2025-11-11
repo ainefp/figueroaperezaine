@@ -54,6 +54,31 @@
             class="form-control w-auto"
           />
         </div>
+
+        <!-- Botones de Tipo de Cliente -->
+        <div id="btns" class="col-md-2 d-flex align-items-center text-nowrap">
+          <div id="tipoClt" class="me-3">Tipo de cliente:</div>
+          <div id="particular" class="form-check form-check-inline">
+            <input 
+              type="radio" 
+              id="tipocliente"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input"
+              value="particular"
+            />
+            <label for="tipocliente" class="form-check-label">Particular</label>
+          </div>
+          <div id="empresa" class="form-check form-check-inline">
+            <input 
+              type="radio" 
+              id="tipocliente2"
+              v-model="nuevoCliente.tipoCliente"
+              class="form-check-input"
+              value="empresa"
+            />
+            <label for="tipocliente2" class="form-check-label">Empresa</label>
+          </div>
+        </div>
       </div>
 
       <!-- Nombre y Apellidos -->
@@ -110,31 +135,6 @@
             class="form-control flex-grow-1 text-center"
             :class="{ 'is-invalid': !movilValido }"
           />
-        </div>
-
-        <!-- Botones de Tipo de Cliente -->
-        <div id="btns" class="col-md-4 d-flex align-items-center">
-          <div id="tipoClt" class="me-3 ms-3">Tipo de cliente:</div>
-          <div id="particular" class="form-check form-check-inline">
-            <input 
-              type="radio" 
-              id="tipocliente"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input"
-              value="particular"
-            />
-            <label for="tipocliente" class="form-check-label ms-1">Particular</label>
-          </div>
-          <div id="empresa" class="form-check form-check-inline">
-            <input 
-              type="radio" 
-              id="tipocliente2"
-              v-model="nuevoCliente.tipoCliente"
-              class="form-check-input"
-              value="empresa"
-            />
-            <label for="tipocliente2" class="form-check-label ms-1">Empresa</label>
-          </div>
         </div>
       </div>
 
