@@ -55,143 +55,84 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import { getNoticias, addNoticia, deleteNoticia, editNoticia } from "../api/noticias";
+    import { ref, reactive, onMounted } from "vue";
+    import { getNoticias, addNoticia, deleteNoticia } from "../api/noticias";
+    
+    // ============ SCRIPTS CRUD ============
 
-const noticias = ref([]);
-const isExpanded = reactive({});
-const noticiaEditada = ref(null);
-const nuevoTitulo = ref("");
-const nuevoContenido = ref("");
-const nuevaFecha = ref("");
+    // Declaración de variables
+        const noticias = ref([]);
+        const isExpanded = reactive({});
+        const nuevoTitulo = ref("");
+        const nuevoContenido = ref("");
 
-// Cargar noticias al montar el componente
-onMounted(async () => {
-    await cargarNoticias();
-});
+    // Cargar noticias al montar el componente
+        onMounted(async () => {
+            await cargarNoticias();
+        });
 
-const cargarNoticias = async () => {
-    try {
-        noticias.value = await getNoticias();
-    } catch (error) {
-        console.error("Error al cargar noticias:", error);
-        alert("Error al cargar las noticias");
-    }
-};
+        const cargarNoticias = async () => {
+            try {
+                noticias.value = await getNoticias();
+            } catch (error) {
+                console.error("Error al cargar noticias:", error);
+                alert("Error al cargar las noticias");
+            }
+        };
 
-const agregarNoticia = async () => {
-    if (!nuevoTitulo.value || !nuevoContenido.value) {
-        alert("Por favor completa todos los campos");
-        return;
-    }
+    const agregarNoticia = async () => {
+        if (!nuevoTitulo.value || !nuevoContenido.value) {
+            alert("Por favor completa todos los campos");
+            return;
+        }
 
-    const nuevaNoticia = {
-        id: generarId(),
-        titulo: nuevoTitulo.value,
-        contenido: nuevoContenido.value,
-        fecha: new Date()
-            .toLocaleDateString("es-ES", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-            })
-            .split("/")
-            .reverse()
-            .join("-"), // Formato YYYY-MM-DD
+        const nuevaNoticia = {
+            id: generarId(),
+            titulo: nuevoTitulo.value,
+            contenido: nuevoContenido.value,
+            fecha: new Date()
+                .toLocaleDateString("es-ES", {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                })
+                .split("/")
+                .reverse()
+                .join("-"), // Formato YYYY-MM-DD
+        };
+
+        try {
+            await addNoticia(nuevaNoticia);
+            noticias.value.unshift(nuevaNoticia); // Añade al principio
+            // Limpiar el formulario
+            nuevoTitulo.value = "";
+            nuevoContenido.value = "";
+        } catch (error) {
+            console.error("Error al publicar la noticia:", error);
+            alert("Error al publicar la noticia");
+        }
     };
 
-    try {
-        await addNoticia(nuevaNoticia);
-        noticias.value.unshift(nuevaNoticia); // Añade al principio
-        // Limpiar el formulario
-        nuevoTitulo.value = "";
-        nuevoContenido.value = "";
-    } catch (error) {
-        console.error("Error al publicar la noticia:", error);
-        alert("Error al publicar la noticia");
-    }
-};
-
-const editarNoticia = async (id) => {
-    const noticia = noticias.value.find((n) => n.id === id);
-    if (!noticia) {
-        if (!noticia) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Noticia no encontrada',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            return;
+    const eliminarNoticia = async (id) => {
+        try {
+            await deleteNoticia(id);
+            noticias.value = noticias.value.filter((noticia) => noticia.id !== id);
+            // Eliminar el estado de expansión
+            delete isExpanded[id];
+        } catch (error) {
+            console.error("Error al eliminar la noticia:", error);
+            alert("Error al eliminar la noticia");
         }
     }
 
-    nuevaNoticia.value = { ...noticia };
-    editando.value = true;
 
-    
-    const noticiaEditada = {
-        id: id,
-        titulo: nuevoTitulo.value,
-        contenido: nuevoContenido.value,
-        fecha: nuevaFecha.value,
-        // nuevaFecha.value = new Date()
-        // .toLocaleDateString("es-ES", {
-        //     year: "numeric",
-        //     month: "2-digit",
-        //     day: "2-digit",
-        // })
-        // .split("/")
-        // .reverse()
-        // .join("-"); // Formato YYYY-MM-DD
+    // ============ SCRIPTS AUXILIARES ============
+
+    const toggleExpand = (id) => {
+        isExpanded[id] = !isExpanded[id];
     };
-        
-    // try {
-    //     await editNoticia(noticiaEditada.id, noticiaEditada);
-        
-    // } catch (error) {
-    //     console.error("Error al editar la noticia:", error);
-    //     alert("Error al editar la noticia");
-    // }
-    // if (!nuevoTitulo.value || !nuevoContenido.value) {
-    //     alert("Por favor completa todos los campos");
-    //     return;
-    // }
 
-    /*
-        co
-
-        // Copiar datos al formulario
-        nuevoCliente.value = { ...cliente };
-        editando.value = true;
-        nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
-
-        // Actualiza municipios filtrados según la provincia seleccionada
-        filtrarMunicipios();
-        nuevoCliente.value.municipio = cliente.municipio;
-        clienteEditandoId.value = cliente.id;
-        };
-    */
-    
-}
-
-const eliminarNoticia = async (id) => {
-    try {
-        await deleteNoticia(id);
-        noticias.value = noticias.value.filter((noticia) => noticia.id !== id);
-        // Eliminar el estado de expansión
-        delete isExpanded[id];
-    } catch (error) {
-        console.error("Error al eliminar la noticia:", error);
-        alert("Error al eliminar la noticia");
-    }
-}
-
-const toggleExpand = (id) => {
-    isExpanded[id] = !isExpanded[id];
-};
-
-const generarId = () => {
-    return Math.random().toString(36).substring(2, 6);
-};
+    const generarId = () => {
+        return Math.random().toString(36).substring(2, 6);
+    };
 </script>
