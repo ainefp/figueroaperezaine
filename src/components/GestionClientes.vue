@@ -39,7 +39,7 @@
             type="button"
             id="btnRecg"
             class="btn btn-secondary btn-md ms-2"
-            @click="recargaForm()">
+            @click="recargarForm()">
             <i class="bi bi-arrow-clockwise"></i>
           </button>
         </div>

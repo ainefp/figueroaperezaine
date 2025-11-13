@@ -34,6 +34,9 @@
             <router-link to="/modelos" class="nav-link"> Modelos </router-link>
           </li>
           <li class="nav-item">
+            <router-link to="/taller" class="nav-link"> Taller </router-link>
+          </li>
+          <li class="nav-item">
             <router-link to="/#" class="nav-link"> Contacto </router-link>
           </li>
         </ul>

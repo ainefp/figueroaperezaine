@@ -652,9 +652,24 @@
       "estado": "disponible"
     }
   ],
-  "otracosa": [
+  "citas": [
     {
-      "id": "1e3a"
+      "id": "",
+      "matricula": "3528GVY",
+      "movilCliente": "642900863",
+      "fechaCita": "2025-11-16",
+      "servicioTaller": "neumáticos",
+      "estadoCita": "pendiente",
+      "acepta": ""
+    },
+    {
+      "id": "",
+      "matricula": "1205LJW",
+      "movilCliente": "663456192",
+      "fechaCita": "2025-11-24",
+      "servicioTaller": "cambio de aceite",
+      "estadoCita": "pendiente",
+      "acepta": ""
     }
   ]
 }

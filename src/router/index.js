@@ -5,6 +5,7 @@ import NoTicias from '../components/NoTicias.vue';
 import AvisoLegal from '../components/AvisoLegal.vue';
 import PoliticaPrivacidad from '../components/PoliticaPrivacidad.vue';
 import MoDelos from '../components/MoDelos.vue';
+import CitasTaller from '../components/CitasTaller.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -32,6 +33,10 @@ const routes = [
         path: '/politicadeprivacidad',
         name: 'PoliticaPrivacidad',
         component: PoliticaPrivacidad
+    },{
+        path: '/taller',
+        name: 'CitasTaller',
+        component: CitasTaller
     }, {
         path: '/modelos',
         name: 'MoDelos',
