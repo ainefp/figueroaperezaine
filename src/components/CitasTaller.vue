@@ -145,7 +145,7 @@
             <td >{{ cita.movilCliente }}</td>
             <td class="text-center">{{ cita.fechaCita }}</td>
             <td class="text-center">{{ cita.servicioTaller }}</td>
-            <td class="text-center">{{ capitalizarTexto(cita.estadoCita) }}</td>
+            <td class="text-center">{{ cita.estadoCita }}</td>
             <td class="align-middle text-center">
               <button
                 @click="eliminarCita(cita.id)"
