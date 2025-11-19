@@ -181,9 +181,21 @@
           ></textarea>
         </div>
       </div>
+
+      <div class="g-3 align-items-center mb-3 col-12 col-md-3 d-flex align-item-center">
+        <label for="foto" class="form-label mb-0 me-2 text-nowrap">Imagen del vehiculo:</label>
+        <input type="file"
+          id="foto"
+          accept="image/*"
+          @change="onFileChange"
+          class="form-control-file col-md-10 border rounded-0 shadow-none btn-file-azul"
+          />
+      </div>
+
       <h6 class="text-center fw-semibold bg-primary-subtle py-1 rounded">
         <i class="bi bi-person me-2"></i>Cliente Ubicación
       </h6>
+ñ
       <!-- FILA: Ubicación -->
       <div class="row g-3 align-items-center mt-3">
         <div class="col-12 col-md-4">
@@ -353,20 +365,30 @@ const municipiosFiltrados = computed(() =>
 // Enviar datos al backend
 const guardarVehiculo = async () => {
   try {
-      const nuevo = await addArticulo(vehiculo.value);
-      if (nuevo && nuevo._id) {
-        Swal.fire({
-          icon: "success",
-          title: "Vehículo guardado",
-          text: "El vehículo ha sido guardado correctamente.",
-          timer: 2000,
-          showConfirmButton: false
-        });       
-      } else {
-        console.error("Error al guardar el vehículo");
-      }
-    // limpiar formulario si quieres
-    // Limpiar formulario (opcional)
+    const formData = new FormData();
+
+    // Solo añadir imagen si hay archivo seleccionado
+    if (archivo.value) {
+      formData.append("imagen", archivo.value);
+    }
+
+    formData.append("vehiculo", JSON.stringify(vehiculo.value));
+
+    const nuevo = await addArticulo(formData);
+
+    if (nuevo && nuevo._id) {
+      Swal.fire({
+        icon: "success",
+        title: "Vehículo guardado",
+        text: "El vehículo ha sido guardado correctamente.",
+        timer: 2000,
+        showConfirmButton: false
+      });
+    } else {
+      console.error("Error al guardar el vehículo");
+    }
+
+    // Limpiar formulario
     Object.assign(vehiculo.value, {
       tipo: "",
       matricula: "",
@@ -380,21 +402,20 @@ const guardarVehiculo = async () => {
       transmision: "",
       potencia_cv: "",
       descripcion: "",
-      ubicacion: {
-        provincia: "",
-        ciudad: ""
-      },
-      contacto: {
-        nombre: "",
-        telefono: "",
-        email: ""
-      },
+      ubicacion: { provincia: "", ciudad: "" },
+      contacto: { nombre: "", telefono: "", email: "" },
       fecha_publicacion: ""
     });
+    archivo.value = null;
 
   } catch (error) {
     console.error("Error al guardar:", error);
   }
 };
+
+const onFileChange = (event) => {
+  const file = event.target.files[0];
+};
+
 </script>
 <style></style>
