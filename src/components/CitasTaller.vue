@@ -6,130 +6,128 @@
 
     <!-- Formulario -->
     <div class="container-lg mx-auto">
-    <form @submit.prevent="guardarCita" class="mb-3 mt-2">
-      <div class="row g-3 align-items-center">
-        <!-- Matrícula -->
-        <div class="col-12 col-md-3 d-flex align-items-center">
-          <label for="matricula" class="form-label mb-0 me-2 text-nowrap align-middle">Matrícula:</label>
-          <input
-            id="matricula"
-            type="text"
-            v-model="nuevaCita.matricula"
-            class="form-control text-center shadow-none border"
-            @blur="capitalizarMatricula"
-            required
-          />
-        </div>
+      <form @submit.prevent="guardarCita" class="mb-3 mt-2">
+        <div class="row g-3 align-items-center">
+          <!-- Matrícula -->
+          <div class="col-12 col-md-3 me-4 d-flex align-items-center">
+            <label for="matricula" class="form-label mb-0 me-2 text-nowrap align-middle">Matrícula:</label>
+            <input
+              id="matricula"
+              type="text"
+              v-model="nuevaCita.matricula"
+              class="form-control text-center shadow-none border"
+              @blur="capitalizarMatricula"
+              required
+            />
+          </div>
 
-        <!-- Móvil Cliente -->
-        <div class="col-12 col-md-3 d-flex align-items-center">
-          <label for="movilCliente" class="form-label mb-0 me-2 text-nowrap align-middle">Móvil Cliente:</label>
-          <input
-            id="movilCliente"
-            type="tel"
-            v-model="nuevaCita.movilCliente"
-            class="form-control text-center shadow-none border"
-            @blur="verificarCliente"
-            required
-          />
-        </div>
+          <!-- Móvil Cliente -->
+          <div class="col-12 col-md-3 me-4 d-flex align-items-center">
+            <label for="movilCliente" class="form-label mb-0 me-2 text-nowrap align-middle">Móvil Cliente:</label>
+            <input
+              id="movilCliente"
+              type="tel"
+              v-model="nuevaCita.movilCliente"
+              class="form-control text-center shadow-none border"
+              @blur="verificarCliente"
+              required
+            />
+          </div>
 
-        <!-- Fecha Cita -->
-        <div class="col-12 col-md-3 d-flex align-items-center">
-          <label for="fechaCita" class="form-label mb-0 me-2 text-nowrap align-middle">Fecha Cita:</label>
-          <input
-            id="fechaCita"
-            type="date"
-            v-model="nuevaCita.fechaCita"
-            class="form-control text-center shadow-none border"
-            required
-          />
-        </div>
+          <!-- Fecha Cita -->
+          <div class="col-12 col-md-3 me-4 d-flex align-items-center">
+            <label for="fechaCita" class="form-label mb-0 me-2 text-nowrap align-middle">Fecha Cita:</label>
+            <input
+              id="fechaCita"
+              type="date"
+              v-model="nuevaCita.fechaCita"
+              class="form-control text-center shadow-none border"
+              required
+            />
+          </div>
 
-        <!-- Botón limpiar -->
-        <div class="col-12 col-md-1 d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-light border shadow-none"
-            title="Limpiar formulario"
-            @click="limpiarFormulario"
-          >
-            <i class="bi bi-arrow-clockwise"></i>
-          </button>
+          <!-- Botón limpiar -->
+          <div class="col-12 col-md-1 d-flex justify-content-end">
+            <button
+              type="button"
+              class="btn btn-light border shadow-none"
+              title="Limpiar formulario"
+              @click="limpiarFormulario"
+            >
+              <i class="bi bi-arrow-clockwise"></i>
+            </button>
+          </div>
         </div>
-      </div>
-    
-<!-- Servicio y Estado -->
-<div class="row g-3 align-items-center mt-2">
-  <div class="col-12 col-md-4 d-flex align-items-center">
-    <label for="servicioTaller" class="form-label mb-0 me-3 text-nowrap align-middle">Servicio:</label>
-    <select
-      id="servicioTaller"
-      v-model="nuevaCita.servicioTaller"
-      class="form-select shadow-none border"
-      required
-    >
-      <option disabled value="">Seleccione servicio</option>
-      <option v-for="servicio in serviciosTaller" :key="servicio" :value="servicio">
-        {{ servicio }}
-      </option>
-    </select>
-  </div>
+      
+        <!-- Servicio y Estado -->
+        <div class="row g-3 align-items-center mt-2">
+          <div class="col-12 col-md-4 me-4 d-flex align-items-center">
+            <label for="servicioTaller" class="form-label mb-0 me-3 text-nowrap align-middle">Servicio:</label>
+            <select
+              id="servicioTaller"
+              v-model="nuevaCita.servicioTaller"
+              class="form-select shadow-none border"
+              required
+            >
+              <option disabled value="">Seleccione servicio</option>
+              <option v-for="servicio in serviciosTaller" :key="servicio" :value="servicio">
+                {{ servicio }}
+              </option>
+            </select>
+          </div>
 
-<div class="col-12 col-md-3 ms-4 d-flex align-items-center">
-  <label class="form-label mb-0 me-3 text-nowrap align-middle">Estado:</label>
-  <div class="d-flex gap-3">
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="estadoCita"
-        id="pendiente"
-        value="Pendiente"
-        v-model="nuevaCita.estadoCita"
-        required
-      />
-      <label class="form-check-label" for="pendiente">Pendiente</label>
-    </div>
-    <div class="form-check">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="estadoCita"
-        id="finalizado"
-        value="Finalizado"
-        v-model="nuevaCita.estadoCita"
-      />
-      <label class="form-check-label" for="finalizado">Finalizado</label>
+          <div class="col-12 col-md-3 ms-4 d-flex align-items-center">
+            <label class="form-label mb-0 me-3 text-nowrap align-middle">Estado:</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="estadoCita"
+                  id="pendiente"
+                  value="Pendiente"
+                  v-model="nuevaCita.estadoCita"
+                  required
+                />
+                <label class="form-check-label" for="pendiente">Pendiente</label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="estadoCita"
+                  id="finalizado"
+                  value="Finalizado"
+                  v-model="nuevaCita.estadoCita"
+                />
+                <label class="form-check-label" for="finalizado">Finalizado</label>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    </div>
-
-</div>
 
         <!-- Checkbox centrado -->
         <div class="row g-3 justify-content-center mt-3">
-        <div class="col-auto d-flex align-items-center">
-            <input
-            type="checkbox"
-            id="acepta"
-            v-model="nuevaCita.acepta"
-            class="form-check-input me-2"
-            />
-            <label for="acepta" class="form-check-label">Acepta presupuesto</label>
-        </div>
+          <div class="col-auto d-flex align-items-center">
+              <input
+              type="checkbox"
+              id="acepta"
+              v-model="nuevaCita.acepta"
+              class="form-check-input me-2"
+              />
+              <label for="acepta" class="form-check-label">Acepta presupuesto</label>
+          </div>
         </div>
 
         <!-- Botón justo debajo -->
         <div class="row g-3 justify-content-center mt-2">
-        <div class="col-auto">
-            <button type="submit" class="btn btn-primary px-4 shadow-none">
-            {{ editando ? 'Modificar' : 'Grabar' }}
-            </button>
+          <div class="col-auto">
+              <button type="submit" class="btn btn-primary px-4 shadow-none">
+              {{ editando ? 'Modificar' : 'Grabar' }}
+              </button>
+          </div>
         </div>
-        </div>
-
-    </form>
+      </form>
     </div>
 
     <hr class="border border-1 border-secondary rounded">
@@ -171,7 +169,7 @@
         </tbody>
       </table>
       <!-- Navegación de página-->
-       <div class="d-flex justify-content-center my-3">
+      <div class="d-flex justify-content-center my-3">
         <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none" 
         @click = "beforePagina" :disabled="currentPage <= 1">
           <i class="bi bi-chevron-left "></i>
@@ -179,10 +177,9 @@
         <span class="mx-3 align-self-center text-muted">Página {{ currentPage  }}</span>
         <button class="btn btn-outline-primary btn-sm border-1 shadow-none" 
         @click="nextPagina" :disabled="currentPage >= totalPages">
-         <i class="bi bi-chevron-right "></i>
+          <i class="bi bi-chevron-right "></i>
         </button>
-       </div>
-
+      </div>
     </div>
   </div>
 </template>
