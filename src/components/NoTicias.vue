@@ -1,5 +1,5 @@
 <template>
-    <h4 class="text-center my-1 bg-primary-subtle py-1">Noticias</h4>
+    <h4 class="text-center my-1 bg-primary-subtle py-1">Publicar Noticia</h4>
     <div class="border rounded-3 shadow-sm p-4 mb-5">
         <form @submit.prevent="agregarNoticia">
             <label for="title" class="col-sm-2 col-form-label">Título:</label>
@@ -14,6 +14,7 @@
     <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
     <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
 
+    <h4 class="text-center bg-primary-subtle py-1">Noticias</h4>
     <!-- Tabla sin bordes -->
     <table class="table table-borderless mt-3">
         <tbody>
@@ -42,10 +43,6 @@
                                  </div>
                             </div>
                         </td>
-                    </tr>
-                    <!-- Fila 3: espacio en blanco -->
-                    <tr>
-                        <td class="py-1"></td>
                     </tr>
             </template>
         </tbody>
