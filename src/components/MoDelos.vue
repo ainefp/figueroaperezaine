@@ -100,7 +100,8 @@
           <textarea id="descripcion" v-model="vehiculo.descripcion" rows="3" class="form-control shadow-none border mt-2 mb-4" placeholder="Describe el estado, potencia, color, revisiones, etc."></textarea>
         </div>
       </div>
-  <!-- FILA: Imagen del vehículo -->
+      
+      <!-- FILA: Imagen del vehículo -->
       <div class="row g-3 align-items-center mb-3">
         <div class="col-12 col-md-3 d-flex align-items-center">
           <label for="foto" class="form-label mb-0 me-2 text-nowrap">Imagen del vehículo:</label>
@@ -109,7 +110,7 @@
             id="foto"
             accept="image/*"
             @change="onFileChange"
-            class="form-control-file col-md-10 border shadow-none btn-file-azul" 
+            class="form-control-file col-md-10 rounded border shadow-none btn-file-azul" 
             >
         </div>
       </div>
