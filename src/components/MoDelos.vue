@@ -195,7 +195,7 @@
       <h6 class="text-center fw-semibold bg-primary-subtle py-1 rounded">
         <i class="bi bi-person me-2"></i>Cliente Ubicación
       </h6>
-ñ
+
       <!-- FILA: Ubicación -->
       <div class="row g-3 align-items-center mt-3">
         <div class="col-12 col-md-4">
