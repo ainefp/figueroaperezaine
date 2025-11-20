@@ -18,37 +18,35 @@
     <table class="table table-borderless mt-3">
         <tbody>
             <template v-for="noticia in noticias" :key="noticia.id">
-                <div class="border rounded-3 shadow-sm p-3 mb-2">
-                    <!-- Fila 1: título y fecha -->
                     <tr>
                         <td>
-                            <div class="d-flex justify-content-between">
-                                <strong class="text-primary">{{ noticia.titulo }}</strong>
-                                <small class="text-muted text-secondary">{{ noticia.fecha }}</small>
-                            </div>
-                        </td>
-                    </tr>
-                    <!-- Fila 2: contenido con "mostrar más/menos" -->
-                    <tr>
-                        <td>
-                            <span>
-                                {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
-                            </span>
-                            <div class="float-end my-1">
-                                <a href="#" @click.prevent="toggleExpand(noticia.id)" class="text-decoration-none me-4">
-                                    {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
-                                </a>
-                                <button class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                            <div class="border rounded-3 shadow-sm p-3 mb-2">
+                                <!-- Fila 1: título y fecha -->
+                                <div class="d-flex justify-content-between mb-2">
+                                    <strong class="text-primary">{{ noticia.titulo }}</strong>
+                                    <small class="text-muted text-secondary">{{ noticia.fecha }}</small>
+                                </div>
+                                <!-- Fila 2: contenido con "mostrar más/menos" -->
+                                <div>
+                                    <span>
+                                        {{ isExpanded[noticia.id] ? noticia.contenido : noticia.contenido.slice(0, 200) + "..." }}
+                                    </span>
+                                    <div class="d-flex justify-content-end align-items-center">
+                                        <a href="#" @click.prevent="toggleExpand(noticia.id)" class="text-decoration-none me-3">
+                                            {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
+                                        </a>
+                                        <button class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </div>
+                                 </div>
                             </div>
                         </td>
                     </tr>
                     <!-- Fila 3: espacio en blanco -->
                     <tr>
-                        <td>&nbsp;</td>
+                        <td class="py-1"></td>
                     </tr>
-                </div>
             </template>
         </tbody>
     </table>
