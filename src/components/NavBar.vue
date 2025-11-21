@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-dark bg-primary sticky-top navbar-expand-lg">
-    <div class="container-fluid">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
       <!-- Logo -->
       <router-link id="icono" to="/" class="navbar-logo ms-5">
         <img class="logo" src="/logo.svg" alt="Logo" />
@@ -8,7 +8,7 @@
         
       <!-- Botón de hamburguesa en pantallas pequeñas -->
       <button
-        class="navbar-toggler me-5"
+        class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#navbarNav"
@@ -30,60 +30,61 @@
           <li class="nav-item"><router-link to="/noticias" class="nav-link">Noticias</router-link></li>
           <li class="nav-item"><router-link to="/contacto" class="nav-link">Contacto</router-link></li>
         </ul>
-
-        <!-- Dropdown de acceso/registro -->
-        <div class="dropdown ms-auto">
-          <button
-            class="btn btn-primary dropdown-toggle"
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-person fs-2"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <!-- Mostra “Acceso/Registro” se NON hai usuario logueado -->
-            <li v-if="!isLogueado"><router-link class="dropdown-item" to="/login">Acceso</router-link></li>
-            <li v-if="!isLogueado"><router-link class="dropdown-item" to="/clientes">Registro</router-link></li>
-            <!-- Mostra “Cerrar Sesión” se está logueado -->
-            <li v-if="isLogueado">
-              <a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a>
-            </li>
-          </ul>
-        </div>
       </div>
+
+      <!-- Dropdown de acceso/registro -->
+      <div class="dropdown dropdown-collapse ms-5 me-5">
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <i class="bi bi-person fs-2"></i>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <!-- Mostra "Acceso/Registro" se NON hai usuario logueado -->
+          <li v-if="!isLogueado"><router-link class="dropdown-item" to="/login">Acceso</router-link></li>
+          <li v-if="!isLogueado"><router-link class="dropdown-item" to="/clientes">Registro</router-link></li>
+          <!-- Mostra "Cerrar Sesión" se está logueado -->
+          <li v-if="isLogueado">
+            <a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+  import { ref, onMounted } from 'vue'
 
-// Estado do login
-const isLogueado = ref(false)
-const userName = ref('')
+  // Estado do login
+  const isLogueado = ref(false)
+  const userName = ref('')
 
-// Cando o componente se monta, le localStorage (para cando montes a autenticación)
-onMounted(() => {
-  isLogueado.value = localStorage.getItem('isLogueado') === 'true'
-  userName.value = localStorage.getItem('userName') || ''
-})
+  // Cando o componente se monta, le localStorage (para cando montes a autenticación)
+  onMounted(() => {
+    isLogueado.value = localStorage.getItem('isLogueado') === 'true'
+    userName.value = localStorage.getItem('userName') || ''
+  })
 
-// Logout
-function logout() {
-  // Borra datos de sesión do localStorage
-  localStorage.removeItem('isLogueado')
-  localStorage.removeItem('userName')
-  localStorage.removeItem('isAdmin')
-  localStorage.removeItem('isUsuario')
+  // Logout
+  function logout() {
+    // Borra datos de sesión do localStorage
+    localStorage.removeItem('isLogueado')
+    localStorage.removeItem('userName')
+    localStorage.removeItem('isAdmin')
+    localStorage.removeItem('isUsuario')
 
-  // Actualiza estado
-  isLogueado.value = false
-  userName.value = ''
+    // Actualiza estado
+    isLogueado.value = false
+    userName.value = ''
 
-  // Redirixe ao inicio recargando a páxina
-  window.location.href = '/'
-}
+    // Redirixe ao inicio recargando a páxina
+    window.location.href = '/'
+  }
 </script>
 
 <style>
@@ -101,10 +102,6 @@ function logout() {
 
   /* Ajustes para pantallas pequeñas */
     @media (max-width: 991.98px) {
-      .navbar-collapse {
-        padding: 1rem 0;
-      }
-      
       .navbar-nav {
         align-items: center;
       }
