@@ -20,7 +20,7 @@
               :class="{ 'is-invalid': !dniValido }"
               required
             /> <!-- me-1 -->
-            <div v-if="!dniValido" class="invalid-feedback">
+            <div v-if="!dniValido" class="invalid-feedback text-nowrap">
               DNI o NIE inválido.
             </div>
           </div>
