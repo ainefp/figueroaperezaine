@@ -56,7 +56,7 @@
         </div>
 
         <!-- Botones de Tipo de Cliente -->
-        <div id="btns" class="col-md-2 d-flex align-items-center text-nowrap">
+        <div id="btns" class="col-md-3 d-flex align-items-center ps-3 pe-3 border rounded-1 text-nowrap">
           <div id="tipoClt" class="me-3">Tipo de cliente:</div>
           <div id="particular" class="form-check form-check-inline">
             <input 

@@ -76,7 +76,7 @@
             </select>
           </div>
 
-          <div class="col-12 col-md-3 ms-4 d-flex align-items-center">
+          <div class="col-12 col-md-3 ms-4 d-flex align-items-center ps-4 border rounded-1">
             <label class="form-label mb-0 me-3 text-nowrap align-middle">Estado:</label>
             <div class="d-flex gap-3">
               <div class="form-check">

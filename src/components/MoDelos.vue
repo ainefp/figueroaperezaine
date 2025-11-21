@@ -7,7 +7,7 @@
       <div>
         <!-- Tipo -->
         <div class="row g-3 align-items-center mt-1">
-          <div class="col-12 col-md-3 d-flex align-items-center">
+          <div class="col-md-3 d-flex align-items-center ps-4 border rounded-1">
             <label class="form-label mb-0 me-2 text-nowrap">Tipo:</label>
             <div class="d-flex align-items-center">
               <div class="form-check form-check-inline">
@@ -89,7 +89,7 @@
         </div>
 
         <!-- Transmisión -->
-        <div class="col-12 col-md-3 d-flex align-items-center">
+        <div class="col-md-3 d-flex align-items-center ps-3 border rounded-1">
           <label for="transmision" class="form-label mb-0 ms-2 me-2 text-nowrap">Transmisión:</label>
           <div class="d-flex align-items-center">
             <div class="form-check form-check-inline">
