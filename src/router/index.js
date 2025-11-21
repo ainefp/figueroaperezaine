@@ -6,6 +6,7 @@ import AvisoLegal from '../components/AvisoLegal.vue';
 import PoliticaPrivacidad from '../components/PoliticaPrivacidad.vue';
 import MoDelos from '../components/MoDelos.vue';
 import CitasTaller from '../components/CitasTaller.vue';
+import TablaLogin from '../components/TablaLogin.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -41,6 +42,10 @@ const routes = [
         path: '/modelos',
         name: 'MoDelos',
         component: MoDelos
+    }, {
+        path: '/tablaLogin',
+        name: 'TablaLogin',
+        component: TablaLogin
     }
 ]
 
