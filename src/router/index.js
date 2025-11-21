@@ -43,7 +43,7 @@ const routes = [
         name: 'MoDelos',
         component: MoDelos
     }, {
-        path: '/tablaLogin',
+        path: '/login',
         name: 'TablaLogin',
         component: TablaLogin
     }
