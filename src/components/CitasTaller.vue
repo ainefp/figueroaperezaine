@@ -1,8 +1,6 @@
 <template>
   <div class="container-fluid my-2 p-2 border shadow-sm bg-light">
-    <h5 class="text-center bg-primary-subtle py-1">
-      <i class="bi bi-wrench me-2"></i>Citas Taller
-    </h5>
+    <h5 class="text-center bg-primary-subtle py-1"><i class="bi bi-wrench me-2"></i>Citas Taller</h5>
 
     <!-- Formulario -->
     <div class="container-lg mx-auto">

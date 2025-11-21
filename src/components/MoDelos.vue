@@ -1,8 +1,8 @@
 <template>
-  <div class="container-fluid my-3 p-2 border shadow-sm bg-light">
-    <h5 class="text-center bg-primary-subtle  ms-1 py-1"><i class="bi bi-car-front me-2"></i>Registro de Vehículos </h5>
+  <div class="container-fluid my-3 p-2 border shadow-sm bg-light ">
+    <h5 class="text-center bg-primary-subtle py-1"><i class="bi bi-car-front me-2"></i>Registro de Vehículos </h5>
+    
     <form @submit.prevent="guardarVehiculo" class="mb-2 mt-1 ms-1">
-
       <!-- ======== FILA 1 ======== -->
       <div>
         <!-- Tipo -->
