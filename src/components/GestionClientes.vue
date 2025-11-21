@@ -178,6 +178,31 @@
         </div>
       </div>
 
+      <!-- Crear Contraseña -->
+      <div id="crearPwd" class="mb-3 row g-3 align-items-center">
+        <!-- Contraseña -->
+        <div id="contraseña" class="col-md-5 d-flex align-items-center">
+          <label for="contraseña" class="form-label mb-0 text-nowrap w-25">Contraseña:</label>
+          <input
+            type="text"
+            id="password"
+            class="form-control flex-grow-1"
+            v-model="nuevoCliente.password"
+            required
+          />
+        </div>
+        <div id="repetirPwd" class="col-md-5 d-flex align-items-center ms-5">
+          <label for="repetirPwd" class="form-label me-4 mb-0 text-nowrap">Repetir Contraseña:</label>
+          <input
+            type="text"
+            id="repetirPwd"
+            class="form-control flex-grow-1"
+            v-model="nuevoCliente.passwordRepeat"
+            required
+          />
+        </div>
+      </div>
+
       <!-- Aceptación de términos y condiciones -->
       <div id="terminos" class="text-center mb-3 my-4">
           <div class="form-check d-inline-block">
