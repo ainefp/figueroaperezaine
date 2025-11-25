@@ -184,17 +184,18 @@
         <div id="contraseña" class="col-md-5 d-flex align-items-center">
           <label for="contraseña" class="form-label mb-0 text-nowrap w-25">Contraseña:</label>
           <input
-            type="text"
+            type="password"
             id="password"
             class="form-control flex-grow-1"
             v-model="nuevoCliente.password"
             required
           />
         </div>
+        <!-- Repetir contraseña -->
         <div id="repetirPwd" class="col-md-5 d-flex align-items-center ms-5">
           <label for="repetirPwd" class="form-label me-4 mb-0 text-nowrap">Repetir Contraseña:</label>
           <input
-            type="text"
+            type="password"
             id="repetirPwd"
             class="form-control flex-grow-1"
             v-model="nuevoCliente.passwordRepeat"
@@ -324,6 +325,7 @@
   import provmuniData from '@/data/provmuni.json';
   import { getClientes, getClientePorDni, addCliente, updateCliente, deleteCliente } from '@/api/clientes.js';
   import Swal from 'sweetalert2';
+  import bcrypt from 'bcryptjs';
 
   // ============ SCRIPTS CRUD (consultar, agregar, eliminar, modificar) ============
 
@@ -340,8 +342,9 @@
         fechaAlta: '',
         historico: true,
         lopd: false,
-        tipo: "user",
         tipoCliente: 'particular',
+        tipo: "user",
+        password: '',
       });
 
       const editando = ref(false);  // Estado de edición para el formulario
