@@ -132,7 +132,7 @@
             id="movil"
             v-model="nuevoCliente.movil"
             @blur="validarMovil"
-            class="form-control flex-grow-1 text-center"
+            class="form-control flex-grow-1 text-center ms-1"
             :class="{ 'is-invalid': !movilValido }"
           />
         </div>
@@ -157,7 +157,7 @@
           <select
             id="provincia"
             v-model="nuevoCliente.provincia"
-            class="form-select flex-grow-1 w-25"
+            class="form-select flex-grow-1 w-25 ms-1"
             @change="filtrarMunicipios"
           >
             <option disabled value="">Seleccione provincia</option>
