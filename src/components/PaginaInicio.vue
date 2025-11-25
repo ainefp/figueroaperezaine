@@ -18,7 +18,8 @@
     new URL('@/assets/imagen3.webp', import.meta.url).href,
     new URL('@/assets/imagen4.webp', import.meta.url).href,
     new URL('@/assets/imagen5.webp', import.meta.url).href,
-    new URL('@/assets/imagen6.webp', import.meta.url).href
+    new URL('@/assets/imagen6.webp', import.meta.url).href,
+    new URL('@/assets/imagen7.webp', import.meta.url).href
   ]
 
   const currentIndex = ref(0)
@@ -39,6 +40,9 @@
 </script>
 
 <style scoped>
+  .inicio-container {
+    height: 100%;
+  }
   .carousel {
     width: 100%;
     height: 100%;
