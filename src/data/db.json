@@ -31,7 +31,7 @@
       "lopd": true,
       "tipoCliente": "particular",
       "tipo": "user",
-      "password": "",
+      "password": "$2b$10$RiGDkK15Jv1F79iJYeuI6eUw2HP9hYSEqfLb70p0jNjUJ1fUmP4HC",
       "id": "a079"
     },
     {
@@ -486,7 +486,7 @@
       "provincia": "Albacete",
       "municipio": "Alcalá del Júcar",
       "fechaAlta": "2025-10-01",
-      "historico": true,
+      "historico": false,
       "lopd": false,
       "tipoCliente": "particular",
       "tipo": "user",
@@ -509,6 +509,23 @@
       "tipo": "user",
       "password": "",
       "id": "a66b"
+    },
+    {
+      "id": "d2fa",
+      "dni": "35611774T",
+      "nombre": "Ainé",
+      "apellidos": "Figueroa",
+      "email": "aine@gmail.com",
+      "movil": "666555112",
+      "direccion": "Calle Rodríguez 18",
+      "provincia": "Alicante",
+      "municipio": "Aigües",
+      "fechaAlta": "2025-11-21",
+      "historico": false,
+      "lopd": true,
+      "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "$2b$10$NaJ0Ur/Qy9emElrNpdrT6egacaC/tAXp7CPOtJ.5GDTaTUVu5I5sy"
     }
   ],
   "noticias": [

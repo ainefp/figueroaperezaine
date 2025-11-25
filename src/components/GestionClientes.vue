@@ -254,67 +254,69 @@
     </form>
 
     <!-- Lista de Clientes -->
-    <div class="table-responsive">
-      <h4 class="text-center">Listado Clientes</h4>
-      <table class="table table-bordered table-striped table-hover table-sm align-middle"> <!--  w-100  -->
-        <thead class="table-primary">
-          <tr >
-            <th class="text-center">ID</th>
-            <th class="text-center">Apellidos</th>
-            <th class="text-center">Nombre</th>
-            <th class="text-center">Móvil</th>
-            <th class="text-center">Municipio</th>
-            <th class="text-center">Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(cliente, index) in clientesPaginados" :key="cliente.id || index" >
-            <th scope="row" class="text-center">{{ (currentPage - 1) * clientesPorPage + index + 1 }}</th>
-            <td >{{ cliente.apellidos }}</td>
-            <td >{{ cliente.nombre }}</td>
-            <td class="text-center">{{ cliente.movil }}</td>
-            <td class="text-center">{{ cliente.municipio }}</td>
-            <td class="align-middle text-center">
-              <button
-                @click="eliminarCliente(cliente.movil)"
-                class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
-                title="Eliminar cliente"
-                aria-label="Eliminar cliente"
-              >
-                <i class="bi bi-trash"></i>
-              </button>
-              <button
-                @click="editarCliente(cliente.movil)"
-                class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
-                title="Editar cliente"
-                aria-label="Editar cliente"
-              >
-                <i class="bi bi-pencil"></i>
-              </button>
-              <button
-                v-if="cliente.historico === false"
-                @click="activarCliente(cliente)"
-                class="btn btn-secondary btn-sm ms-2 border-0 shadow-none rounded-0"
-                title="Activar cliente"
-              >
-                <i class="bi bi-person-check"></i>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <!-- Navegación de página -->
-        <div class="d-flex justify-content-center my-3">
-          <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none" 
-            @click = "beforePagina" :disabled="currentPage <= 1">
-            <i class="bi bi-chevron-left "></i>
-          </button>
-          <span class="mx-3 align-self-center text-muted">Página {{ currentPage  }}</span>
-          <button class="btn btn-outline-primary btn-sm border-1 shadow-none" 
-            @click="nextPagina" :disabled="currentPage >= totalPages">
-            <i class="bi bi-chevron-right "></i>
-          </button>
-       </div>
+    <div v-if="admin" class="">
+      <div class="table-responsive">
+        <h4 class="text-center">Listado Clientes</h4>
+        <table class="table table-bordered table-striped table-hover table-sm align-middle"> <!--  w-100  -->
+          <thead class="table-primary">
+            <tr >
+              <th class="text-center">ID</th>
+              <th class="text-center">Apellidos</th>
+              <th class="text-center">Nombre</th>
+              <th class="text-center">Móvil</th>
+              <th class="text-center">Municipio</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(cliente, index) in clientesPaginados" :key="cliente.id || index" >
+              <th scope="row" class="text-center">{{ (currentPage - 1) * clientesPorPage + index + 1 }}</th>
+              <td >{{ cliente.apellidos }}</td>
+              <td >{{ cliente.nombre }}</td>
+              <td class="text-center">{{ cliente.movil }}</td>
+              <td class="text-center">{{ cliente.municipio }}</td>
+              <td class="align-middle text-center">
+                <button
+                  @click="eliminarCliente(cliente.movil)"
+                  class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
+                  title="Eliminar cliente"
+                  aria-label="Eliminar cliente"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  @click="editarCliente(cliente.movil)"
+                  class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
+                  title="Editar cliente"
+                  aria-label="Editar cliente"
+                >
+                  <i class="bi bi-pencil"></i>
+                </button>
+                <button
+                  v-if="cliente.historico === false"
+                  @click="activarCliente(cliente)"
+                  class="btn btn-secondary btn-sm ms-2 border-0 shadow-none rounded-0"
+                  title="Activar cliente"
+                >
+                  <i class="bi bi-person-check"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Navegación de página -->
+          <div class="d-flex justify-content-center my-3">
+            <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none" 
+              @click = "beforePagina" :disabled="currentPage <= 1">
+              <i class="bi bi-chevron-left "></i>
+            </button>
+            <span class="mx-3 align-self-center text-muted">Página {{ currentPage  }}</span>
+            <button class="btn btn-outline-primary btn-sm border-1 shadow-none" 
+              @click="nextPagina" :disabled="currentPage >= totalPages">
+              <i class="bi bi-chevron-right "></i>
+            </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -354,6 +356,12 @@
       const numclientes = ref(0);  // Número de clientes para paginación
       const currentPage = ref(1);  // Página actual para paginación
       const clientesPorPage = 10;
+      const cargando = ref(false);  // Estado de carga ( aún no se usa )
+
+      const admin = localStorage.getItem('isAdmin') === 'true';
+      const usuario = localStorage.getItem('isUsuario') === 'true';
+
+      localStorage.setItem('isAdmin', true);
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
@@ -431,6 +439,19 @@
 
     // Agregar Cliente
       const guardarCliente = async () => {
+        if (nuevoCliente.value.password !== nuevoCliente.value.passwordRepeat) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Las contraseñas no coinciden',
+            showConfirmButton: false,
+            timer: 2000
+          });
+          return;
+        }
+
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(nuevoCliente.value.password, salt);
+        
         if (!editando.value) {
           const duplicado = clientes.value.find(cliente =>
             cliente.dni === nuevoCliente.value.dni ||
@@ -447,7 +468,7 @@
             return;
           }
         }
-        
+
         // Confirmación antes de guardar
         const result = await Swal.fire({
           title: editando.value ? '¿Desea modificar este cliente?' : '¿Desea grabar este cliente?',
@@ -456,8 +477,12 @@
           confirmButtonText: editando.value ? 'Modificar' : 'Grabar',
           cancelButtonText: 'Cancelar'
         });
-
+        
         if (!result.isConfirmed) return;
+        nuevoCliente.value.password = hash;
+        delete nuevoCliente.value.passwordRepeat;
+
+        
         //  cliente.fecha_alta = formatearFechaParaInput(cliente.fecha_alta);
         try {
           if (editando.value) {
