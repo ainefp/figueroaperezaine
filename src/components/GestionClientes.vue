@@ -173,7 +173,7 @@
             class="form-select flex-grow-1 w-auto"
           >
             <option disabled value="">Seleccione municipio</option>
-            <option v-for="mun in municipiosFiltrados" :key="mun.id" :value="mun.nm">{{ mun.nm}}</option>
+            <option v-for="mun in municipiosFiltrados" :key="mun.id" :value="mun.nm">{{ mun.nm }}</option>
           </select>
         </div>
       </div>
