@@ -12,9 +12,9 @@
       "municipio": "Alcalá de Henares",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "7169"
     },
     {
@@ -29,9 +29,9 @@
       "municipio": "Badalona",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "a079"
     },
     {
@@ -46,9 +46,9 @@
       "municipio": "Utrera",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "56df"
     },
     {
@@ -63,9 +63,9 @@
       "municipio": "Torrent",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "c356"
     },
     {
@@ -80,9 +80,9 @@
       "municipio": "Ronda",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "960a"
     },
     {
@@ -97,9 +97,9 @@
       "municipio": "Calatayud",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "eda8"
     },
     {
@@ -114,9 +114,9 @@
       "municipio": "Cartagena",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "39b2"
     },
     {
@@ -131,9 +131,9 @@
       "municipio": "Motril",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "d6a9"
     },
     {
@@ -148,9 +148,9 @@
       "municipio": "Chiclana de la Frontera",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "0f47"
     },
     {
@@ -165,9 +165,9 @@
       "municipio": "Getxo",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "1955"
     },
     {
@@ -182,9 +182,9 @@
       "municipio": "Getafe",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "1b52"
     },
     {
@@ -199,9 +199,9 @@
       "municipio": "Terrassa",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "58cf"
     },
     {
@@ -216,9 +216,9 @@
       "municipio": "Écija",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "e406"
     },
     {
@@ -233,9 +233,9 @@
       "municipio": "Gandía",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "ba17"
     },
     {
@@ -250,9 +250,9 @@
       "municipio": "Marbella",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "b1f4"
     },
     {
@@ -267,9 +267,9 @@
       "municipio": "Móstoles",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "76d6"
     },
     {
@@ -284,9 +284,9 @@
       "municipio": "Sabadell",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "66fd"
     },
     {
@@ -301,9 +301,9 @@
       "municipio": "Dos Hermanas",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "4d3e"
     },
     {
@@ -318,9 +318,9 @@
       "municipio": "Xàtiva",
       "historico": false,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "bacd"
     },
     {
@@ -335,9 +335,9 @@
       "municipio": "Antequera",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "9115"
     },
     {
@@ -352,9 +352,9 @@
       "municipio": "Ejea de los Caballeros",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "82f2"
     },
     {
@@ -369,9 +369,9 @@
       "fechaAlta": "2025-10-02",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "971c"
     },
     {
@@ -386,9 +386,9 @@
       "fechaAlta": "2025-02-10",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "9afd"
     },
     {
@@ -403,9 +403,9 @@
       "fechaAlta": "2025-10-03",
       "historico": false,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "c9ee"
     },
     {
@@ -420,9 +420,9 @@
       "fechaAlta": "2025-10-03",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "ec7e"
     },
     {
@@ -437,9 +437,9 @@
       "fechaAlta": "2025-10-09",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "a1b9"
     },
     {
@@ -454,9 +454,9 @@
       "fechaAlta": "2025-10-08",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "68a1"
     },
     {
@@ -471,9 +471,9 @@
       "fechaAlta": "2025-10-16",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "b38d"
     },
     {
@@ -488,9 +488,9 @@
       "fechaAlta": "2025-10-01",
       "historico": true,
       "lopd": false,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "a7be"
     },
     {
@@ -505,9 +505,9 @@
       "fechaAlta": "2025-10-01",
       "historico": true,
       "lopd": true,
-      "password": "",
-      "tipo": "user",
       "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "",
       "id": "a66b"
     }
   ],
