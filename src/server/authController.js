@@ -26,6 +26,7 @@ export const login = async (req, res) => {
             apellido: user.apellido,
             tipo: user.tipo || 'user'
         });
+        
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error interno del servidor' });
