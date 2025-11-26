@@ -6,7 +6,7 @@ export const login = async (req, res) => {
     const { dni, password } = req.body;
 
     try {
-        const response = await axios.get(`https://localhost:3000/clientes?dni=${dni}`);
+        const response = await axios.get(`http://localhost:3000/clientes?dni=${dni}`);
         const user = response.data[0];
 
         if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
@@ -26,7 +26,7 @@ export const login = async (req, res) => {
             apellido: user.apellido,
             tipo: user.tipo || 'user'
         });
-        
+
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Error interno del servidor' });
