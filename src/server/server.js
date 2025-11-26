@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import articulosRoutes from "./articulosRoutes.js"; // ruta al router backend
-import authRoutes from './authRoutes.js';
+import authRoutes from './authRouter.js';
 
 dotenv.config();
 
