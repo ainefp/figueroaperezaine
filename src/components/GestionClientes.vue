@@ -361,8 +361,6 @@
       const admin = localStorage.getItem('isAdmin') === 'true';
       const usuario = localStorage.getItem('isUsuario') === 'true';
 
-      localStorage.setItem('isAdmin', true);
-
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
         cargarClientes();

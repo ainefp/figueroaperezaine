@@ -30,7 +30,7 @@
       "historico": true,
       "lopd": true,
       "tipoCliente": "particular",
-      "tipo": "user",
+      "tipo": "admin",
       "password": "$2b$10$RiGDkK15Jv1F79iJYeuI6eUw2HP9hYSEqfLb70p0jNjUJ1fUmP4HC",
       "id": "a079"
     },
