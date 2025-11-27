@@ -363,7 +363,9 @@
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
-        cargarClientes();
+        if(admin) {
+          cargarClientes();
+        }
         currentPage.value = 1;
       })
 

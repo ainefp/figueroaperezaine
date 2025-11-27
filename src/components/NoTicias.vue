@@ -38,7 +38,7 @@
                                         <a href="#" @click.prevent="toggleExpand(noticia.id)" class="text-decoration-none me-3">
                                             {{ isExpanded[noticia.id] ? "Mostrar menos..." : "Seguir leyendo..." }}
                                         </a>
-                                        <button class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
+                                        <button v-if="admin" class="btn btn-outline-secondary btn-sm" @click.prevent="eliminarNoticia(noticia.id)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
