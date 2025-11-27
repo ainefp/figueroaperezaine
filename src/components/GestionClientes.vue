@@ -3,7 +3,7 @@
     <h4 class="text-center my-1 mb-4 bg-primary-subtle py-1">Gestión de Clientes</h4>
     
     <!-- Formulario -->
-    <form @submit.prevent="guardarCliente" class="mb-4">
+    <form @submit.prevent="guardarCliente" class="">
     
       <!-- DNI y Fecha de Alta -->
       <div id="dniFecha" class="mb-3 row align-items-center">
@@ -255,7 +255,7 @@
 
     <!-- Lista de Clientes -->
     <div v-if="admin" class="">
-      <div class="table-responsive">
+      <div class="table-responsive my-5">
         <h4 class="text-center">Listado Clientes</h4>
         <table class="table table-bordered table-striped table-hover table-sm align-middle"> <!--  w-100  -->
           <thead class="table-primary">

@@ -1,20 +1,22 @@
 <template>
-    <h4 class="text-center my-1 bg-primary-subtle py-1">Publicar Noticia</h4>
-    <div class="border rounded-3 shadow-sm p-4 mb-5">
-        <form @submit.prevent="agregarNoticia">
-            <label for="title" class="col-sm-2 col-form-label">Título:</label>
-            <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />
-            <label for="desc" class="col-sm-2 col-form-label">Descripción:</label>
-            <textarea class="form-control" id="desc" rows="4" v-model="nuevoContenido"></textarea>
-            <div class="text-center mt-3">
-                <button type="submit" class="btn btn-primary">Publicar</button>
-            </div>
-        </form>
+    <div v-if="admin" class="">
+        <h4 class="text-center my-1 bg-primary-subtle py-1">Publicar Noticia</h4>
+        <div class="border rounded-3 shadow-sm p-4 mb-5">
+            <form @submit.prevent="agregarNoticia">
+                <label for="title" class="col-sm-2 col-form-label">Título:</label>
+                <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />
+                <label for="desc" class="col-sm-2 col-form-label">Descripción:</label>
+                <textarea class="form-control" id="desc" rows="4" v-model="nuevoContenido"></textarea>
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-primary">Publicar</button>
+                </div>
+            </form>
+        </div>
     </div>
     <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
     <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
 
-    <h4 class="text-center bg-primary-subtle py-1">Noticias</h4>
+    <h4 class="text-center bg-primary-subtle py-1 my-1">Noticias</h4>
     <!-- Tabla sin bordes -->
     <table class="table table-borderless mt-3">
         <tbody>
@@ -60,6 +62,8 @@
         const isExpanded = reactive({});
         const nuevoTitulo = ref("");
         const nuevoContenido = ref("");
+
+        const admin = localStorage.getItem('isAdmin') === 'true';
 
     // Cargar noticias al montar el componente
         onMounted(async () => {
