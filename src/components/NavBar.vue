@@ -66,21 +66,21 @@
   const isUsuario = ref(false)
   const userName = ref('')
 
-  // Cando o componente se monta, le localStorage (para cando montes a autenticación)
+  // Cando o componente se monta, le sesionStorage (para cando montes a autenticación)
   onMounted(() => {
-    isLogueado.value = localStorage.getItem('isLogueado') === 'true'
-    isAdmin.value = localStorage.getItem('isAdmin') === 'true'
-    isUsuario.value = localStorage.getItem('isUsuario') === 'true'
-    userName.value = localStorage.getItem('userName') || ''
+    isLogueado.value = sesionStorage.getItem('isLogueado') === 'true'
+    isAdmin.value = sesionStorage.getItem('isAdmin') === 'true'
+    isUsuario.value = sesionStorage.getItem('isUsuario') === 'true'
+    userName.value = sesionStorage.getItem('userName') || ''
   })
 
   // Logout
   function logout() {
-    // Borra datos de sesión do localStorage
-    localStorage.removeItem('isLogueado')
-    localStorage.removeItem('userName')
-    localStorage.removeItem('isAdmin')
-    localStorage.removeItem('isUsuario')
+    // Borra datos de sesión do sesionStorage
+    sesionStorage.removeItem('isLogueado')
+    sesionStorage.removeItem('userName')
+    sesionStorage.removeItem('isAdmin')
+    sesionStorage.removeItem('isUsuario')
 
     // Actualiza estado
     isLogueado.value = false
