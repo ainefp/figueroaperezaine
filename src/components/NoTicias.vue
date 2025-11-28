@@ -63,7 +63,7 @@
         const nuevoTitulo = ref("");
         const nuevoContenido = ref("");
 
-        const admin = sesionStorage.getItem('isAdmin') === 'true';
+        const admin = sessionStorage.getItem('isAdmin') === 'true';
 
     // Cargar noticias al montar el componente
         onMounted(async () => {

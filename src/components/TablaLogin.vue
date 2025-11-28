@@ -50,15 +50,15 @@ export default {
       try {
         const data = await loginUsuario(this.dni, this.pass);
 
-        // Guardar token y datos del usuario en sesionStorage
-        sesionStorage.setItem('token', data.token);
-        sesionStorage.setItem('userName', data.nombre);
-        sesionStorage.setItem('isLogueado', 'true');
+        // Guardar token y datos del usuario en sessionStorage
+        sessionStorage.setItem('token', data.token);
+        sessionStorage.setItem('userName', data.nombre);
+        sessionStorage.setItem('isLogueado', 'true');
 
         if (data.tipo === "admin") {
-          sesionStorage.setItem('isAdmin', 'true');
+          sessionStorage.setItem('isAdmin', 'true');
         } else {
-          sesionStorage.setItem('isUsuario', 'true');
+          sessionStorage.setItem('isUsuario', 'true');
         }
 
         Swal.fire({

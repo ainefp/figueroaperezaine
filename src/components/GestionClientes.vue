@@ -358,8 +358,8 @@
       const clientesPorPage = 10;
       const cargando = ref(false);  // Estado de carga ( aún no se usa )
 
-      const admin = sesionStorage.getItem('isAdmin') === 'true';
-      const usuario = sesionStorage.getItem('isUsuario') === 'true';
+      const admin = sessionStorage.getItem('isAdmin') === 'true';
+      const usuario = sessionStorage.getItem('isUsuario') === 'true';
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
