@@ -20,6 +20,8 @@
           <input type="password" id="password" autocomplete="new-password" class="form-control" v-model="pass" required />
         </div>
 
+        <span v-if="cargando"> Cargando... </span>
+
         <div class="text-center">
           <button type="submit" class="btn btn-primary w-50">Iniciar sesión</button>
         </div>
@@ -35,6 +37,7 @@
 
 import Swal from 'sweetalert2';
 import { loginUsuario } from "@/api/authApi.js";
+import * as jwtDecode from 'jwt-decode';
 
 export default {
   name: "TablaLogin",
@@ -42,23 +45,40 @@ export default {
     return {
       dni: "",
       pass: "",
+      dniError: "",
+      passError: "",
+      cargando: false
     };
   },
-  
+
+  computed: {
+    formularioValido() {
+      return this.dni.trim().length > 0 &&
+            this.pass.trim().length >= 4 &&
+            !this.dniError &&
+            !this.passError;
+    }
+  },
+
   methods: {
     async iniciarSesion() {
       try {
-        const data = await loginUsuario(this.dni, this.pass);
+        const data = await loginUsuario(this.dni.trim(), this.pass.trim());
 
         // Guardar token y datos del usuario en sessionStorage
         sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('userName', data.nombre);
         sessionStorage.setItem('isLogueado', 'true');
 
+        const decodedToken = jwtDecode.default(data.token);
+
         if (data.tipo === "admin") {
+          sessionStorage.setItem('isUsuario', 'false');
           sessionStorage.setItem('isAdmin', 'true');
+          sessionStorage.setItem('userName', data.nombre);
         } else {
+          sessionStorage.setItem('isAdmin', 'false');
           sessionStorage.setItem('isUsuario', 'true');
+          sessionStorage.setItem('userName', data.nombre);
         }
 
         Swal.fire({
