@@ -9,10 +9,10 @@
     </div>
 
     <div class="border p-4 shadow-sm rounded w-100" style="max-width: 400px;">
-      <form @submit.prevent="iniciarSesion">
+      <form>
         <div class="mb-3">
           <label for="dni" class="form-label fw-bold">DNI:</label>
-          <input type="text" id="dni" autocomplete="off" @blur="capitalizarTexto" class="form-control text-center" v-model="dni" required />
+          <input type="text" id="dni" autocomplete="off" class="form-control text-center" v-model="dni" required />
         </div>
 
         <div class="mb-3">
@@ -23,92 +23,204 @@
         <span v-if="cargando"> Cargando... </span>
 
         <div class="text-center">
-          <button type="submit" class="btn btn-primary w-50">Iniciar sesión</button>
+          <button type="button" @click="iniciarSesion" class="btn btn-primary w-50">Iniciar sesión</button>
         </div>
       </form>
+    </div>
+    <!-- Lista de Vehiculos -->
+    <div v-if="admin" class="">
+      <div class="table-responsive my-5">
+        <h4 class="text-center">Listado Vehículos</h4>
+        <table class="table table-bordered table-striped table-hover table-sm align-middle">
+          <thead class="table-primary">
+            <tr>
+              <th class="text-center">ID</th>
+              <th class="text-center">Marca y Modelo</th>
+              <th class="text-center">Año</th>
+              <th class="text-center">Combustible</th>
+              <th class="text-center">Color</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(vehiculo, index) in vehiculosPaginados" :key="vehiculo.id || index">
+              <th scope="row" class="text-center">{{ (currentPage - 1) * vehiculosPorPage + index + 1 }}</th>
+              <td>{{ vehiculo.id }}</td>
+              <td>{{ vehiculo.marca }}, {{ vehiculo.modelo }}</td>
+              <td class="text-center">{{ vehiculo.anio }}</td>
+              <td class="text-center">{{ vehiculo.combustible }}</td>
+              <td class="text-center">{{ vehiculo.color }}</td>
+              <td class="align-middle text-center">
+                <button
+                  @click="eliminarVehiculo(vehiculo.id)"
+                  class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
+                  title="Eliminar vehículo"
+                  aria-label="Eliminar vehículo"
+                >
+                  <i class="bi bi-trash"></i>
+                </button>
+                <button
+                  @click="editarVehiculo(vehiculo.id)"
+                  class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
+                  title="Editar vehículo"
+                  aria-label="Editar vehículo"
+                >
+                  <i class="bi bi-pencil"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Navegación de página -->
+        <div class="d-flex justify-content-center my-3">
+          <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none"
+            @click="beforePagina" :disabled="currentPage <= 1">
+            <i class="bi bi-chevron-left "></i>
+          </button>
+          <span class="mx-3 align-self-center text-muted">Página {{ currentPage }}</span>
+          <button class="btn btn-outline-primary btn-sm border-1 shadow-none"
+            @click="nextPagina" :disabled="currentPage >= totalPages">
+            <i class="bi bi-chevron-right "></i>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-// DEBE QUEDAR CLARO QUE ESTA É UNHA SIMULACIÓN DE LOGIN PARA FINS DIDÁCTICOS CON JSON-SERVER
-// EN NINGÚN CASO DEBE USARSE ESTA IMPLEMENTACIÓN EN PRODUCCIÓN
-// PARA UNHA APLICACIÓN REAL, O LOGIN DEBE XESTIONARSE NO LADO DO SERVIDOR CON HTTPS Y JWT SEGURO
+  import Swal from 'sweetalert2';
+  import { loginUsuario } from "@/api/authApi.js";
+  import * as jwtDecode from 'jwt-decode';
+  import { getArticulos } from '../api/articulos';
 
-import Swal from 'sweetalert2';
-import { loginUsuario } from "@/api/authApi.js";
-import * as jwtDecode from 'jwt-decode';
+  export default {
 
-export default {
-  name: "TablaLogin",
-  data() {
-    return {
-      dni: "",
-      pass: "",
-      dniError: "",
-      passError: "",
-      cargando: false
-    };
-  },
+    name: "TablaLogin",
 
-  computed: {
-    formularioValido() {
-      return this.dni.trim().length > 0 &&
-            this.pass.trim().length >= 4 &&
-            !this.dniError &&
-            !this.passError;
-    }
-  },
-
-  methods: {
-    async iniciarSesion() {
-      try {
-        const data = await loginUsuario(this.dni.trim(), this.pass.trim());
-
-        // Guardar token y datos del usuario en sessionStorage
-        sessionStorage.setItem('token', data.token);
-        sessionStorage.setItem('isLogueado', 'true');
-
-        const decodedToken = jwtDecode.default(data.token);
-
-        if (data.tipo === "admin") {
-          sessionStorage.setItem('isUsuario', 'false');
-          sessionStorage.setItem('isAdmin', 'true');
-          sessionStorage.setItem('userName', data.nombre);
-        } else {
-          sessionStorage.setItem('isAdmin', 'false');
-          sessionStorage.setItem('isUsuario', 'true');
-          sessionStorage.setItem('userName', data.nombre);
-        }
-
-        Swal.fire({
-          title: "Bienvenido",
-          text: `Hola ${data.nombre}`,
-          icon: "success",
-          showConfirmButton: false,
-          timer: 2000
-        });
-        // Redirigir a la página de inicio y recargar con $router
-        // $router se usa para evitar problemas de historial en SPA
-        // window.location.reload() recarga la página para reflejar el estado autenticado
-        this.$router.push({ name: 'Inicio' }).then(() => window.location.reload());
-
-      } catch (error) {
-        console.error("Error en iniciarSesion:", error);
-        Swal.fire({
-          title: "Error de autenticación",
-          text: "Error usuario o contraseña. Verifica tus credenciales.",
-          icon: "error",
-          confirmButtonText: "Aceptar"
-        });
+    data() {
+      return {
+        dni: "",
+        pass: "",
+        token: "admin",
+        cargando: false,
+        admin: false,
+        vehiculos: [],
+        numVehiculos: 0,
+        currentPage: 1,
+        vehiculosPorPage: 10,
+      };
+    },
+    
+    computed: {
+      vehiculosPaginados() {
+        const start = (this.currentPage - 1) * this.vehiculosPorPage;
+        const end = start + this.vehiculosPorPage;
+        return this.vehiculos.slice(start, end);
+      },
+      totalPages() {
+        return Math.ceil(this.numVehiculos / this.vehiculosPorPage);
       }
     },
-        // Función única: capitaliza y asigna en el mismo paso
-    capitalizarTexto() {
-      this.dni = this.dni.toUpperCase().trim();
+
+    methods: {
+      async cargarVehiculos() {
+        try {
+          const data = await getArticulos();
+          this.vehiculos = data;
+          this.numVehiculos = data.length;
+          this.currentPage = 1;
+        } catch (error) {
+          console.error('Error al cargar los vehículos:', error);
+        }
+      },
+
+      async eliminarVehiculo(id) {
+        // Lógica para eliminar vehículo
+        console.log('Eliminar vehículo con ID:', id);
+      },
+
+      async editarVehiculo(id) {
+        // Lógica para editar vehículo
+        console.log('Editar vehículo con ID:', id);
+      },
+
+      async iniciarSesion() {
+        try {
+          this.cargando = true;
+          this.dni = this.dni.toUpperCase().trim();
+          this.pass = this.pass.trim();
+          if (this.dni === "" || this.pass === "") {
+            Swal.fire({
+              title: "Campos vacíos",
+              text: "Por favor, complete todos los campos.",
+              icon: "warning",
+              confirmButtonText: "Aceptar"
+            });
+            this.cargando = false;
+            return;
+          }
+
+          const data = await loginUsuario(this.dni, this.pass, this.token);
+
+          sessionStorage.setItem('token', data.token);
+          sessionStorage.setItem('isLogueado', 'true');
+
+          const decoded = jwtDecode.default(data.token);
+
+          if (decoded.tipo === "admin") {
+            sessionStorage.setItem('isAdmin', 'true');
+            sessionStorage.setItem('userName', data.nombre);
+            sessionStorage.setItem('isUser', 'false');
+            this.admin = true;
+          } else {
+            sessionStorage.setItem('isAdmin', 'false');
+            sessionStorage.setItem('userName', data.nombre);
+            sessionStorage.setItem('isUser', 'true');
+            this.admin = false;
+          }
+
+          Swal.fire({
+            title: "Bienvenido",
+            text: `Hola ${data.nombre}`,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          });
+          this.$router.push({ name: 'Inicio' }).then(() => window.location.reload());
+
+        } catch (error) {
+          console.error("Error en iniciarSesion:", error);
+          Swal.fire({
+            title: "Error de autenticación",
+            text: "Error usuario o contraseña. Verifica tus credenciales.",
+            icon: "error",
+            confirmButtonText: "Aceptar"
+          });
+        } finally {
+          this.cargando = false;
+        }
+      },
+
+      beforePagina() {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+        }
+      },
+      nextPagina() {
+        if (this.currentPage < this.totalPages) {
+          this.currentPage++;
+        }
+      }
+    },
+
+    mounted() {
+      this.cargarVehiculos();
+      this.currentPage = 1;
+      // Si quieres, puedes comprobar aquí si es admin
+      this.admin = sessionStorage.getItem('isAdmin') === 'true';
     }
-  }
-};
+  };
 </script>
 
 <style>

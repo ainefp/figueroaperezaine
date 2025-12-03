@@ -307,7 +307,7 @@
         <!-- Navegación de página -->
           <div class="d-flex justify-content-center my-3">
             <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none" 
-              @click = "beforePagina" :disabled="currentPage <= 1">
+              @click="beforePagina" :disabled="currentPage <= 1">
               <i class="bi bi-chevron-left "></i>
             </button>
             <span class="mx-3 align-self-center text-muted">Página {{ currentPage  }}</span>

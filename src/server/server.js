@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import articulosRoutes from "./articulosRoutes.js"; // ruta al router backend
-import authRoutes from './authRouter.js';
+import authRouter from './authRouter.js';
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use("/api/articulos", articulosRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/api/auth', authRouter);
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 mongoose.connect(MONGO_URI)

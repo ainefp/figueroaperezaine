@@ -2,13 +2,14 @@
 import axios from "axios";
 
 // Función que llama al backend para login usando JWT real
-export const loginUsuario = async (dni, password) => {
+export const loginUsuario = async (dni, password, tipo) => {
   try {
     const response = await axios.post("http://localhost:5000/api/auth/login", {
       dni,
-      password
+      password,
+      tipo
     });
-    return response.data; // { token, nombre, tipo }
+    return response.data;
   } catch (error) {
     console.error("Error en loginUsuario:", error);
     throw error;
