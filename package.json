@@ -25,6 +25,7 @@
     "jwt-decode": "^3.1.2",
     "mongoose": "^8.19.2",
     "multer": "^2.0.2",
+    "resend": "^6.6.0",
     "sweetalert2": "^11.26.3",
     "update": "^0.7.4",
     "vue": "^3.5.18",
