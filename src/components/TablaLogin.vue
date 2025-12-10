@@ -27,64 +27,6 @@
         </div>
       </form>
     </div>
-    <!-- Lista de Vehiculos -->
-    <div v-if="admin" class="">
-      <div class="table-responsive my-5">
-        <h4 class="text-center">Listado Vehículos</h4>
-        <table class="table table-bordered table-striped table-hover table-sm align-middle">
-          <thead class="table-primary">
-            <tr>
-              <th class="text-center">ID</th>
-              <th class="text-center">Marca y Modelo</th>
-              <th class="text-center">Año</th>
-              <th class="text-center">Combustible</th>
-              <th class="text-center">Color</th>
-              <th class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(vehiculo, index) in vehiculosPaginados" :key="vehiculo.id || index">
-              <th scope="row" class="text-center">{{ (currentPage - 1) * vehiculosPorPage + index + 1 }}</th>
-              <td>{{ vehiculo.id }}</td>
-              <td>{{ vehiculo.marca }}, {{ vehiculo.modelo }}</td>
-              <td class="text-center">{{ vehiculo.anio }}</td>
-              <td class="text-center">{{ vehiculo.combustible }}</td>
-              <td class="text-center">{{ vehiculo.color }}</td>
-              <td class="align-middle text-center">
-                <button
-                  @click="eliminarVehiculo(vehiculo.id)"
-                  class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
-                  title="Eliminar vehículo"
-                  aria-label="Eliminar vehículo"
-                >
-                  <i class="bi bi-trash"></i>
-                </button>
-                <button
-                  @click="editarVehiculo(vehiculo.id)"
-                  class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
-                  title="Editar vehículo"
-                  aria-label="Editar vehículo"
-                >
-                  <i class="bi bi-pencil"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- Navegación de página -->
-        <div class="d-flex justify-content-center my-3">
-          <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none"
-            @click="beforePagina" :disabled="currentPage <= 1">
-            <i class="bi bi-chevron-left "></i>
-          </button>
-          <span class="mx-3 align-self-center text-muted">Página {{ currentPage }}</span>
-          <button class="btn btn-outline-primary btn-sm border-1 shadow-none"
-            @click="nextPagina" :disabled="currentPage >= totalPages">
-            <i class="bi bi-chevron-right "></i>
-          </button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
