@@ -1,7 +1,7 @@
 <template>
-    <div v-if="admin" class="">
+    <div v-if="admin">
         <h4 class="text-center my-1 bg-primary-subtle py-1">Publicar Noticia</h4>
-        <div class="border rounded-3 shadow-sm p-4 mb-5">
+        <div class="container-fluid my-1 p-4 mb-5 border rounded-3 shadow-sm bg-light">
             <form @submit.prevent="agregarNoticia">
                 <label for="title" class="col-sm-2 col-form-label">Título:</label>
                 <input type="text" class="form-control" id="title" v-model="nuevoTitulo" />

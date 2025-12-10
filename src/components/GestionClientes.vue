@@ -1,6 +1,6 @@
 <template>
+  <h4 class="text-center my-1 bg-primary-subtle py-1">Gestión de Clientes</h4>
   <div class="container-fluid my-1 p-3 pb-5 border rounded-3 shadow-sm bg-light">
-    <h4 class="text-center my-1 mb-4 bg-primary-subtle py-1">Gestión de Clientes</h4>
     
     <!-- Formulario -->
     <form @submit.prevent="guardarCliente" class="">
@@ -253,9 +253,11 @@
       </div>
     </form>
 
+    <hr class="border border-1 border-secondary rounded">
+
     <!-- Lista de Clientes -->
     <div v-if="admin" class="">
-      <div class="table-responsive my-5">
+      <div class="table-responsive my-3">
         <h4 class="text-center">Listado Clientes</h4>
         <table class="table table-bordered table-striped table-hover table-sm align-middle"> <!--  w-100  -->
           <thead class="table-primary">
