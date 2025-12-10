@@ -15,91 +15,135 @@ no puede modificarlo para actuar como admin porque:
 El token está firmado con una clave secreta que solo el backend conoce.
 Si alguien modifica el token, la firma ya no coincidirá y el backend lo rechazará.
 Por eso, la seguridad real siempre reside en el backend, no en el token visible en el frontend. */
-
 import Swal from 'sweetalert2';
-import { loginUsuario } from "@/api/authApi.js";
-import * as jwtDecode from 'jwt-decode';  // Importación de la librería jwt-decode de forma antigua
-// de importación por eso el "* as" no funciona con "import jwtDecode from 'jwt-decode';"
-// npm install jwt-decode  o  npm install jwt-decode@3.1.2
+  import { loginUsuario } from "@/api/authApi.js";
+  import * as jwtDecode from 'jwt-decode';
+  import { getArticulos } from '../api/articulos';
 
-export default {
-  name: "TablaLogin",
-  data() {
-    return {
-      dni: "",
-      pass: "",
-    };
-  },
-  
-  methods: {
-    async iniciarSesion() {
-      try {
+  export default {
 
-        this.dni = this.dni.toUpperCase().trim();
-        this.pass = this.pass.trim(); 
-        if (this.dni === "" || this.pass === "") {
-          Swal.fire({
-            title: "Campos vacíos",
-            text: "Por favor, complete ambos campos.",
-            icon: "warning",
-            confirmButtonText: "Aceptar"
-          });
-          return;
+    name: "TablaLogin",
+
+    data() {
+      return {
+        dni: "",
+        pass: "",
+        token: "admin",
+        cargando: false,
+        admin: false,
+        vehiculos: [],
+        numVehiculos: 0,
+        currentPage: 1,
+        vehiculosPorPage: 10,
+      };
+    },
+    
+    computed: {
+      vehiculosPaginados() {
+        const start = (this.currentPage - 1) * this.vehiculosPorPage;
+        const end = start + this.vehiculosPorPage;
+        return this.vehiculos.slice(start, end);
+      },
+      totalPages() {
+        return Math.ceil(this.numVehiculos / this.vehiculosPorPage);
+      }
+    },
+
+    methods: {
+      async cargarVehiculos() {
+        try {
+          const data = await getArticulos();
+          this.vehiculos = data;
+          this.numVehiculos = data.length;
+          this.currentPage = 1;
+        } catch (error) {
+          console.error('Error al cargar los vehículos:', error);
         }
+      },
 
-        const data = await loginUsuario(this.dni, this.pass);
-       
-        
-        // Guardar token y datos del usuario en sessionStorage o sessionStorage
-        sessionStorage.setItem('token', data.token);
-        //sessionStorage.setItem('userName', data.nombre);
-        sessionStorage.setItem('isLogueado', 'true');
+      async eliminarVehiculo(id) {
+        // Lógica para eliminar vehículo
+        console.log('Eliminar vehículo con ID:', id);
+      },
 
-        // Decodificar el token JWT para obtener el tipo de usuario
+      async editarVehiculo(id) {
+        // Lógica para editar vehículo
+        console.log('Editar vehículo con ID:', id);
+      },
 
+      async iniciarSesion() {
+        try {
+          this.cargando = true;
+          this.dni = this.dni.toUpperCase().trim();
+          this.pass = this.pass.trim();
+          if (this.dni === "" || this.pass === "") {
+            Swal.fire({
+              title: "Campos vacíos",
+              text: "Por favor, complete todos los campos.",
+              icon: "warning",
+              confirmButtonText: "Aceptar"
+            });
+            this.cargando = false;
+            return;
+          }
 
-        const decoded = jwtDecode.default(data.token);
-        
+          const data = await loginUsuario(this.dni, this.pass, this.token);
 
-        /*
-        if (data.tipo === "admin") {
-          sessionStorage.setItem('isAdmin', 'true');
-        } else {
-          sessionStorage.setItem('isUsuario', 'true');
-        }
-        */
+          sessionStorage.setItem('token', data.token);
+          sessionStorage.setItem('isLogueado', 'true');
 
-        if (decoded.tipo === "admin") {
+          const decoded = jwtDecode.default(data.token);
+
+          if (decoded.tipo === "admin") {
             sessionStorage.setItem('isAdmin', 'true');
             sessionStorage.setItem('userName', data.nombre);
             sessionStorage.setItem('isUser', 'false');
+            this.admin = true;
           } else {
             sessionStorage.setItem('isAdmin', 'false');
             sessionStorage.setItem('userName', data.nombre);
             sessionStorage.setItem('isUser', 'true');
+            this.admin = false;
           }
 
-        Swal.fire({
-          title: "Bienvenido",
-          text: `Hola ${data.nombre}`,
-          icon: "success",
-          showConfirmButton: false,
-          timer: 3000
-        });
-        // Redirigir a la página de inicio y recargar con $router
-        // $router se usa para evitar problemas de historial en SPA
-        // window.location.reload() recarga la página para reflejar el estado autenticado
-        this.$router.push({ name: 'Inicio' }).then(() => window.location.reload());
+          Swal.fire({
+            title: "Bienvenido",
+            text: `Hola ${data.nombre}`,
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          });
+          this.$router.push({ name: 'Inicio' }).then(() => window.location.reload());
 
-      } catch (error) {
-        console.error("Error en iniciarSesion:", error);
-        Swal.fire({
-          title: "Error de autenticación",
-          text: "Error usuario o contraseña. Verifica tus credenciales.",
-          icon: "error",
-          confirmButtonText: "Aceptar"
-        });
+        } catch (error) {
+          console.error("Error en iniciarSesion:", error);
+          Swal.fire({
+            title: "Error de autenticación",
+            text: "Error usuario o contraseña. Verifica tus credenciales.",
+            icon: "error",
+            confirmButtonText: "Aceptar"
+          });
+        } finally {
+          this.cargando = false;
+        }
+      },
+
+      beforePagina() {
+        if (this.currentPage > 1) {
+          this.currentPage--;
+        }
+      },
+      nextPagina() {
+        if (this.currentPage < this.totalPages) {
+          this.currentPage++;
+        }
       }
     },
-  }
-};
+
+    mounted() {
+      this.cargarVehiculos();
+      this.currentPage = 1;
+      // Si quieres, puedes comprobar aquí si es admin
+      this.admin = sessionStorage.getItem('isAdmin') === 'true';
+    }
+  };
