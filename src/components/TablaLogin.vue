@@ -92,93 +92,59 @@
   import Swal from 'sweetalert2';
   import { loginUsuario } from "@/api/authApi.js";
   import * as jwtDecode from 'jwt-decode';
-  import { getArticulos } from '../api/articulos';
 
   export default {
-
     name: "TablaLogin",
-
     data() {
       return {
         dni: "",
         pass: "",
-        token: "admin",
-        cargando: false,
-        admin: false,
-        vehiculos: [],
-        numVehiculos: 0,
-        currentPage: 1,
-        vehiculosPorPage: 10,
       };
     },
     
-    computed: {
-      vehiculosPaginados() {
-        const start = (this.currentPage - 1) * this.vehiculosPorPage;
-        const end = start + this.vehiculosPorPage;
-        return this.vehiculos.slice(start, end);
-      },
-      totalPages() {
-        return Math.ceil(this.numVehiculos / this.vehiculosPorPage);
-      }
-    },
-
     methods: {
-      async cargarVehiculos() {
-        try {
-          const data = await getArticulos();
-          this.vehiculos = data;
-          this.numVehiculos = data.length;
-          this.currentPage = 1;
-        } catch (error) {
-          console.error('Error al cargar los vehículos:', error);
-        }
-      },
-
-      async eliminarVehiculo(id) {
-        // Lógica para eliminar vehículo
-        console.log('Eliminar vehículo con ID:', id);
-      },
-
-      async editarVehiculo(id) {
-        // Lógica para editar vehículo
-        console.log('Editar vehículo con ID:', id);
-      },
-
       async iniciarSesion() {
         try {
-          this.cargando = true;
+
           this.dni = this.dni.toUpperCase().trim();
-          this.pass = this.pass.trim();
+          this.pass = this.pass.trim(); 
           if (this.dni === "" || this.pass === "") {
             Swal.fire({
               title: "Campos vacíos",
-              text: "Por favor, complete todos los campos.",
+              text: "Por favor, complete ambos campos.",
               icon: "warning",
               confirmButtonText: "Aceptar"
             });
-            this.cargando = false;
             return;
           }
 
-          const data = await loginUsuario(this.dni, this.pass, this.token);
-
+          const data = await loginUsuario(this.dni, this.pass);
+        
+          // Guardar token y datos del usuario en sessionStorage o sessionStorage
           sessionStorage.setItem('token', data.token);
+          //sessionStorage.setItem('userName', data.nombre);
           sessionStorage.setItem('isLogueado', 'true');
 
+          // Decodificar el token JWT para obtener el tipo de usuario
           const decoded = jwtDecode.default(data.token);
+          
+          /*
+          if (data.tipo === "admin") {
+            sessionStorage.setItem('isAdmin', 'true');
+          } else {
+            sessionStorage.setItem('isUsuario', 'true');
+          }
+          */
 
           if (decoded.tipo === "admin") {
-            sessionStorage.setItem('isAdmin', 'true');
-            sessionStorage.setItem('userName', data.nombre);
-            sessionStorage.setItem('isUser', 'false');
-            this.admin = true;
-          } else {
-            sessionStorage.setItem('isAdmin', 'false');
-            sessionStorage.setItem('userName', data.nombre);
-            sessionStorage.setItem('isUser', 'true');
-            this.admin = false;
-          }
+              sessionStorage.setItem('isAdmin', 'true');
+              sessionStorage.setItem('userName', data.nombre);
+              sessionStorage.setItem('isUser', 'false');
+            } else {
+              sessionStorage.setItem('isAdmin', 'false');
+              sessionStorage.setItem('userName', data.nombre);
+              sessionStorage.setItem('isUser', 'true');
+            }
 
           Swal.fire({
             title: "Bienvenido",
@@ -187,6 +153,7 @@
             showConfirmButton: false,
             timer: 3000
           });
+          
           this.$router.push({ name: 'Inicio' }).then(() => window.location.reload());
 
         } catch (error) {
@@ -197,28 +164,8 @@
             icon: "error",
             confirmButtonText: "Aceptar"
           });
-        } finally {
-          this.cargando = false;
         }
       },
-
-      beforePagina() {
-        if (this.currentPage > 1) {
-          this.currentPage--;
-        }
-      },
-      nextPagina() {
-        if (this.currentPage < this.totalPages) {
-          this.currentPage++;
-        }
-      }
-    },
-
-    mounted() {
-      this.cargarVehiculos();
-      this.currentPage = 1;
-      // Si quieres, puedes comprobar aquí si es admin
-      this.admin = sessionStorage.getItem('isAdmin') === 'true';
     }
   };
 </script>
