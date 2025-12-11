@@ -17,7 +17,7 @@
 
         <div class="mb-3">
           <label for="password" class="form-label fw-bold">Contraseña:</label>
-          <input type="password" id="password" autocomplete="new-password" class="form-control" v-model="pass" required />
+          <input type="password" id="password" autocomplete="new-password" class="form-control" v-model="password" required />
         </div>
 
         <span v-if="cargando"> Cargando... </span>
@@ -40,7 +40,7 @@
     data() {
       return {
         dni: "",
-        pass: "",
+        password: "",
       };
     },
     
@@ -49,8 +49,8 @@
         try {
 
           this.dni = this.dni.toUpperCase().trim();
-          this.pass = this.pass.trim(); 
-          if (this.dni === "" || this.pass === "") {
+          this.password = this.password.trim(); 
+          if (this.dni === "" || this.password === "") {
             Swal.fire({
               title: "Campos vacíos",
               text: "Por favor, complete ambos campos.",
@@ -60,7 +60,7 @@
             return;
           }
 
-          const data = await loginUsuario(this.dni, this.pass);
+          const data = await loginUsuario(this.dni, this.password);
         
           // Guardar token y datos del usuario en sessionStorage o sessionStorage
           sessionStorage.setItem('token', data.token);
