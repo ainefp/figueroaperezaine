@@ -47,7 +47,7 @@
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/login">Acceso</router-link></li>
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/clientes">Registro</router-link></li>
           <!-- Mostra "Cerrar Sesión" se está logueado -->
-          <li v-if="isLogueado"><router-link class="dropdown-item" to="/clientes">Perfil</router-link></li>
+          <li v-if="isLogueado"><router-link class="dropdown-item" :to="`/clientes?movil=${userMovil}`">Perfil</router-link></li>
           <li v-if="isLogueado"><a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a></li>
         </ul>
       </div>
@@ -57,40 +57,40 @@
 </template>
 
 <script setup>
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted } from 'vue';
 
   // Estado do login
-  const isLogueado = ref(false)
-  const isAdmin = ref(false)
-  const isUsuario = ref(false)
-  const userName = ref('')
-  const userMovil = ref('')
+  const isLogueado = ref(false);
+  const isAdmin = ref(false);
+  const isUsuario = ref(false);
+  const userName = ref('');
+  const userMovil = ref('');
 
   const admin = sessionStorage.getItem('isAdmin') === 'true';
 
   // Cando o componente se monta, le sessionStorage (para cando montes a autenticación)
   onMounted(() => {
-    isLogueado.value = sessionStorage.getItem('isLogueado') === 'true'
-    isAdmin.value = sessionStorage.getItem('isAdmin') === 'true'
-    isUsuario.value = sessionStorage.getItem('isUsuario') === 'true'
-    userName.value = sessionStorage.getItem('userName') || ''
-    userMovil.value = sessionStorage.getItem('userMovil') || ''
+    isLogueado.value = sessionStorage.getItem('isLogueado') === 'true';
+    isAdmin.value = sessionStorage.getItem('isAdmin') === 'true';
+    isUsuario.value = sessionStorage.getItem('isUsuario') === 'true';
+    userName.value = sessionStorage.getItem('userName') || '';
+    userMovil.value = sessionStorage.getItem('userMovil') || '';
   })
 
   // Logout
   function logout() {
     // Borra datos de sesión do sessionStorage
-    sessionStorage.removeItem('isLogueado')
-    sessionStorage.removeItem('userName')
-    sessionStorage.removeItem('isAdmin')
-    sessionStorage.removeItem('isUsuario')
+    sessionStorage.removeItem('isLogueado');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('isAdmin');
+    sessionStorage.removeItem('isUsuario');
 
     // Actualiza estado
-    isLogueado.value = false
-    userName.value = ''
+    isLogueado.value = false;
+    userName.value = '';
 
     // Redirixe ao inicio recargando a páxina
-    window.location.href = '/'
+    window.location.href = '/';
   }
 </script>
 
