@@ -23,9 +23,9 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mx-auto">
           <li class="nav-item"><router-link to="/" class="nav-link">Inicio</router-link></li>
-          <li class="nav-item"><router-link to="/clientes" class="nav-link">Clientes</router-link></li>
-          <li class="nav-item"><router-link to="/modelos" class="nav-link">Modelos</router-link></li>
-          <li class="nav-item"><router-link to="/taller" class="nav-link"> Taller </router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/clientes" class="nav-link">Clientes</router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/modelos" class="nav-link">Modelos</router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/taller" class="nav-link"> Taller </router-link></li>
           <li class="nav-item"><router-link to="/ventas" class="nav-link">Ventas</router-link></li>
           <li class="nav-item"><router-link to="/noticias" class="nav-link">Noticias</router-link></li>
           <li class="nav-item"><router-link to="/contacto" class="nav-link">Contacto</router-link></li>
@@ -47,9 +47,8 @@
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/login">Acceso</router-link></li>
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/clientes">Registro</router-link></li>
           <!-- Mostra "Cerrar Sesión" se está logueado -->
-          <li v-if="isLogueado">
-            <a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a>
-          </li>
+          <li v-if="isLogueado"><router-link class="dropdown-item" to="/clientes">Perfil</router-link></li>
+          <li v-if="isLogueado"><a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a></li>
         </ul>
       </div>
 
@@ -65,6 +64,9 @@
   const isAdmin = ref(false)
   const isUsuario = ref(false)
   const userName = ref('')
+  const userMovil = ref('')
+
+  const admin = sessionStorage.getItem('isAdmin') === 'true';
 
   // Cando o componente se monta, le sessionStorage (para cando montes a autenticación)
   onMounted(() => {
@@ -72,6 +74,7 @@
     isAdmin.value = sessionStorage.getItem('isAdmin') === 'true'
     isUsuario.value = sessionStorage.getItem('isUsuario') === 'true'
     userName.value = sessionStorage.getItem('userName') || ''
+    userMovil.value = sessionStorage.getItem('userMovil') || ''
   })
 
   // Logout

@@ -1,5 +1,7 @@
 <template>
-  <h4 class="text-center my-1 bg-primary-subtle py-1">Gestión de Clientes</h4>
+  <h4 v-if="admin" class="text-center my-1 bg-primary-subtle py-1">Gestión de Clientes</h4>
+  <h4 v-if="usuario" class="text-center my-1 bg-primary-subtle py-1">Gestionar Perfil</h4>
+  <h4 v-if="!logueado" class="text-center my-1 bg-primary-subtle py-1">Registro</h4>
   <div class="container-fluid my-1 p-3 p-4 border rounded-3 shadow-sm bg-light">
     
     <!-- Formulario -->
@@ -239,7 +241,7 @@
       </div>
 
       <!-- Histórico -->
-      <div id="historico" class="d-flex justify-content-end">
+      <div v-if="admin" id="historico" class="d-flex justify-content-end">
         <div id="historicoSwitch" class="form-check form-switch">
           <input
             type="checkbox"
@@ -361,7 +363,9 @@
       const cargando = ref(false);  // Estado de carga ( aún no se usa )
 
       const admin = sessionStorage.getItem('isAdmin') === 'true';
-      const usuario = sessionStorage.getItem('isUsuario') === 'true';
+      const usuario = sessionStorage.getItem('isUser') === 'true';
+      const logueado = sessionStorage.getItem('isLogueado') === 'true';
+      const userMovil = ref('');
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
@@ -369,6 +373,7 @@
           cargarClientes();
         }
         currentPage.value = 1;
+        userMovil.value = sessionStorage.getItem('userMovil') || '';
       })
 
       const cargarClientes = () => {

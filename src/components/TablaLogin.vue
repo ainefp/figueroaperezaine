@@ -64,28 +64,21 @@
         
           // Guardar token y datos del usuario en sessionStorage o sessionStorage
           sessionStorage.setItem('token', data.token);
-          //sessionStorage.setItem('userName', data.nombre);
           sessionStorage.setItem('isLogueado', 'true');
 
           // Decodificar el token JWT para obtener el tipo de usuario
           const decoded = jwtDecode.default(data.token);
-          
-          /*
-          if (data.tipo === "admin") {
-            sessionStorage.setItem('isAdmin', 'true');
-          } else {
-            sessionStorage.setItem('isUsuario', 'true');
-          }
-          */
 
           if (decoded.tipo === "admin") {
               sessionStorage.setItem('isAdmin', 'true');
-              sessionStorage.setItem('userName', data.nombre);
               sessionStorage.setItem('isUser', 'false');
+              sessionStorage.setItem('userName', data.nombre);
+              sessionStorage.setItem('userMovil', data.movil);
             } else {
               sessionStorage.setItem('isAdmin', 'false');
-              sessionStorage.setItem('userName', data.nombre);
               sessionStorage.setItem('isUser', 'true');
+              sessionStorage.setItem('userName', data.nombre);
+              sessionStorage.setItem('userMovil', data.movil);
             }
 
           Swal.fire({
