@@ -51,7 +51,6 @@
           <li v-if="isLogueado"><a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a></li>
         </ul>
       </div>
-
     </div>
   </nav>
 </template>
@@ -62,7 +61,7 @@
   // Estado do login
   const isLogueado = ref(false);
   const isAdmin = ref(false);
-  const isUsuario = ref(false);
+  const isUser = ref(false);
   const userName = ref('');
   const userMovil = ref('');
 
@@ -72,7 +71,7 @@
   onMounted(() => {
     isLogueado.value = sessionStorage.getItem('isLogueado') === 'true';
     isAdmin.value = sessionStorage.getItem('isAdmin') === 'true';
-    isUsuario.value = sessionStorage.getItem('isUsuario') === 'true';
+    isUser.value = sessionStorage.getItem('isUser') === 'true';
     userName.value = sessionStorage.getItem('userName') || '';
     userMovil.value = sessionStorage.getItem('userMovil') || '';
   })
@@ -83,7 +82,8 @@
     sessionStorage.removeItem('isLogueado');
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('isAdmin');
-    sessionStorage.removeItem('isUsuario');
+    sessionStorage.removeItem('isUser');
+    sessionStorage.removeItem('userMovil');
 
     // Actualiza estado
     isLogueado.value = false;

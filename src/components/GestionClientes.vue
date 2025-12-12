@@ -332,6 +332,7 @@
   import { getClientes, getClientePorDni, addCliente, updateCliente, deleteCliente } from '@/api/clientes.js';
   import Swal from 'sweetalert2';
   import bcrypt from 'bcryptjs';
+  import { useRoute } from 'vue-router';
 
   // ============ SCRIPTS CRUD (consultar, agregar, eliminar, modificar) ============
 
@@ -366,6 +367,9 @@
       const usuario = sessionStorage.getItem('isUser') === 'true';
       const logueado = sessionStorage.getItem('isLogueado') === 'true';
       const userMovil = ref('');
+
+      const route = useRoute();
+      const movilQuery = route.query.movil || '';
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {

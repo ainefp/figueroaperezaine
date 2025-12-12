@@ -93,7 +93,7 @@ import { ref, onMounted } from "vue";
 // Estado do login
 const isLogueado = ref(false);
 const userName = ref("");
-const isUsuario = ref(false);
+const isUser = ref(false);
 const isAdmin = ref(false);
 
 // Cando o componente se monta, lee sessionStorage (para cando montes a autenticación)
@@ -101,7 +101,7 @@ onMounted(() => {
   isLogueado.value = sessionStorage.getItem("isLogueado") === "true";
   userName.value = sessionStorage.getItem("userName") || "";
   isAdmin.value = sessionStorage.getItem("isAdmin") === "true";
-  isUsuario.value = sessionStorage.getItem("isUsuario") === "true";
+  isUser.value = sessionStorage.getItem("isUser") === "true";
 });
 
 // Logout
@@ -110,7 +110,7 @@ function logout() {
   sessionStorage.removeItem("isLogueado");
   sessionStorage.removeItem("userName");
   sessionStorage.removeItem("isAdmin");
-  sessionStorage.removeItem("isUsuario");
+  sessionStorage.removeItem("isUser");
   sessionStorage.removeItem("token");
 
   // Actualiza estado
