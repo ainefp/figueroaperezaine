@@ -16,7 +16,7 @@
     <!-- rounded=esquinas-redondas; shadow=sombreado; bg=background-color -->
     <!-- p=padding; py=padding-top; pb=padding-bottom; pe=padding-derecho; ps=padding-izquierdo; px=izq-der -->
 
-    <h4 class="text-center bg-primary-subtle py-1 my-1">Noticias</h4>
+    <h4 class="text-center my-1 bg-primary-subtle py-1">Noticias</h4>
     <!-- Tabla sin bordes -->
     <table class="table table-borderless mt-3">
         <tbody>
