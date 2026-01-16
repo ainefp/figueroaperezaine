@@ -32,6 +32,22 @@
         </ul>
       </div>
 
+      <div>
+        <form class="d-flex ms-auto me-2" role="search" @submit.prevent="buscar">
+          <input
+            class="form-control form-control-sm me-1 rounded-1"
+            type="search"
+            placeholder="Buscar..."
+            aria-label="Buscar"
+            v-model="query"
+            style="width: 140px;"
+          />
+          <button class="btn btn-light btn-sm rounded-1" type="submit">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+
       <!-- Dropdown de acceso/registro -->
       <div class="dropdown dropdown-collapse ms-5 me-5">
         <button
@@ -57,6 +73,10 @@
 
 <script setup>
   import { ref, onMounted } from 'vue';
+  import { useRouter } from 'vue-router';
+
+  const router = useRouter();
+  const query = ref('');
 
   // Estado do login
   const isLogueado = ref(false);
@@ -66,6 +86,17 @@
   const userMovil = ref('');
 
   const admin = sessionStorage.getItem('isAdmin') === 'true';
+
+  function buscar() {
+    if (!query.value.trim()) return;
+
+    router.push({
+      name: 'BusCar',
+      query: { q: query.value.trim() }
+    })
+
+    query.value = '';
+  }
 
   // Cando o componente se monta, le sessionStorage (para cando montes a autenticación)
   onMounted(() => {

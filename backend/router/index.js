@@ -9,6 +9,7 @@ import CitasTaller from '../../src/components/CitasTaller.vue';
 import TablaLogin from '../../src/components/TablaLogin.vue';
 import VenTas from '../../src/components/VenTas.vue';
 import ConTacto from '../../src/components/ConTacto.vue';
+import BusCar from '../../src/components/BusCar.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -56,6 +57,10 @@ const routes = [
         path: '/contacto',
         name: 'ConTacto',
         component: ConTacto
+    }, {
+        path: '/buscar',
+        name: 'BusCar',
+        component: BusCar
     }
 ]
 
