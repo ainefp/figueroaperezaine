@@ -53,7 +53,7 @@
 
 <script setup>
     import { ref, reactive, onMounted } from "vue";
-    import { getNoticias, addNoticia, deleteNoticia } from "../api/noticias";
+    import { getNoticias, addNoticia, deleteNoticia } from "@/api/noticias";
     
     // ============ SCRIPTS CRUD ============
 

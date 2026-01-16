@@ -1,10 +1,10 @@
 // authApi.js
-import axios from "axios";
+import axios from 'axios';
 
 // Función que llama al backend para login usando JWT real
 export const loginUsuario = async (dni, password, tipo) => {
   try {
-    const response = await axios.post("http://localhost:5000/api/auth/login", {
+    const response = await axios.post('http://localhost:5000/api/auth/login', {
       dni,
       password,
       tipo

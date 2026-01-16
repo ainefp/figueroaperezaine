@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_URL = "http://localhost:5000/api/articulos";
+const API_URL = 'http://localhost:5000/api/articulos';
 
 // Obtener todos los artículos
 export async function getArticulos() {

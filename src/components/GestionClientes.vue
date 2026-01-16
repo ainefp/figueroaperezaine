@@ -328,7 +328,7 @@
 
 <script setup>
   import { ref, onMounted, computed } from 'vue';
-  import provmuniData from '@/data/provmuni.json';
+  import provmuniData from '../../backend/data/provmuni.json';
   import { getClientes, getClientePorDni, addCliente, updateCliente, deleteCliente } from '@/api/clientes.js';
   import Swal from 'sweetalert2';
   import bcrypt from 'bcryptjs';
@@ -370,6 +370,7 @@
 
       const route = useRoute();
       const movilQuery = route.query.movil || '';
+
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {

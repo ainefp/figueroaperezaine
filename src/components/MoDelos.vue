@@ -263,8 +263,7 @@
 
 <script setup>
   // ================== IMPORTS ==================
-
-    import provmuniData from '@/data/provmuni.json';  
+ 
     import Swal from "sweetalert2"
     import { ref, computed, onMounted } from "vue"
     import { addArticulo } from "@/api/articulos.js"

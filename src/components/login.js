@@ -18,7 +18,7 @@ Por eso, la seguridad real siempre reside en el backend, no en el token visible 
 import Swal from 'sweetalert2';
   import { loginUsuario } from "@/api/authApi.js";
   import * as jwtDecode from 'jwt-decode';
-  import { getArticulos } from '../api/articulos';
+  import { getArticulos } from '@/api/articulos';
 
   export default {
 
