@@ -1,0 +1,5 @@
+user busca = no salen cosas de admin (clientes)
+
+
+nuevoCliente.value.password = '';  // No mostrar contraseña por seguridad
+nuevoCliente.value.passwordRepeat = '';
