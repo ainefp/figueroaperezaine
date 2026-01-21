@@ -190,7 +190,8 @@
             id="password"
             class="form-control flex-grow-1"
             v-model="nuevoCliente.password"
-            required
+            :disabled="editando"
+            :required="!editando"
           />
         </div>
         <!-- Repetir contraseña -->
@@ -201,7 +202,8 @@
             id="repetirPwd"
             class="form-control flex-grow-1"
             v-model="nuevoCliente.passwordRepeat"
-            required
+            :disabled="editando"
+            :required="!editando"
           />
         </div>
       </div>
@@ -372,7 +374,6 @@
       const route = useRoute();
       const movilQuery = route.query.movil || '';
 
-
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
         userMovil.value = sessionStorage.getItem('userMovil') || '';
@@ -385,6 +386,8 @@
               const cliente = response.data[0];
               nuevoCliente.value = { ...cliente };
               nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
+              nuevoCliente.value.password = '';  // No mostrar contraseña por seguridad
+              nuevoCliente.value.passwordRepeat = '';
               filtrarMunicipios();
               nuevoCliente.value.municipio = cliente.municipio;
               editando.value = true;
@@ -408,6 +411,8 @@
               const cliente = response.data[0];
               nuevoCliente.value = { ...cliente };
               nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
+              nuevoCliente.value.password = '';  // No mostrar contraseña por seguridad
+              nuevoCliente.value.passwordRepeat = '';
               filtrarMunicipios();
               nuevoCliente.value.municipio = cliente.municipio;
               editando.value = true;
@@ -503,8 +508,20 @@
           return;
         }
 
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(nuevoCliente.value.password, salt);
+
+        // Solo si el usuario escribió una contraseña nueva
+        if (nuevoCliente.value.password && nuevoCliente.value.password.trim() !== "") {
+            const salt = bcrypt.genSaltSync(10);
+            const hash = bcrypt.hashSync(nuevoCliente.value.password, salt);
+            nuevoCliente.value.password = hash;
+        } else {
+            // No enviar contraseña al backend
+            delete nuevoCliente.value.password;
+        }
+
+        // Nunca enviar passwordRepeat
+        delete nuevoCliente.value.passwordRepeat;
+
         
         if (!editando.value) {
           const duplicado = clientes.value.find(cliente =>
@@ -533,9 +550,7 @@
         });
         
         if (!result.isConfirmed) return;
-        nuevoCliente.value.password = hash;
-        delete nuevoCliente.value.passwordRepeat;
-
+        
         
         //  cliente.fecha_alta = formatearFechaParaInput(cliente.fecha_alta);
         try {
