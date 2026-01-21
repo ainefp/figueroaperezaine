@@ -377,8 +377,8 @@
       onMounted(async () => {
         userMovil.value = sessionStorage.getItem('userMovil') || '';
         
-        // Si es admin y viene móvil en query, cargar su perfil
-        if (admin && movilQuery) {
+        // Si viene móvil en query (tanto admin como usuario), cargar su perfil
+        if (movilQuery) {
           try {
             const response = await axios.get(`http://localhost:3000/clientes?movil=${movilQuery}`);
             if (response.data && response.data.length > 0) {
@@ -391,7 +391,7 @@
               clienteEditandoId.value = cliente.id;
             }
           } catch (error) {
-            console.error('Error buscando perfil admin:', error);
+            console.error('Error buscando perfil:', error);
           }
         } else if (admin) {
           cargarClientes();
@@ -399,9 +399,9 @@
         currentPage.value = 1;
       })
 
-      // Watch para detectar cambios en la query (cuando se accede al perfil desde dentro de clientes)
+      // Watch para detectar cambios en la query
       watch(() => route.query.movil, async (newMovil) => {
-        if (admin && newMovil) {
+        if (newMovil) {
           try {
             const response = await axios.get(`http://localhost:3000/clientes?movil=${newMovil}`);
             if (response.data && response.data.length > 0) {
@@ -414,10 +414,10 @@
               clienteEditandoId.value = cliente.id;
             }
           } catch (error) {
-            console.error('Error buscando perfil admin en watch:', error);
+            console.error('Error buscando perfil en watch:', error);
           }
         } else if (admin && !newMovil) {
-          // Si no hay movil en la query, limpiar el formulario y cargar lista de clientes
+          // Si no hay movil en la query y es admin, limpiar el formulario y cargar lista de clientes
           recargarForm();
           cargarClientes();
         }
