@@ -327,12 +327,13 @@
 
 
 <script setup>
-  import { ref, onMounted, computed } from 'vue';
+  import { ref, onMounted, computed, watch } from 'vue';
   import provmuniData from '../../backend/data/provmuni.json';
   import { getClientes, getClientePorDni, addCliente, updateCliente, deleteCliente } from '@/api/clientes.js';
   import Swal from 'sweetalert2';
   import bcrypt from 'bcryptjs';
   import { useRoute } from 'vue-router';
+  import axios from 'axios';
 
   // ============ SCRIPTS CRUD (consultar, agregar, eliminar, modificar) ============
 
@@ -374,12 +375,53 @@
 
     // Cargar clientes al momento de compartirlo
       onMounted(async () => {
-        if(admin) {
+        userMovil.value = sessionStorage.getItem('userMovil') || '';
+        
+        // Si es admin y viene móvil en query, cargar su perfil
+        if (admin && movilQuery) {
+          try {
+            const response = await axios.get(`http://localhost:3000/clientes?movil=${movilQuery}`);
+            if (response.data && response.data.length > 0) {
+              const cliente = response.data[0];
+              nuevoCliente.value = { ...cliente };
+              nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
+              filtrarMunicipios();
+              nuevoCliente.value.municipio = cliente.municipio;
+              editando.value = true;
+              clienteEditandoId.value = cliente.id;
+            }
+          } catch (error) {
+            console.error('Error buscando perfil admin:', error);
+          }
+        } else if (admin) {
           cargarClientes();
         }
         currentPage.value = 1;
-        userMovil.value = sessionStorage.getItem('userMovil') || '';
       })
+
+      // Watch para detectar cambios en la query (cuando se accede al perfil desde dentro de clientes)
+      watch(() => route.query.movil, async (newMovil) => {
+        if (admin && newMovil) {
+          try {
+            const response = await axios.get(`http://localhost:3000/clientes?movil=${newMovil}`);
+            if (response.data && response.data.length > 0) {
+              const cliente = response.data[0];
+              nuevoCliente.value = { ...cliente };
+              nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
+              filtrarMunicipios();
+              nuevoCliente.value.municipio = cliente.municipio;
+              editando.value = true;
+              clienteEditandoId.value = cliente.id;
+            }
+          } catch (error) {
+            console.error('Error buscando perfil admin en watch:', error);
+          }
+        } else if (admin && !newMovil) {
+          // Si no hay movil en la query, limpiar el formulario y cargar lista de clientes
+          recargarForm();
+          cargarClientes();
+        }
+      });
 
       const cargarClientes = () => {
         getClientes(mostrarHistorico.value).then(data => {

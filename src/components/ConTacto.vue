@@ -12,7 +12,7 @@
   </form>
   </div>
   <div class="text-center my-5">
-    <iframe width="300" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=300&amp;height=200&amp;hl=es&amp;q=Avenida%20de%20Galicia,%20101,%20Teis,%2036216%20Vigo,%20Pontevedra+(TEIS)&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.mapsdirections.info/calcular-la-poblacion-en-un-mapa/">Mapa</a></iframe>
+    <iframe width="300" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=300&amp;height=200&amp;hl=es&amp;q=Avenida%20de%20Galicia,%20101,%20Teis,%2036216%20Vigo,%20Pontevedra+(TEIS)&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"></iframe>
   </div>
 </template>
 <script setup>

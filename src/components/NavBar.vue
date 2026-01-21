@@ -63,7 +63,7 @@
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/login">Acceso</router-link></li>
           <li v-if="!isLogueado"><router-link class="dropdown-item" to="/clientes">Registro</router-link></li>
           <!-- Mostra "Cerrar Sesión" se está logueado -->
-          <li v-if="isLogueado"><router-link class="dropdown-item" :to="`/clientes?movil=${userMovil}`">Perfil</router-link></li>
+          <li v-if="isLogueado"><router-link class="dropdown-item" :to="`/perfil?movil=${userMovil}`">Perfil</router-link></li>
           <li v-if="isLogueado"><a class="dropdown-item" href="#" @click.prevent="logout">Cerrar Sesión</a></li>
         </ul>
       </div>

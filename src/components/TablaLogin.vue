@@ -33,6 +33,7 @@
 <script>
   import Swal from 'sweetalert2';
   import { loginUsuario } from "@/api/authApi.js";
+  import { getClientePorDni } from "@/api/clientes.js";
   import * as jwtDecode from 'jwt-decode';
 
   export default {
@@ -60,25 +61,29 @@
             return;
           }
 
-          const data = await loginUsuario(this.dni, this.password);
+          const data = await loginUsuario(this.dni, this.password, 'user');
         
-          // Guardar token y datos del usuario en sessionStorage o sessionStorage
+          // Guardar token y datos del usuario en sessionStorage
           sessionStorage.setItem('token', data.token);
           sessionStorage.setItem('isLogueado', 'true');
 
           // Decodificar el token JWT para obtener el tipo de usuario
           const decoded = jwtDecode.default(data.token);
 
+          // Buscar el cliente para obtener su móvil
+          const cliente = await getClientePorDni(this.dni);
+          const userMovil = cliente ? cliente.movil : '';
+
           if (decoded.tipo === "admin") {
               sessionStorage.setItem('isAdmin', 'true');
               sessionStorage.setItem('isUser', 'false');
               sessionStorage.setItem('userName', data.nombre);
-              sessionStorage.setItem('userMovil', data.movil);
+              sessionStorage.setItem('userMovil', userMovil);
             } else {
               sessionStorage.setItem('isAdmin', 'false');
               sessionStorage.setItem('isUser', 'true');
               sessionStorage.setItem('userName', data.nombre);
-              sessionStorage.setItem('userMovil', data.movil);
+              sessionStorage.setItem('userMovil', userMovil);
             }
 
           Swal.fire({

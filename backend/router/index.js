@@ -22,6 +22,10 @@ const routes = [
         name: 'GestionClientes',
         component: GestionClientes
     }, {
+        path: '/perfil',
+        name: 'Perfil',
+        component: GestionClientes
+    }, {
         path: '/noticias',
         name: 'NoTicias',
         component: NoTicias
