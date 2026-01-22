@@ -359,6 +359,7 @@
 
       const editando = ref(false);  // Estado de edición para el formulario
       const clienteEditandoId = ref(null);
+      const originalPasswordHash = ref(null);
       const mostrarHistorico = ref(false);
       const clientes = ref([]);  // Aray de clientes cargados desde la API
       const numclientes = ref(0);  // Número de clientes para paginación
@@ -384,6 +385,7 @@
             const response = await axios.get(`http://localhost:3000/clientes?movil=${movilQuery}`);
             if (response.data && response.data.length > 0) {
               const cliente = response.data[0];
+              originalPasswordHash.value = cliente.password;
               nuevoCliente.value = { ...cliente };
               nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
               nuevoCliente.value.password = '';  // No mostrar contraseña por seguridad
@@ -409,6 +411,7 @@
             const response = await axios.get(`http://localhost:3000/clientes?movil=${newMovil}`);
             if (response.data && response.data.length > 0) {
               const cliente = response.data[0];
+              originalPasswordHash.value = cliente.password;
               nuevoCliente.value = { ...cliente };
               nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
               nuevoCliente.value.password = '';  // No mostrar contraseña por seguridad
@@ -468,6 +471,7 @@
             return;
           }
 
+          originalPasswordHash.value = cliente.password;
           nuevoCliente.value = { ...cliente };
           nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
 
@@ -509,14 +513,33 @@
         }
 
 
-        // Solo si el usuario escribió una contraseña nueva
-        if (nuevoCliente.value.password && nuevoCliente.value.password.trim() !== "") {
-            const salt = bcrypt.genSaltSync(10);
-            const hash = bcrypt.hashSync(nuevoCliente.value.password, salt);
-            nuevoCliente.value.password = hash;
-        } else {
-            // No enviar contraseña al backend
+        // Manejo de la contraseña:
+        // - Si se introduce una nueva contraseña en claro, la hasheamos.
+        // - Si estamos editando y NO se introduce nueva contraseña, preservamos
+        //   la contraseña original (`originalPasswordHash`).
+        // - Evitar volver a hashear si el campo contiene ya un hash.
+        const pwdRaw = (nuevoCliente.value.password || '').toString();
+        const looksLikeHash = /^\$2[aby]\$\d{2}\$/.test(pwdRaw);
+
+        if (pwdRaw.trim() !== '' && !looksLikeHash) {
+          // Nuevo password en claro -> hashear
+          const salt = bcrypt.genSaltSync(10);
+          const hash = bcrypt.hashSync(pwdRaw, salt);
+          nuevoCliente.value.password = hash;
+          console.log('Hasheando nueva contraseña para enviar');
+        } else if (editando.value && pwdRaw.trim() === '') {
+          // No se introdujo nueva contraseña -> preservar la original si existe
+          if (originalPasswordHash.value && originalPasswordHash.value.length > 0) {
+            nuevoCliente.value.password = originalPasswordHash.value;
+            console.log('Preservando contraseña original (hash length:', (originalPasswordHash.value || '').length, ')');
+          } else {
+            // No hay hash original: no enviar campo password
             delete nuevoCliente.value.password;
+            console.log('No existe hash original; no se envía campo password');
+          }
+        } else if (!editando.value && pwdRaw.trim() === '') {
+          // Nuevo cliente sin contraseña -> no enviar
+          delete nuevoCliente.value.password;
         }
 
         // Nunca enviar passwordRepeat
@@ -656,8 +679,11 @@
           return;
         }
 
-        // Copiar datos al formulario
+        // Guardar hash original y copiar datos al formulario (limpiando password visible)
+        originalPasswordHash.value = cliente.password;
         nuevoCliente.value = { ...cliente };
+        nuevoCliente.value.password = '';
+        nuevoCliente.value.passwordRepeat = '';
         editando.value = true;
         nuevoCliente.value.fechaAlta = formatearFechaParaInput(cliente.fechaAlta);
 
