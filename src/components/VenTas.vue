@@ -25,6 +25,9 @@
 
                     <div class="card-footer text-end bg-white">
                         <span :class="['badge', pintarEstado(car.estado)]">{{ capitalizar(car.estado) }}</span>
+                        <button class="btn badge btn-sm btn-success ms-2" @click.stop="agregarACesta(car)">
+                            <i class="bi bi-cart3 me-1"></i> Añadir a Cesta
+                        </button>
                     </div>
                 </div>
             </div>
@@ -35,6 +38,9 @@
 <script setup>
     import { ref, onMounted } from 'vue';
     import { getArticulos } from '@/api/articulos.js';
+    import { useCestaStore } from '@/store/cesta.js';
+
+    const cestaStore = useCestaStore();
 
     const vehiculos = ref([]);
 
@@ -46,6 +52,15 @@
         if (!ruta) return `/no-imagen.png`;
         console.log("Ruta recibida:", ruta);
         return `http://localhost:5000${ruta}`;
+    }
+
+    const agregarACesta = (vehiculo) => {
+        cestaStore.addProducto({
+            id: vehiculo._id,
+            nombre: `${vehiculo.marca} ${vehiculo.modelo}`,
+            precio: vehiculo.precio,
+            imagen: urlImg(vehiculo.imagen)
+        })
     }
 
     // Funciones axuliares

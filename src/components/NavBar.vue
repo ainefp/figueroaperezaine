@@ -19,21 +19,9 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <!-- Enlaces centrados -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mx-auto">
-          <li class="nav-item"><router-link to="/" class="nav-link">Inicio</router-link></li>
-          <li v-if="admin" class="nav-item"><router-link to="/clientes" class="nav-link">Clientes</router-link></li>
-          <li v-if="admin" class="nav-item"><router-link to="/modelos" class="nav-link">Modelos</router-link></li>
-          <li v-if="admin" class="nav-item"><router-link to="/taller" class="nav-link"> Taller </router-link></li>
-          <li class="nav-item"><router-link to="/ventas" class="nav-link">Ventas</router-link></li>
-          <li class="nav-item"><router-link to="/noticias" class="nav-link">Noticias</router-link></li>
-          <li class="nav-item"><router-link to="/contacto" class="nav-link">Contacto</router-link></li>
-        </ul>
-      </div>
-
-      <div>
-        <form class="d-flex ms-auto me-2" role="search" @submit.prevent="buscar">
+      <!-- Barra de búsqueda -->
+      <div class="ms-2">
+        <form class="d-flex ms-auto" role="search" @submit.prevent="buscar">
           <input
             class="form-control form-control-sm me-1 rounded-1"
             type="search"
@@ -48,8 +36,32 @@
         </form>
       </div>
 
+      <!-- Enlaces centrados -->
+      <div class="collapse navbar-collapse me-5" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"><router-link to="/" class="nav-link">Inicio</router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/clientes" class="nav-link">Clientes</router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/modelos" class="nav-link">Modelos</router-link></li>
+          <li v-if="admin" class="nav-item"><router-link to="/taller" class="nav-link"> Taller </router-link></li>
+          <li class="nav-item"><router-link to="/ventas" class="nav-link">Ventas</router-link></li>
+          <li class="nav-item"><router-link to="/noticias" class="nav-link">Noticias</router-link></li>
+          <li class="nav-item"><router-link to="/contacto" class="nav-link">Contacto</router-link></li>
+        </ul>
+      </div>
+
+      <!-- Cesta de la Compra -->
+       <router-link to="/cesta" class="btn btn-primary position-relative ms-5 me-4" title="Cesta">
+        <i class="bi bi-cart3 fs-4"></i>
+        <!-- Nº de productos -->
+         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" 
+         v-if="cesta.totalItems > 0"
+          >
+          {{ cesta.totalItems }}
+         </span>
+       </router-link>
+
       <!-- Dropdown de acceso/registro -->
-      <div class="dropdown dropdown-collapse ms-5 me-5">
+      <div class="dropdown dropdown-collapse me-5">
         <button
           class="btn btn-primary dropdown-toggle"
           type="button"
@@ -74,9 +86,11 @@
 <script setup>
   import { ref, onMounted } from 'vue';
   import { useRouter } from 'vue-router';
+  import { useCestaStore } from '@/store/cesta.js';
 
   const router = useRouter();
   const query = ref('');
+  const cesta = useCestaStore();
 
   // Estado do login
   const isLogueado = ref(false);

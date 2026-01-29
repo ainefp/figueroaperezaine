@@ -10,6 +10,7 @@ import TablaLogin from '../../src/components/TablaLogin.vue';
 import VenTas from '../../src/components/VenTas.vue';
 import ConTacto from '../../src/components/ConTacto.vue';
 import BusCar from '../../src/components/BusCar.vue';
+import CesTa from '../../src/components/CesTa.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -65,6 +66,10 @@ const routes = [
         path: '/buscar',
         name: 'BusCar',
         component: BusCar
+    }, {
+        path: '/cesta',
+        name: 'CesTa',
+        component: CesTa
     }
 ]
 
