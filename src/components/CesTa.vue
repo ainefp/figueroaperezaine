@@ -42,14 +42,40 @@
 </template>
 <script setup>
     import { useCestaStore } from '@/store/cesta.js';
+import axios from 'axios';
+import { setMapStoreSuffix } from 'pinia';
     
     const cesta = useCestaStore();
 
     const incrementar = (id) => cesta.incrementar(id);
     const decrementar = (id) => cesta.decrementar(id);
     const removeProducto = (id) => cesta.removeProducto(id);
-    const iniciarPago = () => {
-        console.log("Redirigiendo a la pasarela de pago...")
-    };
+
+    const iniciarPago = async () => {
+        if (!cesta.items.length) {
+            mostrarAlerta('Aviso', 'La cesta está vacía', 'warning');
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:5000/crear-checkout-session', {
+                items: cesta.items,
+                amount: cesta.totalPrecio
+            })
+
+            const session = response.data;
+
+            if (!session.url) {
+                console.error('No se recibió URL de Stripe.')
+                mostrarAlerta('Error', 'No se pudo iniciar el pago.', 'error');
+                return;
+            }
+
+            window.location.href = session.url;
+        } catch (error) {
+            console.error('Error en iniciarPago: ', error);
+            mostrarAlerta('Error', 'No se pudo iniciar el pago.', 'error');
+        }
+    }
 </script>
 <style scoped></style>

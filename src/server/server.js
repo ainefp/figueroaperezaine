@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import Stripe from 'stripe';
 import articulosRoutes from "./articulosRoutes.js"; // ruta al router backend
 import authRoutes from './authRoutes.js';
 import contactoRoutes from './contactoRoutes.js';
@@ -41,3 +42,13 @@ mongoose.connect(MONGO_URI)
 app.listen(PORT, () => {
     console.log(`Server Express is running on port ${PORT}`);
 });
+
+// Config de Stripe
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Ruta para crear el pago
+app.post('/crear-checkout-session', async (req, res) => {
+    try {
+        const
+    }
+})
