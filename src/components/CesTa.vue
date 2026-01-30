@@ -42,8 +42,8 @@
 </template>
 <script setup>
     import { useCestaStore } from '@/store/cesta.js';
-import axios from 'axios';
-import { setMapStoreSuffix } from 'pinia';
+    import axios from 'axios';
+    import { setMapStoreSuffix } from 'pinia';
     
     const cesta = useCestaStore();
 
@@ -53,7 +53,6 @@ import { setMapStoreSuffix } from 'pinia';
 
     const iniciarPago = async () => {
         if (!cesta.items.length) {
-            mostrarAlerta('Aviso', 'La cesta está vacía', 'warning');
             return;
         }
 
@@ -67,14 +66,12 @@ import { setMapStoreSuffix } from 'pinia';
 
             if (!session.url) {
                 console.error('No se recibió URL de Stripe.')
-                mostrarAlerta('Error', 'No se pudo iniciar el pago.', 'error');
                 return;
             }
 
             window.location.href = session.url;
         } catch (error) {
             console.error('Error en iniciarPago: ', error);
-            mostrarAlerta('Error', 'No se pudo iniciar el pago.', 'error');
         }
     }
 </script>

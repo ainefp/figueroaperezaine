@@ -11,6 +11,8 @@ import VenTas from '../../src/components/VenTas.vue';
 import ConTacto from '../../src/components/ConTacto.vue';
 import BusCar from '../../src/components/BusCar.vue';
 import CesTa from '../../src/components/CesTa.vue';
+import TablaSuccess from '../../src/components/TablaSuccess.vue';
+import TablaCancel from '../../src/components/TablaCancel.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
@@ -70,6 +72,14 @@ const routes = [
         path: '/cesta',
         name: 'CesTa',
         component: CesTa
+    }, {
+        path: '/success',
+        name: 'TablaSuccess',
+        component: TablaSuccess
+    }, {
+        path: '/cancel',
+        name: 'TablaCancel',
+        component: TablaCancel
     }
 ]
 
