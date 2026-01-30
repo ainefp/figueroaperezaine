@@ -47,8 +47,13 @@ app.listen(PORT, () => {
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Ruta para crear el pago
+// Placeholder: crear-checkout-session (implementar cuando se necesite)
 app.post('/crear-checkout-session', async (req, res) => {
     try {
-        const
+        // TODO: implementar flujo de pago con Stripe
+        return res.status(501).json({ message: 'Not implemented' });
+    } catch (err) {
+        console.error('Stripe checkout error:', err);
+        return res.status(500).json({ message: 'Error creando la sesión de pago' });
     }
-})
+});

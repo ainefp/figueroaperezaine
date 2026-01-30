@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "json-server": "json-server --watch ./backend/data/db.json --port 3000",
+    "json-server": "json-server ./backend/data/db.json --port 3000",
     "server": "node ./src/server/server.js",
     "start": "concurrently \"npm run json-server\" \"npm run server\" \"npm run dev\""
   },
@@ -21,7 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "1.0.0-beta.3",
     "jsonwebtoken": "^9.0.2",
     "jspdf": "^4.0.0",
     "jspdf-autotable": "^5.0.7",
