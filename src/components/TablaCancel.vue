@@ -8,8 +8,7 @@
     </div>
 </template>
 
-<script>
-</script>
+<script></script>
 
 <style scoped>
 .display-4 { font-weight: 600; }

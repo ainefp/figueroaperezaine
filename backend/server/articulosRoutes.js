@@ -4,7 +4,7 @@ import multer from 'multer';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import Articulo from  '../../backend/modelos/Articulo.js';
+import Articulo from  '../modelos/Articulo.js';
 
 // Inicializar configs de multer para manejo de archivos
 const __filename = fileURLToPath(import.meta.url);
