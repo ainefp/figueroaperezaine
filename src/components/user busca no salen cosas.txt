@@ -1,3 +1,7 @@
-- pasarela de pago (cesta de la compra)
-- factura
-- user busca = no salen cosas de admin (clientes)
+impresion en PDF:
+	- informe listado coches
+	- btn enviar = genera listado de coches
+
+ultimo punto:
+	- factura = venta // guardar en bd
+	- solo venta para logueados
