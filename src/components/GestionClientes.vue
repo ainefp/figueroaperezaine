@@ -365,7 +365,7 @@
       const numclientes = ref(0);  // Número de clientes para paginación
       const currentPage = ref(1);  // Página actual para paginación
       const clientesPorPage = 10;
-      const cargando = ref(false);  // Estado de carga ( aún no se usa )
+      // const cargando = ref(false);  // Estado de carga ( aún no se usa )
 
       const admin = sessionStorage.getItem('isAdmin') === 'true';
       const usuario = sessionStorage.getItem('isUser') === 'true';

@@ -320,7 +320,7 @@
 
 // ================== FUNCIONES CRUD ==================
 
-  // Enviar datos al backend
+  // Guardar Vehículo - Enviar datos al backend
   const guardarVehiculo = async () => {
     try {
       const formData = new FormData();
@@ -376,6 +376,9 @@
       console.error("Error al guardar:", error);
     }
   };
+
+  // Recibir Vehículos
+  
 
 
   // ==================== FUNCIONES IMPRESIÓN PDF ====================
