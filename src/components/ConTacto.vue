@@ -7,7 +7,7 @@
       <input class="form-control mb-4" id="asunto" placeholder="Asunto" v-model="form.asunto" />
       <textarea class="form-control mb-4" id="mensaje" placeholder="Mensaje" rows="6" v-model="form.mensaje"></textarea>
       <div class="text-center mt-3">
-        <button type="submit" class="btn btn-primary">Publicar</button>
+        <button type="submit" class="btn btn-primary">Enviar</button>
       </div>
   </form>
   </div>
