@@ -197,6 +197,16 @@
             <button type="submit" class="btn btn-primary border shadow-none px-4 py-2 ms-2 ">
               Eliminar
             </button>
+
+            <!-- Btn Imprimir -->
+            <button
+              type="button"
+              @click="imprimirPDF"
+              class="btn btn-warning border shadow-none px-4 py-2 ms-2"
+            >
+              Imprimir
+            </button>
+            <!-- <i class="bi bi-printer"></i> -->
           </div>
         </div>
     </form>
@@ -264,10 +274,13 @@
 <script setup>
   // ================== IMPORTS ==================
  
-    import Swal from "sweetalert2"
-    import { ref, computed, onMounted } from "vue"
-    import { addArticulo } from "@/api/articulos.js"
+    import Swal from "sweetalert2";
+    import { ref } from "vue";
+    import { jsPDF } from "jspdf";
+    import "jspdf-autotable";
+    import { addArticulo } from "@/api/articulos.js";
 
+    const admin = sessionStorage.getItem('isAdmin') === 'true';
 
   // ================== REACTIVIDAD ==================
     const vehiculo = ref({
@@ -364,6 +377,42 @@
     }
   };
 
+
+  // ==================== FUNCIONES IMPRESIÓN PDF ====================
+    const imprimirPDF = () => {
+      const doc = new jsPDF();
+
+      if (typeof doc.autoTable === 'function') {
+        console.log('autoTable está disponible');
+      } else {
+        console.error('autoTable NO está disponible en esta instancia de jsPDF');
+      }
+
+      doc.setFontSize(18);
+      doc.text('Ficha del Vehículo', 14, 20);
+
+      let y = 30;
+      doc.setFontSize(12);
+
+      const headers = ["Matrícula", "Marca", "Modelo", "Estado", "Combustible", "Precio (€)"];
+
+      doc.autoTable({
+        startY: y,
+        head: [headers],
+        body: vehiculos.value.map(v => [
+          v.matricula,
+          v.marca,
+          v.modelo,
+          v.estado,
+          v.combustible,
+          v.precio
+        ]),
+        theme: 'striped',
+        styles: { fontSize: 10, cellPadding: 3 }
+      });
+
+      doc.save('listado_vehiculos.pdf');
+    }
 
   // ==================== FUNCIONES AUXILIARES ====================
     // Función única: capitaliza y asigna en el mismo paso
