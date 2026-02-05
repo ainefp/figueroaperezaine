@@ -5,3 +5,7 @@ impresion en PDF:
 ultimo punto:
 	- factura = venta // guardar en bd
 	- solo venta para logueados
+
+ventas:
+	- los coches que no quedan no se pueden comprar
+	- cuando se compra un coche, pasa a vendido
