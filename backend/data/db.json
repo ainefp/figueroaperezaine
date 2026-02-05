@@ -1,6 +1,40 @@
 {
   "clientes": [
     {
+      "dni": "55555555K",
+      "fechaAlta": "2023-07-05",
+      "nombre": "Juanito",
+      "apellidos": "Martín Sánchez",
+      "email": "juan.martin@example.com",
+      "movil": "678912482",
+      "direccion": "Calle Fernández 95",
+      "provincia": "Barcelona",
+      "municipio": "Badalona",
+      "historico": true,
+      "lopd": true,
+      "tipoCliente": "particular",
+      "tipo": "admin",
+      "password": "$2b$10$gujzAlU7ePje.YNHVwKdJe.Q3TOaUpGcmQPjalB4EzSJu5JAET2wO",
+      "id": "a079"
+    },
+    {
+      "dni": "Y1234567X",
+      "fechaAlta": "2023-07-05",
+      "nombre": "José",
+      "apellidos": "Martín Pérez",
+      "email": "jose.martin@example.com",
+      "movil": "678901222",
+      "direccion": "Calle Fernández 95",
+      "provincia": "Barcelona",
+      "municipio": "Badalona",
+      "historico": true,
+      "lopd": true,
+      "tipoCliente": "particular",
+      "tipo": "user",
+      "password": "$2b$10$gujzAlU7ePje.YNHVwKdJe.Q3TOaUpGcmQPjalB4EzSJu5JAET2wO",
+      "id": "a079"
+    },
+    {
       "dni": "73289465B",
       "fechaAlta": "2022-02-14",
       "nombre": "Laura",
