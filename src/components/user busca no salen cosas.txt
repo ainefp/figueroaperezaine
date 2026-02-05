@@ -4,8 +4,14 @@ impresion en PDF:
 
 ultimo punto:
 	- factura = venta // guardar en bd
-	- solo venta para logueados
+	- solo venta para logueados:
+		en pagar = inicar sesion o registrarse
 
 ventas:
 	- los coches que no quedan no se pueden comprar
-	- cuando se compra un coche, pasa a vendido
+	- cuando se compra un coche, pasa a vendido:
+		si vendido = disabled
+		no reservado
+
+otros:
+	- nombre del usuario conectado al lado del monigote
