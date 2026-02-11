@@ -284,7 +284,7 @@
               <td class="align-middle text-center">
                 <button
                   @click="eliminarCliente(cliente.movil)"
-                  class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
+                  class="btn btn-sm btn-danger me-2"
                   title="Eliminar cliente"
                   aria-label="Eliminar cliente"
                 >
@@ -292,7 +292,7 @@
                 </button>
                 <button
                   @click="editarCliente(cliente.movil)"
-                  class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
+                  class="btn btn-sm btn-warning me-1"
                   title="Editar cliente"
                   aria-label="Editar cliente"
                 >

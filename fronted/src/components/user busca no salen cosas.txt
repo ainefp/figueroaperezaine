@@ -4,12 +4,3 @@ ultimo punto:
 bbdd
 	articulos
 	facturas
-
-
-
-btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0
-btn btn-sm btn-danger me-2
-
-
-btn btn-warning btn-sm border-0 shadow-none rounded-0
-btn btn-sm btn-warning me-1
