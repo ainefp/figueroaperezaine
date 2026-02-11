@@ -18,14 +18,21 @@
                         <h5 class="card-title">{{ car.marca }} {{ car.modelo }}</h5>
                         <p class="card-text">
                             <strong>Año: </strong>{{ car.anio }}<br>
-                            <strong>Km: </strong>{{ car.kilometros }}<br>
-                            <strong>Precio: </strong>{{ car.precio }}<br>
+                            <strong>Km: </strong>{{ Number(car.kilometros || 0).toLocaleString() }} km<br>
+                            <strong>Precio: </strong>{{ Number(car.precio || 0).toLocaleString() }} €<br>
                         </p>   
                     </div>
 
                     <div class="card-footer text-end bg-white">
                         <span :class="['badge', pintarEstado(car.estado)]">{{ capitalizar(car.estado) }}</span>
-                        <button class="btn badge btn-sm btn-success ms-2" @click.stop="agregarACesta(car)">
+                        <button 
+                            class="btn badge btn-sm btn-success ms-2" 
+                            :class="car.estado === 'vendido'
+                                ? 'btn-primary disabled'
+                                : 'btn-primary'
+                            "
+                            @click.stop="agregarACesta(car)"
+                        >
                             <i class="bi bi-cart3 me-1"></i> Añadir a Cesta
                         </button>
                     </div>
@@ -42,6 +49,15 @@
 
     const cestaStore = useCestaStore();
 
+    const agregarACesta = (vehiculo) => {
+        cestaStore.addProducto({
+            id: vehiculo._id,
+            nombre: `${vehiculo.marca} ${vehiculo.modelo}`,
+            precio: vehiculo.precio,
+            imagen: urlImg(vehiculo.imagen)
+        })
+    }
+
     const vehiculos = ref([]);
 
     onMounted(async () => {
@@ -52,15 +68,6 @@
         if (!ruta) return `/no-imagen.png`;
         console.log("Ruta recibida:", ruta);
         return `http://localhost:5000${ruta}`;
-    }
-
-    const agregarACesta = (vehiculo) => {
-        cestaStore.addProducto({
-            id: vehiculo._id,
-            nombre: `${vehiculo.marca} ${vehiculo.modelo}`,
-            precio: vehiculo.precio,
-            imagen: urlImg(vehiculo.imagen)
-        })
     }
 
     // Funciones axuliares

@@ -30,6 +30,11 @@ export async function updateArticulo(id, articulo) {
   return res.data;
 }
 
+export async function updateArticuloStatus(id, estado) {
+  const res = await axios.put(`${API_URL}/${id}`, estado);
+  return res.data;
+}
+
 // Eliminar artículo
 export async function deleteArticulo(id) {
   await axios.delete(`${API_URL}/${id}`);
