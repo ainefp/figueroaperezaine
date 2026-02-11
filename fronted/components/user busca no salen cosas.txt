@@ -15,3 +15,7 @@ ventas:
 
 otros:
 	- nombre del usuario conectado al lado del monigote
+
+bbdd
+	articulos
+	facturas
