@@ -5,9 +5,11 @@ import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import Stripe from 'stripe';
+
 import articulosRoutes from "./articulosRoutes.js";
 import authRoutes from './authRoutes.js';
 import contactoRoutes from './contactoRoutes.js';
+import facturaRoutes from "./facturaRoutes.js";
 
 dotenv.config();
 
@@ -19,6 +21,7 @@ const STRIPE = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const corsOptions = {
@@ -35,6 +38,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use("/api/articulos", articulosRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/contacto', contactoRoutes);
+app.use("/api/facturas", facturaRoutes);
 
 mongoose.connect(MONGO_URI)
     .then(() => console.log('MongoDB connected'))

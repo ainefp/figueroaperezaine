@@ -1,5 +1,5 @@
 import express from "express";
-import Factura from "./models/Factura.js";
+import Factura from "../modelos/Factura.js";
 
 const router = express.Router();
 
