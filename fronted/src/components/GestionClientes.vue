@@ -330,7 +330,7 @@
 
 <script setup>
   import { ref, onMounted, computed, watch } from 'vue';
-  import provmuniData from '../../backend/data/provmuni.json';
+  import provmuniData from '../../../backend/data/provmuni.json';
   import { getClientes, getClientePorDni, addCliente, updateCliente, deleteCliente } from '@/api/clientes.js';
   import Swal from 'sweetalert2';
   import bcrypt from 'bcryptjs';

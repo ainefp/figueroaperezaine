@@ -11,8 +11,8 @@
 
 
 <script setup>
-  import NavBar from './components/NavBar.vue';
-  import FooTer from './components/FooTer.vue';
+  import NavBar from './src/components/NavBar.vue';
+  import FooTer from './src/components/FooTer.vue';
 </script>
 
 <style scoped>

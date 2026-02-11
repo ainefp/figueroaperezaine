@@ -3,7 +3,7 @@
     <div class="container-fluid d-flex justify-content-between align-items-center">
       <!-- Logo -->
       <router-link id="icono" to="/" class="navbar-logo ms-5">
-        <img class="logo" src="@/public/logo.svg" alt="Logo" />
+        <img class="logo" src="../../public/logo.svg" alt="Logo" />
       </router-link>
         
       <!-- Botón de hamburguesa en pantallas pequeñas -->
