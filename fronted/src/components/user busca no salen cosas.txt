@@ -1,12 +1,5 @@
-impresion en PDF:
-	- informe listado coches
-	- btn enviar = genera listado de coches
-
 ultimo punto:
 	- factura = venta // guardar en bd
-
-otros:
-	- nombre del usuario conectado al lado del monigote
 
 bbdd
 	articulos

@@ -2,7 +2,7 @@
   <h4 class="text-center my-1 bg-primary-subtle py-1"><i class="bi bi-car-front me-2"></i>Registro de Vehículos </h4>
   <div class="container-fluid my-1 p-3 pb-5 border rounded-3 shadow-sm bg-light ">
     
-    <form @submit.prevent="guardarVehiculo" class="mb-2 mt-1 ms-1">
+    <form @submit.prevent="guardarVehiculo" class="">
       <!-- ======== FILA 1 ======== -->
       <div>
         <!-- Tipo -->
@@ -175,7 +175,7 @@
           <!-- Teléfono -->
           <div class="col-12 col-md-2 ms-4 d-flex align-items-center">
             <label for="contacto.telefono" class="form-label text-end mb-0 me-2 text-nowrap">Teléfono:</label>
-            <input type="tel" id="contacto.telefono" @blur="validarMovil()" v-model="vehiculo.contacto.telefono" class="form-control text-center shadow-none border">
+            <input type="tel" id="contacto.telefono" @blur="validarTelefono()" v-model="vehiculo.contacto.telefono" class="form-control text-center shadow-none border">
           </div>
 
           <!-- Email -->
@@ -211,14 +211,17 @@
         </div>
     </form>
   </div>
+
+  <hr v-if="admin" class="border border-1 border-secondary rounded">
+  
   <!-- Lista de Vehiculos -->
   <div v-if="admin" class="">
-    <div class="table-responsive my-5">
+    <div class="table-responsive my-3">
       <h4 class="text-center">Listado Vehículos</h4>
       <table class="table table-bordered table-striped table-hover table-sm align-middle">
         <thead class="table-primary">
           <tr>
-            <th class="text-center">ID</th>
+            <th class="text-center">Matrícula</th>
             <th class="text-center">Marca y Modelo</th>
             <th class="text-center">Año</th>
             <th class="text-center">Combustible</th>
@@ -227,25 +230,26 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(vehiculo, index) in vehiculosPaginados" :key="vehiculo.id || index">
-            <th scope="row" class="text-center">{{ (currentPage - 1) * vehiculosPorPage + index + 1 }}</th>
-            <td>{{ vehiculo.id }}</td>
+          <tr v-for="(vehiculo, index) in vehiculos">
+            <td>{{ vehiculo.matricula }}</td>
             <td>{{ vehiculo.marca }}, {{ vehiculo.modelo }}</td>
             <td class="text-center">{{ vehiculo.anio }}</td>
             <td class="text-center">{{ vehiculo.combustible }}</td>
             <td class="text-center">{{ vehiculo.color }}</td>
             <td class="align-middle text-center">
               <button
-                @click="eliminarVehiculo(vehiculo.id)"
-                class="btn btn-danger btn-sm border-0 ms-4 me-2 shadow-none rounded-0"
+                type="button"
+                @click="eliminarVehiculo(vehiculo.matricula)"
+                class="btn btn-sm btn-danger me-2"
                 title="Eliminar vehículo"
                 aria-label="Eliminar vehículo"
               >
                 <i class="bi bi-trash"></i>
               </button>
               <button
-                @click="editarVehiculo(vehiculo.id)"
-                class="btn btn-warning btn-sm border-0 shadow-none rounded-0"
+                type="button"
+                @click="editarVehiculo(vehiculo.matricula)"
+                class="btn btn-sm btn-warning me-1"
                 title="Editar vehículo"
                 aria-label="Editar vehículo"
               >
@@ -255,7 +259,7 @@
           </tr>
         </tbody>
       </table>
-      <!-- Navegación de página -->
+      <!-- Navegación de página
       <div class="d-flex justify-content-center my-3">
         <button class="btn btn-outline-primary btn-sm me-2 border-1 shadow-none"
           @click="beforePagina" :disabled="currentPage <= 1">
@@ -266,7 +270,7 @@
           @click="nextPagina" :disabled="currentPage >= totalPages">
           <i class="bi bi-chevron-right "></i>
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -275,14 +279,22 @@
   // ================== IMPORTS ==================
  
     import Swal from "sweetalert2";
-    import { ref } from "vue";
-    import { jsPDF } from "jspdf";
-    import "jspdf-autotable";
-    import { addArticulo } from "@/api/articulos.js";
+    import { ref, onMounted } from "vue";
+    import jsPDF from "jspdf";
+    import autoTable from "jspdf-autotable";
+    import provmuniData from "../../../backend/data/provmuni.json";
+    import { addArticulo, getArticulos } from "@/api/articulos.js";
 
     const admin = sessionStorage.getItem('isAdmin') === 'true';
 
-  // ================== REACTIVIDAD ==================
+    const archivo = ref(null);
+    const tiposVehiculo = ref(["Coche", "Moto", "Furgoneta"]);
+    const tiposCombustible = ref(["Gasolina", "Diésel", "Híbrido", "Eléctrico"]);
+    const matriculaValida = ref(true);
+    const matriculaRegex = /^[0-9]{4}[A-Za-z]{3}/;
+
+    const vehiculos = ref([]);
+
     const vehiculo = ref({
       tipo: "",
       matricula: "",
@@ -298,214 +310,241 @@
       descripcion: "",
       ubicacion: {
         provincia: "",
-        ciudad: ""
+        ciudad: "",
       },
       contacto: {
         nombre: "",
         telefono: "",
-        email: ""
+        email: "",
       },
       fecha_publicacion: "",
-      estado: "disponible"
-    })
+      estado: "disponible",
+    });
 
     const editando = ref(false);
 
-    const archivo = ref(null)
+    // Cargar provincias y municipios desde JSON
+    const provincias = ref(provmuniData.provincias);
+    const municipios = ref(provmuniData.municipios);
+    const municipiosFiltrados = ref([]);
 
-    const onFileChange = (e) => {
-      archivo.value = e.target.files[0]
-    }
-
-
-// ================== FUNCIONES CRUD ==================
-
-  // Guardar Vehículo - Enviar datos al backend
-  const guardarVehiculo = async () => {
-    try {
-      const formData = new FormData();
-
-      // Solo añadir imagen si hay archivo seleccionado
-      if (archivo.value) {
-        formData.append("imagen", archivo.value);
+    // Filtrar municipios según provincia seleccionada
+    const filtrarCiudades = () => {
+      const nombreProv = vehiculo.value.ubicacion.provincia;
+      const prov = provincias.value.find((p) => p.nm === nombreProv);
+      if (!prov) {
+        municipiosFiltrados.value = [];
+        return;
       }
-
-      formData.append("vehiculo", JSON.stringify(vehiculo.value));
-
-      const nuevo = await addArticulo(formData);
-
-      if (nuevo && nuevo._id) {
-        Swal.fire({
-          icon: "success",
-          title: "Vehículo guardado",
-          text: "El vehículo ha sido guardado correctamente.",
-          timer: 2000,
-          showConfirmButton: false
-        });
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Error al guardar el vehículo",
-          text: "Faltan datos? Por favor, inténtalo de nuevo.",
-          timer: 2000,
-          showConfirmButton: false
-        });
-      }
-
-      // Limpiar formulario
-      Object.assign(vehiculo.value, {
-        tipo: "",
-        matricula: "",
-        marca: "",
-        modelo: "",
-        anio: "",
-        estado: "disponible",
-        kilometros: "",
-        precio: "",
-        combustible: "",
-        transmision: "",
-        potencia_cv: "",
-        descripcion: "",
-        ubicacion: { provincia: "", ciudad: "" },
-        contacto: { nombre: "", telefono: "", email: "" },
-        fecha_publicacion: ""
-      });
-      archivo.value = null;
-
-    } catch (error) {
-      console.error("Error al guardar:", error);
-    }
-  };
-
-  // Recibir Vehículos
-  
-
-
-  // ==================== FUNCIONES IMPRESIÓN PDF ====================
-    const imprimirPDF = () => {
-      const doc = new jsPDF();
-
-      if (typeof doc.autoTable === 'function') {
-        console.log('autoTable está disponible');
-      } else {
-        console.error('autoTable NO está disponible en esta instancia de jsPDF');
-      }
-
-      doc.setFontSize(18);
-      doc.text('Ficha del Vehículo', 14, 20);
-
-      let y = 30;
-      doc.setFontSize(12);
-
-      const headers = ["Matrícula", "Marca", "Modelo", "Estado", "Combustible", "Precio (€)"];
-
-      doc.autoTable({
-        startY: y,
-        head: [headers],
-        body: vehiculos.value.map(v => [
-          v.matricula,
-          v.marca,
-          v.modelo,
-          v.estado,
-          v.combustible,
-          v.precio
-        ]),
-        theme: 'striped',
-        styles: { fontSize: 10, cellPadding: 3 }
-      });
-
-      doc.save('listado_vehiculos.pdf');
-    }
-
-  // ==================== FUNCIONES AUXILIARES ====================
-    // Función única: capitaliza y asigna en el mismo paso
-    const todoTexto = (campo) => {
-      const texto = vehiculo.value[campo] ?? '';
-      vehiculo.value[campo] = texto.toUpperCase();
+      const codigoProv = prov.id.slice(0, 2);
+      municipiosFiltrados.value = municipios.value.filter((m) =>
+        m.id.startsWith(codigoProv)
+      );
+      vehiculo.value.ubicacion.ciudad = "";
     };
 
-    // Función única: capitaliza y asigna en el mismo paso
-    const capitalizarTexto = (campo) => {
-      const texto = vehiculo.value[campo] ?? '';
-      vehiculo.value[campo] = texto
+    const validarMatricula = () => {
+      vehiculo.value.matricula = vehiculo.value.matricula.trim().toUpperCase();
+      const matricula = vehiculo.value.matricula;
+
+      if (matricula === "") {
+        matriculaValida.value = true;
+        return true;
+      }
+
+      matriculaValida.value = matriculaRegex.test(matricula);
+      return matriculaValida.value;
+    };
+    const capitalizarContacto = (campo) => {
+      const texto = vehiculo.value.contacto[campo] ?? "";
+      if (texto.trim() === "") return;
+      vehiculo.value.contacto[campo] = texto
         .toLowerCase()
-        .split(' ')
-        .map(palabra => {
-          if (!palabra) return '';
-          return palabra.charAt(0).toLocaleUpperCase() + palabra.slice(1);
+        .split(" ")
+        .map((palabra) => {
+          if (!palabra) return "";
+          return palabra.charAt(0).toUpperCase() + palabra.slice(1);
         })
-        .join(' ');
+        .join(" ");
     };
 
+    onMounted(async () => {
+      vehiculos.value = await getArticulos();
+    });
+
+    // Validar teléfono
+    const telefonoValido = ref(true);
+    const telefonoRegex = /^[67]\d{8}$/;
+
+    const validarTelefono = () => {
+      const telefono = vehiculo.value.contacto.telefono.trim();
+
+      if (telefono === "") {
+        telefonoValido.value = true; // Vacío = válido (opcional)
+        return true;
+      }
+
+      if (telefono.charAt(0) === "6" || telefono.charAt(0) === "7") {
+        telefonoValido.value = telefonoRegex.test(telefono);
+        return telefonoValido.value;
+      } else {
+        telefonoValido.value = false;
+        return false;
+      }
+    };
+
+    // Validar email
     const emailValido = ref(true);
     const validarEmail = () => {
-      const email = vehiculo.value.contacto.email || '';
-      if (email === '') {
+      const email = vehiculo.value.contacto.email.trim();
+      if (email === "") {
         emailValido.value = true; // Vacío = válido (opcional)
         return true;
       }
-      
-      // Expresión simple para email válido
       const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       emailValido.value = regex.test(email);
+    };
+
+    // Enviar datos al backend
+    const guardarVehiculo = async () => {
+      // Validar teléfono antes de guardar
+      if (!telefonoValido.value) {
+        Swal.fire({
+          icon: "error",
+          title: "Teléfono inválido",
+          text: "El teléfono debe empezar por 6 o 7 y tener 9 dígitos.",
+          showConfirmButton: true,
+        });
+        return;
+      }
+
+      // Validar email antes de guardar
       if (!emailValido.value) {
         Swal.fire({
-          icon: 'error',
-          title: 'Email inválido',
-          text: 'Por favor, introduce un email válido.',
-          timer: 2000,
-          showConfirmButton: false
+          icon: "error",
+          title: "Email inválido",
+          text: "Por favor, introduce un email válido.",
+          showConfirmButton: true,
         });
-      } 
-      return emailValido.value;
-    };
-
-    // Control móvil
-    const movilValido = ref(true);
-    const movilRegex = /^[67]\d{8}$/;
-
-    const validarMovil = () => {
-      const movil = vehiculo.value.contacto.telefono?.trim() || ''; // usa la referencia correcta del input
-      if (movil === '') {
-        movilValido.value = true; // Vacío = válido (opcional)
-        return true;
+        return;
       }
-
-      if (movil.charAt(0) === '6' || movil.charAt(0) === '7') {
-        movilValido.value = movilRegex.test(movil);
-        if (movilValido.value) {
-          return true;
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Móvil inválido',
-            text: 'El número de móvil debe tener 9 dígitos.',
-            timer: 2000,
-            showConfirmButton: false
-          });
-          return false;
-        } 
-      } else {
-        movilValido.value = false;
+      if (!matriculaValida.value) {
         Swal.fire({
-          icon: 'error',
-          title: 'Móvil inválido',
-          text: 'El número de móvil debe comenzar con 6 o 7.',
-          timer: 2000,
-          showConfirmButton: false
+          icon: "error",
+          title: "Matrícula inválida",
+          text: "Por favor, introduce una matrícula válida.",
+          showConfirmButton: true,
         });
-        return false;
+        return;
       }
-      };
 
-    const capitalizarNombreContacto = () => {
-      const nombre = vehiculo.value.contacto.nombre ?? '';
-      vehiculo.value.contacto.nombre = nombre
-        .toLowerCase()
-        .split(' ')
-        .map(palabra => palabra ? palabra.charAt(0).toUpperCase() + palabra.slice(1) : '')
-        .join(' ');
+      try {
+        const formData = new FormData();
+        if (archivo.value) {
+          formData.append("imagen", archivo.value);
+        }
+        formData.append("vehiculo", JSON.stringify(vehiculo.value));
+        const nuevo = await addArticulo(formData);
+        if (nuevo && nuevo._id) {
+          Swal.fire({
+            icon: "success",
+            title: "Vehículo guardado",
+            text: "El vehículo ha sido guardado correctamente.",
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } else {
+          console.error("Error al guardar el vehículo");
+        }
+        vehiculo.value = {
+          tipo: "",
+          matricula: "",
+          marca: "",
+          modelo: "",
+          anio: "",
+          estado: "disponible",
+          kilometros: "",
+          precio: "",
+          combustible: "",
+          transmision: "",
+          potencia_cv: "",
+          descripcion: "",
+          ubicacion: {
+            provincia: "",
+            ciudad: "",
+          },
+          contacto: {
+            nombre: "",
+            telefono: "",
+            email: "",
+          },
+          fecha_publicacion: "",
+        };
+        matriculaValida.value = true;
+      } catch (error) {
+        console.error("Error al guardar:", error);
+      }
     };
+
+    const onFileChange = (e) => {
+      archivo.value = e.target.files[0];
+    };
+
+    function imprimirPDF() {
+      const doc = new jsPDF();
+
+      // Verificar si autoTable está disponible
+      if (typeof autoTable !== "function") {
+        console.error("jspdf-autotable no está cargado correctamente");
+        Swal.fire("Error", "Plugin autotable no disponible", "error");
+        return;
+      }
+
+      doc.setFontSize(18);
+      doc.text("Listado de Vehículos", 12, 20);
+
+      const headers = [["Matrícula", "Marca", "Estado", "Combustible", "Precio"]];
+      const body = vehiculos.value.map((modelo) => [
+        modelo.matricula || "",
+        modelo.marca || "",
+        modelo.estado?.toUpperCase() || "",
+        modelo.combustible || "",
+        modelo.precio ? `${modelo.precio}` : "",
+      ]);
+
+      autoTable(doc, {
+        startY: 30,
+        head: headers,
+        body: body,
+        theme: "striped",
+        styles: {
+          fontSize: 10,
+          cellPadding: 3,
+          overflow: "linebreak",
+        },
+        headStyles: {
+          fillColor: [41, 128, 185],
+          textColor: 255,
+          fontStyle: "bold",
+        },
+        columnStyles: {
+          4: {
+            halign: "right",
+            cellWidth: 35,
+          },
+        },
+      });
+
+      doc.save("listado_vehiculos.pdf");
+    }
+
+    async function editarVehiculo(matricula) {
+      const vehiculoActual = vehiculos.value.find(matricula);
+      if (!vehiculoActual) {
+        return;
+      }
+      editando.value = true;
+    }
 </script>
 
 <style>
