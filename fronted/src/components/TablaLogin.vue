@@ -28,6 +28,27 @@
       </form>
     </div>
   </div>
+
+  <div class="debug-bubble" style="margin-bottom: 150px;">
+    <div>
+      <div>
+        <code>ADMIN</code><br>
+        <code>DNI: 55555555K</code><br>
+        <code>PASS: abc123</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="debug-bubble">
+    <div>
+      <div>
+        <code>USER</code><br>
+        <code>DNI: Y1234567X</code><br>
+        <code>PASS: abc123</code>
+      </div>
+    </div>
+  </div>
+
 </template>
 
 <script>
@@ -114,5 +135,49 @@
   .form-label {
     background-color: transparent !important;
     margin-bottom: 0.5rem;
+  }
+  
+  .debug-bubble {
+    position: absolute;
+    bottom: 80px;
+    padding: 24px;
+    width: fit-content;
+    border-radius: 24px;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .debug-bubble:hover {
+    cursor: pointer;
+  }
+
+  .debug-bubble > div::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+    background: repeating-linear-gradient(
+      -45deg,
+      black 0px,
+      black 10px,
+      yellow 0px,
+      yellow 20px
+    );
+    animation: backgroundScroll 1s linear infinite;
+  }
+
+  .debug-bubble > div > div {
+    background-color: white;
+    border-radius: 10px;
+    padding: 8px;
+  }
+
+  .debug-bubble > div > div > * {
+    font-size: medium;
+    font-weight: bold;
+    color: black;
   }
 </style>

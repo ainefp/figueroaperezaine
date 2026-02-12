@@ -1,6 +1,5 @@
-ultimo punto:
-	- factura = venta // guardar en bd
-
-bbdd
-	articulos
-	facturas
+imprimir factura:
+	fecha compra
+	codigo factura
+	nombre usuario
+	logo empresa
