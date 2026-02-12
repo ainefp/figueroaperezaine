@@ -28,6 +28,7 @@
     cestaStore.completarCompra();
 
     const facturaGuardada = ref(false);
+    const facturaData = ref(null);
 
     async function guardarFacturaMongo() {
     if (facturaGuardada.value || cestaStore.compraCompleta.length === 0) return;
@@ -43,7 +44,8 @@
         })),
         total: cestaStore.totalPrecio,
         };
-        await addFactura(factura);
+        const resultado = await addFactura(factura);
+        facturaData.value = resultado;
         facturaGuardada.value = true;
         console.log("Factura guardada en MongoDB");
     } catch (error) {
@@ -78,10 +80,28 @@
     doc.addImage(logo, "png", 10, 10, 20, 20);
     doc.setFontSize(18);
     doc.text("Factura de Compra", 60, 20);
+
+    // Código de factura y fecha de compra
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "bold");
+    const codigoFactura = facturaData.value?._id || "N/A";
+    const fechaCompra = facturaData.value?.fecha
+        ? new Date(facturaData.value.fecha).toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" })
+        : new Date().toLocaleDateString("es-ES", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+    doc.text(`Factura Nº: ${codigoFactura}`, 14, 45);
+    doc.text(`Fecha: ${fechaCompra}`, 14, 52);
+
+    // Nombre del usuario
+    const nombreUsuario = sessionStorage.getItem("userName") || "Cliente";
+    doc.text(`Cliente: ${nombreUsuario}`, 14, 59);
+
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(9);
-    doc.text("Razón Social: Regalos Teis", 110, 50);
-    doc.text("Dirección: Avenida Galicia 101, Vigo - 36216", 110, 55);
-    doc.text("Tlfo: 986 666 333 - Email: regalos@example.com", 110, 60);
+    const pageWidth = doc.internal.pageSize.width;
+    const margenDerecho = 14;
+    doc.text("Razón Social: Regalos Teis", pageWidth - margenDerecho, 72, { align: "right" });
+    doc.text("Dirección: Avenida Galicia 101, Vigo - 36216", pageWidth - margenDerecho, 78, { align: "right" });
+    doc.text("Tlfo: 986 666 333 - Email: regalos@example.com", pageWidth - margenDerecho, 84, { align: "right" });
 
     // Tabla de productos, marcará los headers de cada tabla
     const headers = [["ID", "Producto", "Cantidad", "Precio Unitario", "Total"]];
@@ -96,7 +116,7 @@
 
     //Creamos tabla en base a los headers y datos
     autoTable(doc, {
-        startY: 80,
+        startY: 95,
         head: headers,
         body: data,
         columnStyles: {
@@ -111,7 +131,6 @@
     // Coger los datos para poner en el documento, el total vendrá del compraCompleta ya que el otro estará vacío
     const totalPrice = cestaStore.totalPrecio;
     const totalText = `Total: ${totalPrice.toFixed(2)}€`;
-    const pageWidth = doc.internal.pageSize.width;
     const totalWidth = doc.getTextWidth(totalText);
     const positionX = pageWidth - totalWidth - 14;
 
@@ -120,7 +139,10 @@
     doc.text(totalText, positionX - 9, doc.lastAutoTable.finalY + 10);
 
     //Guardamos el pdf
-    doc.save(`factura_${Date.now()}.pdf`);
+    const nombreArchivo = facturaData.value?._id
+        ? `factura_${facturaData.value._id}.pdf`
+        : `factura_${Date.now()}.pdf`;
+    doc.save(nombreArchivo);
 
     //Limpuamos ambas listas y el sessionStorage
     cestaStore.clearCesta();
