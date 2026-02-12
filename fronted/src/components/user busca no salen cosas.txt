@@ -1,5 +1,0 @@
-imprimir factura:
-	fecha compra
-	codigo factura
-	nombre usuario
-	logo empresa
