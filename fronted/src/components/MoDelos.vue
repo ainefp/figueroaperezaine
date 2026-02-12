@@ -225,7 +225,7 @@
             <th class="text-center">Marca y Modelo</th>
             <th class="text-center">Año</th>
             <th class="text-center">Combustible</th>
-            <th class="text-center">Color</th>
+            <th class="text-center">Transmisión</th>
             <th class="text-center">Acciones</th>
           </tr>
         </thead>
@@ -235,7 +235,7 @@
             <td>{{ vehiculo.marca }}, {{ vehiculo.modelo }}</td>
             <td class="text-center">{{ vehiculo.anio }}</td>
             <td class="text-center">{{ vehiculo.combustible }}</td>
-            <td class="text-center">{{ vehiculo.color }}</td>
+            <td class="text-center">{{ vehiculo.transmision }}</td>
             <td class="align-middle text-center">
               <button
                 type="button"
