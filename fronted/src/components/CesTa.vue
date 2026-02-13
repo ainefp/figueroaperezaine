@@ -43,6 +43,28 @@
                     </tr>
                 </tbody>
                 <tfoot>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td colspan="3">
+                            <span class="d-flex align-items-center">
+                                <label for="tipoIVA">IVA:</label>
+                                <select
+                                    id="tipoIVA"
+                                    v-model="tipoIVA"
+                                    v-on:change="validarIVA"
+                                    class="form-select flex-grow-1 w-25 ms-1 shadow-none border"
+                                >
+                                    <option disabled value="">Seleccione tipo de cliente:</option>
+                                    <option v-for="tipo in tiposIVA" :key="tipo" :value="tipo">
+                                        {{ tipo }}
+                                    </option>
+                                </select>
+                            </span>
+                        </td>
+                        <td>{{ precioIVA }}€</td>
+                        <td></td>
+                    </tr>
                     <tr class="fw-bold">
                         <!-- <td>
                             <label for="codigoDescuento">Introduce un codigo de descuento:</label>
@@ -96,6 +118,12 @@
     const cesta = useCestaStore();
 
     const codigoDescuento = ref("");
+    const tipoIVA = ref("");
+
+    const tiposIVA = ref([
+        'particular',
+        'empresa'
+    ])
 
     const incrementar = (id) => cesta.incrementar(id);
     const decrementar = (id) => cesta.decrementar(id);
@@ -104,6 +132,13 @@
     // function validarDescuento() {
     //     cesta.codigoDescuento = codigoDescuento.value;
     // }
+
+    let precioIVA = 0;
+    function validarIVA() {
+        cesta.calcularIVA(tipoIVA.value, cesta.precioFinal);
+        precioIVA = cesta.calcularIVA(tipoIVA.value, cesta.precioFinal);
+        console.log(precioIVA);
+    }
 
     // function mostrarAlerta(title, text, icon) {
     //     Swal.fire({

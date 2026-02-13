@@ -14,12 +14,12 @@ export const useCestaStore = defineStore("cesta", () => {
     if (!Array.isArray(items.value)) return 0;
     return items.value.reduce((total, item) => total + (item.cantidad || 0), 0);
   });
-
+  
   //Calcula el precio total de todos los productos
   const totalPrecio = computed(() => {
     //Vemos si la lista principal esta vacia, si lo está, usamos la otra
     const currentList =
-      items.value.length > 0 ? items.value : compraCompleta.value;
+    items.value.length > 0 ? items.value : compraCompleta.value;
     if (!Array.isArray(currentList)) return 0;
     const total = currentList.reduce(
       (total, item) => total + item.precio * (item.cantidad || 0),
@@ -79,6 +79,7 @@ export const useCestaStore = defineStore("cesta", () => {
     sessionStorage.removeItem("items");
   }
 
+
   //Cuando se crea el objeto mira si hay un items en el sessionStorage, si lo hay le asigna el valor a items.
   const itemsData = sessionStorage.getItem("items");
   if (itemsData) {
@@ -115,6 +116,26 @@ export const useCestaStore = defineStore("cesta", () => {
     { immediate: true, deep: true },
   );
 
+  // calculo del iva
+  let precioIVA = ref(0);
+
+  function calcularIVA(tipo, cantidadPrecio) {
+    console.log(tipo);
+    console.log(cantidadPrecio);
+    
+    console.log("antes");
+    if (tipo == 'particular') {
+      console.log('calcularo el 21%');
+      precioIVA = totalPrecio.value * 0.21;
+      console.log(precioIVA);
+    } else if (tipo == 'empresa') {
+      console.log('calcularo el 10%');
+      precioIVA = totalPrecio.value * 0.1;
+      console.log(precioIVA);
+    }
+    return precioIVA;
+  }
+
   // Cada vez que un item nuevo entre en items, se cambiara el sessionSotrage para que entre este mismo, newItems es una referencia al array real
   watch(
     items,
@@ -132,11 +153,13 @@ export const useCestaStore = defineStore("cesta", () => {
     precioFinal,
     envioGratis,
     codigoDescuento,
+    precioIVA,
     addProducto,
     removeProducto,
     incrementar,
     decrementar,
     clearCesta,
     completarCompra,
+    calcularIVA
   };
 });
